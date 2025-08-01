@@ -1,12 +1,9 @@
 package fr.example.springjdbccli.repository;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import fr.example.springjdbccli.JsonBox;
-
 import java.sql.SQLException;
 import java.sql.Types;
-
 import javax.sql.DataSource;
 import org.postgresql.util.PGobject;
 import org.springframework.core.convert.converter.Converter;
@@ -50,7 +47,6 @@ public class ExampleRepository {
         return jsonObject;
       }
     };
-
     // x.addConverter(ObjectNode.class, PGobject.class, converter);
 
     // var converter2 = new Converter<PGobject, ObjectNode>() {
@@ -85,10 +81,10 @@ public class ExampleRepository {
       .param(
         // new SqlParameterValue(
         //   Types.OTHER,
-          // converter.convert(id)
+        // converter.convert(id)
         // )
         id
       )
-      .query().singleValue();
+      .query(Y.class).single();
   }
 }

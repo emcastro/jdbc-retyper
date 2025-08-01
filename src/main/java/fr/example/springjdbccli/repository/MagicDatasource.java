@@ -18,12 +18,12 @@ public class MagicDatasource implements DataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-        return new MagicJdbcConnection(dataSource.getConnection());
+        return new MagicConnection(dataSource.getConnection());
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return new MagicJdbcConnection(dataSource.getConnection(username, password));
+        return new MagicConnection(dataSource.getConnection(username, password));
     }
 
     @Override

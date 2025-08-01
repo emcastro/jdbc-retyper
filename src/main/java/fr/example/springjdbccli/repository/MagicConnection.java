@@ -19,11 +19,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class MagicJdbcConnection implements Connection {
+public class MagicConnection implements Connection {
 
     private final Connection connection;
 
-    public MagicJdbcConnection(Connection connection) {
+    public MagicConnection(Connection connection) {
         this.connection = connection;
     }
 
