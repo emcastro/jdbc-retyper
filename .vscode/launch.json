@@ -15,7 +15,7 @@
             "type": "java",
             "name": "MainApplication (debug)",
             "request": "launch",
-            "mainClass": "com.example.springjdbccli.MainApplication",
+            "mainClass": "fr.example.springjdbccli.MainApplication",
             "projectName": "spring-jdbc-cli",
             "stepFilters": {
                 "skipClasses": [

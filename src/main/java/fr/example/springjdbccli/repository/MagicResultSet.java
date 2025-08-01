@@ -14,8 +14,14 @@ import fr.example.springjdbccli.JsonBox;
 
 public class MagicResultSet implements ResultSet {
 
-    public Object noConversion(Object x) {
-        // Convertion should be explicit
+    public Object defaultConversion(Object x) {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if (x instanceof PGobject pgo) {
+            if (pgo.getType().equals("jsonb")) {
+                return new JsonBox(pgo.getValue());
+            }
+        }
+
         return x;
     }
 
@@ -253,12 +259,12 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex) throws SQLException {
-        return noConversion(resultSet.getObject(columnIndex));
+        return defaultConversion(resultSet.getObject(columnIndex));
     }
 
     @Override
     public Object getObject(String columnLabel) throws SQLException {
-        return noConversion(resultSet.getObject(columnLabel));
+        return defaultConversion(resultSet.getObject(columnLabel));
     }
 
     @Override
@@ -623,7 +629,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
-        return noConversion(resultSet.getObject(columnIndex, map)); // TODO
+        return defaultConversion(resultSet.getObject(columnIndex, map)); // TODO
     }
 
     @Override
@@ -648,7 +654,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
-        return noConversion(resultSet.getObject(columnLabel, map)); // TODO
+        return defaultConversion(resultSet.getObject(columnLabel, map)); // TODO
     }
 
     @Override

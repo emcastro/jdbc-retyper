@@ -75,7 +75,7 @@ public class ExampleRepository {
   public record Y(JsonBox name) {}
 
   public Object work(JsonBox id) {
-    String sql = "SELECT (?->'a')::jsonb name";
+    String sql = "SELECT (?->'a') name";
     return jdbcClient
       .sql(sql)
       .param(
@@ -85,6 +85,9 @@ public class ExampleRepository {
         // )
         id
       )
-      .query(Y.class).single();
+      // .query(Y.class).single();
+      // .query(JsonBox.class).single(); // ne marche pas, et c'est normal (bean construction)
+      // .query(PGobject.class).single(); // ne marche pas du fait du constructeur de PGobject
+      .query().singleValue();
   }
 }
