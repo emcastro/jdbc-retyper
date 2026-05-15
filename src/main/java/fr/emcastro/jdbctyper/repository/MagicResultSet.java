@@ -1,4 +1,4 @@
-package fr.example.springjdbccli.repository;
+package fr.emcastro.jdbctyper.repository;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -8,48 +8,35 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
 
-import org.postgresql.util.PGobject;
-
-import fr.example.springjdbccli.JsonBox;
+import fr.emcastro.jdbctyper.JsonBox;
 
 public class MagicResultSet implements ResultSet {
 
     public Object defaultConversion(Object x) {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if (x instanceof PGobject pgo) {
-            if (pgo.getType().equals("jsonb")) {
-                return new JsonBox(pgo.getValue());
-            }
-        }
-
+        // Simplified conversion - in a real implementation, we might handle DuckDB-specific types
+        // For now, we just return the object as-is
         return x;
     }
 
     @SuppressWarnings("unchecked")
     private <T,U> Class<T> mapType(Class<U> type) {
-        if (type == JsonBox.class) {
-            return (Class<T>)PGobject.class;
-        } else {
-            return (Class<T>)type;
-        }
+        // Simplified type mapping - in a real implementation, we might handle specific type conversions
+        return (Class<T>)type;
     }
 
     @SuppressWarnings("unchecked")
     public <T> T convertFromSqlType(Object x, Class<T> type) {
+        // Simplified conversion - in a real implementation, we might handle specific type conversions
         if (type == JsonBox.class) {
-            if (x instanceof PGobject pgo) {
-                if (pgo.getType().equals("jsonb")) {
-                    return (T) new JsonBox(pgo.getValue());
-                }
+            if (x instanceof String str) {
+                return (T) new JsonBox(str);
             }
-            throw new RuntimeException("Unsupported conversion");
         }
-        else {
-            if (! type.isInstance(type)) {
-                throw new RuntimeException("Unsupported conversion");
-            }
+        // For other types, just cast if possible
+        if (type.isInstance(x)) {
             return (T) x;
         }
+        throw new RuntimeException("Unsupported conversion from " + x.getClass() + " to " + type.getName());
     }
 
     final ResultSet resultSet;

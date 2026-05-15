@@ -1,8 +1,7 @@
-package fr.example.springjdbccli;
+package fr.emcastro.jdbctyper;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import fr.example.springjdbccli.repository.ExampleRepository;
+import fr.emcastro.jdbctyper.repository.ExampleRepository;
+import fr.emcastro.jdbctyper.JsonBox;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

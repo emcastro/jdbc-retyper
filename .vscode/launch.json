@@ -8,15 +8,15 @@
             "type": "java",
             "name": "MainApplication (direct)",
             "request": "launch",
-            "mainClass": "fr.example.springjdbccli.MainApplication",
-            "projectName": "spring-jdbc-cli"
+            "mainClass": "fr.emcastro.jdbctyper.MainApplication",
+            "projectName": "jdbctyper"
         },
         {
             "type": "java",
             "name": "MainApplication (debug)",
             "request": "launch",
-            "mainClass": "fr.example.springjdbccli.MainApplication",
-            "projectName": "spring-jdbc-cli",
+            "mainClass": "fr.emcastro.jdbctyper.MainApplication",
+            "projectName": "jdbctyper",
             "stepFilters": {
                 "skipClasses": [
                     "$JDK",

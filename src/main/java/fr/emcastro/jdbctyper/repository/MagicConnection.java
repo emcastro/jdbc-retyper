@@ -1,4 +1,4 @@
-package fr.example.springjdbccli.repository;
+package fr.emcastro.jdbctyper.repository;
 
 import java.sql.Array;
 import java.sql.Blob;

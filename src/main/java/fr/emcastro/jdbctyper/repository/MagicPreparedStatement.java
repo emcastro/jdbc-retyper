@@ -1,4 +1,4 @@
-package fr.example.springjdbccli.repository;
+package fr.emcastro.jdbctyper.repository;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -23,28 +23,17 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import org.postgresql.util.PGobject;
-
-import fr.example.springjdbccli.JsonBox;
+import fr.emcastro.jdbctyper.JsonBox;
 
 public class MagicPreparedStatement implements PreparedStatement {
 
     public Object convertToSqlType(Object x) {
-        switch(x) {
-            case JsonBox jsonBox -> {
-                try {
-                    PGobject pgObject = new PGobject();
-                    pgObject.setType("jsonb");
-                    pgObject.setValue(jsonBox.value());
-                    return pgObject;
-                } catch (Exception e) {
-                    throw new RuntimeException("Error converting JsonBox to object", e);
-                }
-            }
-            default -> {
-                return x;
-            }
-        }        
+        // For JsonBox, we convert to String for storage in DuckDB
+        // In a more sophisticated implementation, we might use a specific JSON type
+        if (x instanceof JsonBox jsonBox) {
+            return jsonBox.value();
+        }
+        return x;
     }
 
     private final PreparedStatement preparedStatement;

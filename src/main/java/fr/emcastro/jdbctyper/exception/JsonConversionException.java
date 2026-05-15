@@ -1,4 +1,4 @@
-package fr.example.springjdbccli.exception;
+package fr.emcastro.jdbctyper.exception;
 
 public class JsonConversionException extends RuntimeException {
 
