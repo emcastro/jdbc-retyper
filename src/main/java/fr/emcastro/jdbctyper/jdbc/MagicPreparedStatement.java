@@ -23,13 +23,9 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+import static fr.emcastro.jdbctyper.transform.TypeTransformerRegistry.*;
 
 public class MagicPreparedStatement implements PreparedStatement {
-
-    public Object convertToSqlType(Object x) {
-        return TypeTransformerRegistry.toSql(x);
-    }
 
     private final PreparedStatement preparedStatement;
 
@@ -248,20 +244,16 @@ public class MagicPreparedStatement implements PreparedStatement {
     }
 
     @Override
-    public boolean isWrapperFor(Class<?> clazz) throws SQLException {
-        if (clazz.isAssignableFrom(PreparedStatement.class)) {
-            return true;
-        }
-        return preparedStatement.isWrapperFor(clazz);
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return iface.isInstance(preparedStatement) || preparedStatement.isWrapperFor(iface);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T> T unwrap(Class<T> clazz) throws SQLException {
-        if (clazz.isAssignableFrom(PreparedStatement.class)) {
-            return (T) this;
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(preparedStatement)) {
+            return iface.cast(preparedStatement);
         }
-        return preparedStatement.unwrap(clazz);
+        return preparedStatement.unwrap(iface);
     }
 
     @Override
@@ -495,13 +487,13 @@ public class MagicPreparedStatement implements PreparedStatement {
 
     @Override
     public void setObject(int parameterIndex, Object x) throws SQLException {
-        preparedStatement.setObject(parameterIndex, convertToSqlType(x));
+        preparedStatement.setObject(parameterIndex, toSql(x));
     }
 
     @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType)
             throws SQLException {
-        preparedStatement.setObject(parameterIndex, convertToSqlType(x), targetSqlType);
+        preparedStatement.setObject(parameterIndex, toSql(x), targetSqlType);
     }
 
     @Override
@@ -513,7 +505,7 @@ public class MagicPreparedStatement implements PreparedStatement {
     ) throws SQLException {
         preparedStatement.setObject(
                 parameterIndex,
-                convertToSqlType(x),
+                toSql(x),
                 targetSqlType,
                 scaleOrLength
         );

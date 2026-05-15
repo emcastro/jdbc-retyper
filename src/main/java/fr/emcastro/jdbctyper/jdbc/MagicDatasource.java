@@ -53,11 +53,14 @@ public class MagicDatasource implements DataSource {
 
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return dataSource.isWrapperFor(iface);
+        return iface.isInstance(dataSource) || dataSource.isWrapperFor(iface);
     }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(dataSource)) {
+            return iface.cast(dataSource);
+        }
         return dataSource.unwrap(iface);
     }
 }

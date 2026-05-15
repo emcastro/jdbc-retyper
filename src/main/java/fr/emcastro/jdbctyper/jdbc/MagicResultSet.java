@@ -8,24 +8,12 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+import static fr.emcastro.jdbctyper.transform.TypeTransformerRegistry.*;
 
 public class MagicResultSet implements ResultSet {
 
-    public Object defaultConversion(Object x) {
-        // Simplified conversion - in a real implementation, we might handle DuckDB-specific types
-        // For now, we just return the object as-is
-        return x;
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T,U> Class<T> mapType(Class<U> type) {
-        // Simplified type mapping - in a real implementation, we might handle specific type conversions
-        return (Class<T>)type;
-    }
-
     public <T> T convertFromSqlType(Object x, Class<T> type) {
-        return TypeTransformerRegistry.fromSql(x, type);
+        return fromSql(x, type);
     }
 
     final ResultSet resultSet;
@@ -235,12 +223,12 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex) throws SQLException {
-        return defaultConversion(resultSet.getObject(columnIndex));
+        return defaultFromSql(resultSet.getObject(columnIndex));
     }
 
     @Override
     public Object getObject(String columnLabel) throws SQLException {
-        return defaultConversion(resultSet.getObject(columnLabel));
+        return defaultFromSql(resultSet.getObject(columnLabel));
     }
 
     @Override
@@ -460,12 +448,12 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public void updateObject(int columnIndex, Object x, int scaleOrLength) throws SQLException {
-        resultSet.updateObject(columnIndex, x, scaleOrLength);
+        resultSet.updateObject(columnIndex, toSql(x), scaleOrLength);
     }
 
     @Override
     public void updateObject(int columnIndex, Object x) throws SQLException {
-        resultSet.updateObject(columnIndex, x);
+        resultSet.updateObject(columnIndex, toSql(x));
     }
 
     @Override
@@ -555,12 +543,12 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public void updateObject(String columnLabel, Object x, int scaleOrLength) throws SQLException {
-        resultSet.updateObject(columnLabel, x, scaleOrLength);
+        resultSet.updateObject(columnLabel, toSql(x), scaleOrLength);
     }
 
     @Override
     public void updateObject(String columnLabel, Object x) throws SQLException {
-        resultSet.updateObject(columnLabel, x);
+        resultSet.updateObject(columnLabel, toSql(x));
     }
 
     @Override
@@ -605,7 +593,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
-        return defaultConversion(resultSet.getObject(columnIndex, map)); // TODO
+        return defaultFromSql(resultSet.getObject(columnIndex, map));
     }
 
     @Override
@@ -630,7 +618,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
-        return defaultConversion(resultSet.getObject(columnLabel, map)); // TODO
+        return defaultFromSql(resultSet.getObject(columnLabel, map));
     }
 
     @Override
@@ -975,7 +963,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
-    return convertFromSqlType(resultSet.getObject(columnIndex, mapType(type)), type);
+        return convertFromSqlType(resultSet.getObject(columnIndex, mapType(type)), type);
     }
 
     @Override
@@ -985,32 +973,35 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public void updateObject(int columnIndex, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
-        resultSet.updateObject(columnIndex, x, targetSqlType, scaleOrLength);
+        resultSet.updateObject(columnIndex, toSql(x), targetSqlType, scaleOrLength);
     }
 
     @Override
     public void updateObject(String columnLabel, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
-        resultSet.updateObject(columnLabel, x, targetSqlType, scaleOrLength);
+        resultSet.updateObject(columnLabel, toSql(x), targetSqlType, scaleOrLength);
     }
 
     @Override
     public void updateObject(int columnIndex, Object x, SQLType targetSqlType) throws SQLException {
-        resultSet.updateObject(columnIndex, x, targetSqlType);
+        resultSet.updateObject(columnIndex, toSql(x), targetSqlType);
     }
 
     @Override
     public void updateObject(String columnLabel, Object x, SQLType targetSqlType) throws SQLException {
-        resultSet.updateObject(columnLabel, x, targetSqlType);
+        resultSet.updateObject(columnLabel, toSql(x), targetSqlType);
     }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(resultSet)) {
+            return iface.cast(resultSet);
+        }
         return resultSet.unwrap(iface);
     }
 
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return resultSet.isWrapperFor(iface);
+        return iface.isInstance(resultSet) || resultSet.isWrapperFor(iface);
     }
 
 }

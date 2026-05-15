@@ -28,20 +28,16 @@ public class MagicConnection implements Connection {
     }
 
     @Override
-    public boolean isWrapperFor(Class<?> clazz) throws SQLException {
-        if (clazz.isAssignableFrom(Connection.class)) {
-            return true;
-        }
-        return connection.isWrapperFor(clazz);
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return iface.isInstance(connection) || connection.isWrapperFor(iface);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T> T unwrap(Class<T> clazz) throws SQLException {
-        if (clazz.isAssignableFrom(Connection.class)) {
-            return (T) this;
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(connection)) {
+            return iface.cast(connection);
         }
-        return connection.unwrap(clazz);
+        return connection.unwrap(iface);
     }
 
     @Override

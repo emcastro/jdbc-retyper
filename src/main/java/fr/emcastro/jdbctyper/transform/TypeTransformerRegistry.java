@@ -1,5 +1,7 @@
 package fr.emcastro.jdbctyper.transform;
 
+import fr.emcastro.jdbctyper.exception.TypeConversionException;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,8 +42,37 @@ public class TypeTransformerRegistry {
         if (type.isInstance(value)) {
             return (T) value;
         }
-        throw new RuntimeException(
-            "Unsupported conversion from " + value.getClass() + " to " + type.getName()
+        throw new TypeConversionException(
+            "Unsupported conversion from " + value.getClass() + " to " + type.getName(),
+            null
         );
+    }
+
+    public static Object defaultFromSql(Object value) {
+        if (value == null) {
+            return null;
+        }
+        for (TypeTransformer<?> t : transformers) {
+            try {
+                Object result = t.fromSql(value);
+                if (result != null) {
+                    return result;
+                }
+            } catch (Exception e) {
+                // TODO: silently swallowing exceptions hides errors from incompatible transformers.
+                // Consider checking input type before calling fromSql, or catching only specific exceptions.
+            }
+        }
+        return value;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> mapType(Class<T> type) {
+        for (TypeTransformer<?> t : transformers) {
+            if (t.getType() == type) {
+                return (Class<T>) t.getSqlType();
+            }
+        }
+        return type;
     }
 }
