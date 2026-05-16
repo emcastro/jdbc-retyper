@@ -1,9 +1,11 @@
 package fr.emcastro.jdbctyper.transform;
 
-import fr.emcastro.jdbctyper.exception.TypeConversionException;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import fr.emcastro.jdbctyper.exception.TypeConversionException;
 
 public class TypeTransformerRegistry {
 
@@ -93,5 +95,20 @@ public class TypeTransformerRegistry {
             }
         }
         return appType;
+    }
+
+    /**
+     * Converts a type map by replacing each application class with its corresponding JDBC SQL type.
+     *
+     * @param map the original type map from the caller
+     * @return a new map with application types replaced by their SQL types
+     */
+    public Map<String, Class<?>> fromSqlMap(Map<String, Class<?>> map) {
+        if (map == null) return null;
+        Map<String, Class<?>> result = new HashMap<>(map.size());
+        for (Map.Entry<String, Class<?>> entry : map.entrySet()) {
+            result.put(entry.getKey(), mapType(entry.getValue()));
+        }
+        return result;
     }
 }

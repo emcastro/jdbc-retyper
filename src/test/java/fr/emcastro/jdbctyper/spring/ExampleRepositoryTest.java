@@ -3,7 +3,10 @@ package fr.emcastro.jdbctyper.spring;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import fr.emcastro.jdbctyper.JsonBox;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -13,10 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import fr.emcastro.jdbctyper.JsonBox;
 
 @ExtendWith(MockitoExtension.class)
 class ExampleRepositoryTest {

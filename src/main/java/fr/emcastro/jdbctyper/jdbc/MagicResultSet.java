@@ -1,7 +1,5 @@
 package fr.emcastro.jdbctyper.jdbc;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
-
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -9,6 +7,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
+
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicResultSet implements ResultSet {
 
@@ -591,9 +591,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
-        // TODO Need to clarify the behavior of this method:
-        // should it apply the registry mapping like getObject(columnLabel, Class<T>) or just return the raw value?
-        return registry.fromSqlDefaultType(resultSet.getObject(columnIndex, map));
+        return registry.fromSqlDefaultType(resultSet.getObject(columnIndex, registry.fromSqlMap(map)));
     }
 
     @Override
@@ -618,9 +616,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
-        // TODO Need to clarify the behavior of this method:
-        // should it apply the registry mapping like getObject(columnLabel, Class<T>) or just return the raw value?
-        return registry.fromSqlDefaultType(resultSet.getObject(columnLabel, map));
+        return registry.fromSqlDefaultType(resultSet.getObject(columnLabel, registry.fromSqlMap(map)));
     }
 
     @Override

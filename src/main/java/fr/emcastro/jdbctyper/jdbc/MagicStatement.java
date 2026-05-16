@@ -1,12 +1,12 @@
 package fr.emcastro.jdbctyper.jdbc;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
+
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicStatement implements Statement {
 

@@ -1,15 +1,15 @@
 package fr.emcastro.jdbctyper.spring;
 
-import fr.emcastro.jdbctyper.JsonBox;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import fr.emcastro.jdbctyper.JsonBox;
 
 /**
  * Test repository that works with JSON data using plain JDBC. Uses

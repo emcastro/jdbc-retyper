@@ -1,7 +1,5 @@
 package fr.emcastro.jdbctyper.jdbc;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
-
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -22,6 +20,8 @@ import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicPreparedStatement extends MagicStatement implements PreparedStatement {
 
