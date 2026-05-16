@@ -1,14 +1,14 @@
 package fr.emcastro.jdbctyper.jdbc;
 
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+
+import javax.sql.DataSource;
+
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
-
-import javax.sql.DataSource;
-
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicDatasource implements DataSource {
 

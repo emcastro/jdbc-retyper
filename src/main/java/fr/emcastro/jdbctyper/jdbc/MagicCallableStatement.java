@@ -1,5 +1,7 @@
 package fr.emcastro.jdbctyper.jdbc;
 
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -19,11 +21,10 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
-
 public class MagicCallableStatement extends MagicPreparedStatement implements CallableStatement {
 
-    public MagicCallableStatement(CallableStatement callableStatement, TypeTransformerRegistry registry, MagicConnection connection) {
+    public MagicCallableStatement(
+            CallableStatement callableStatement, TypeTransformerRegistry registry, MagicConnection connection) {
         super(callableStatement, registry, connection);
     }
 
@@ -596,5 +597,4 @@ public class MagicCallableStatement extends MagicPreparedStatement implements Ca
     public void setObject(String parameterName, Object x, int targetSqlType, int scale) throws SQLException {
         callableStatement().setObject(parameterName, registry.toSql(x), targetSqlType, scale);
     }
-
 }

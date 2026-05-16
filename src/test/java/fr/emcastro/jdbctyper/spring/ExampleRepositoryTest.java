@@ -1,20 +1,22 @@
 package fr.emcastro.jdbctyper.spring;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import fr.emcastro.jdbctyper.JsonBox;
+
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExampleRepositoryTest {
@@ -56,7 +58,7 @@ class ExampleRepositoryTest {
     void testWorkWithNullJsonBox() {
         // Arrange
         JsonBox jsonBox = null;
-        
+
         // Act & Assert
         assertThrows(NullPointerException.class, () -> {
             exampleRepository.work(jsonBox);

@@ -1,5 +1,7 @@
 package fr.emcastro.jdbctyper.jdbc;
 
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -7,8 +9,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
-
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicResultSet implements ResultSet {
 
@@ -591,7 +591,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
-        // TODO Need to clarify the behavior of this method: 
+        // TODO Need to clarify the behavior of this method:
         // should it apply the registry mapping like getObject(columnLabel, Class<T>) or just return the raw value?
         return registry.fromSqlDefaultType(resultSet.getObject(columnIndex, map));
     }
@@ -618,7 +618,7 @@ public class MagicResultSet implements ResultSet {
 
     @Override
     public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
-        // TODO Need to clarify the behavior of this method: 
+        // TODO Need to clarify the behavior of this method:
         // should it apply the registry mapping like getObject(columnLabel, Class<T>) or just return the raw value?
         return registry.fromSqlDefaultType(resultSet.getObject(columnLabel, map));
     }
@@ -979,7 +979,8 @@ public class MagicResultSet implements ResultSet {
     }
 
     @Override
-    public void updateObject(String columnLabel, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
+    public void updateObject(String columnLabel, Object x, SQLType targetSqlType, int scaleOrLength)
+            throws SQLException {
         resultSet.updateObject(columnLabel, registry.toSql(x), targetSqlType, scaleOrLength);
     }
 
@@ -1005,5 +1006,4 @@ public class MagicResultSet implements ResultSet {
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return iface.isInstance(resultSet) || resultSet.isWrapperFor(iface);
     }
-
 }

@@ -13,32 +13,30 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class MainApplication {
 
-  private static final Logger logger = LoggerFactory.getLogger(
-    MainApplication.class
-  );
+    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
 
-  public static void main(String[] args) {
-    SpringApplication.run(MainApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(MainApplication.class, args);
+    }
 
-  @Autowired
-  ExampleRepository repo;
+    @Autowired
+    ExampleRepository repo;
 
-  @Autowired
-  com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+    @Autowired
+    com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
-  @Bean
-  CommandLineRunner run() {
-    return args -> {
-      logger.info("Application CLI démarrée avec succès ! ");
-      // var objectNode = (ObjectNode) objectMapper.readTree(
-      //   "{\"a\": {\"b\":\"c\"}}"
-      // );
-      var objectNode = new JsonBox("{\"a\": {\"b\":\"c\"}}");
+    @Bean
+    CommandLineRunner run() {
+        return args -> {
+            logger.info("Application CLI démarrée avec succès ! ");
+            // var objectNode = (ObjectNode) objectMapper.readTree(
+            // "{\"a\": {\"b\":\"c\"}}"
+            // );
+            var objectNode = new JsonBox("{\"a\": {\"b\":\"c\"}}");
 
-      var data = repo.work(objectNode);
-      System.out.println(data);
-      System.out.println(data.getClass());
-    };
-  }
+            var data = repo.work(objectNode);
+            System.out.println(data);
+            System.out.println(data.getClass());
+        };
+    }
 }

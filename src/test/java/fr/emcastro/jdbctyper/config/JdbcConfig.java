@@ -1,16 +1,17 @@
 package fr.emcastro.jdbctyper.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.emcastro.jdbctyper.JsonBoxTypeTransformer;
+import fr.emcastro.jdbctyper.jdbc.MagicDatasource;
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
-
-import fr.emcastro.jdbctyper.JsonBoxTypeTransformer;
-import fr.emcastro.jdbctyper.jdbc.MagicDatasource;
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class JdbcConfig {
@@ -34,7 +35,6 @@ public class JdbcConfig {
 
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource, ObjectMapper objectMapper) {
-        
 
         return new JdbcTemplate(dataSource);
     }

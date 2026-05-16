@@ -55,13 +55,11 @@ public class TypeTransformerRegistry {
                 return appType.cast(((TypeTransformer<T, Object>) t).fromSql(sqlValue));
             }
         }
-        if (appType.isInstance(sqlValue)) { 
+        if (appType.isInstance(sqlValue)) {
             return (T) sqlValue;
         }
         throw new TypeConversionException(
-            "Unsupported conversion from " + sqlValue.getClass() + " to " + appType.getName(),
-            null
-        );
+                "Unsupported conversion from " + sqlValue.getClass() + " to " + appType.getName(), null);
     }
 
     /**

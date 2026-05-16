@@ -1,5 +1,7 @@
 package fr.emcastro.jdbctyper.jdbc;
 
+import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
+
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
@@ -18,8 +20,6 @@ import java.sql.Struct;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-
-import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
 public class MagicConnection implements Connection {
 
@@ -100,8 +100,10 @@ public class MagicConnection implements Connection {
     }
 
     @Override
-    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        return new MagicStatement(connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), registry, this);
+    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability)
+            throws SQLException {
+        return new MagicStatement(
+                connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), registry, this);
     }
 
     @Override
@@ -191,12 +193,15 @@ public class MagicConnection implements Connection {
 
     @Override
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        return new MagicCallableStatement(connection.prepareCall(sql, resultSetType, resultSetConcurrency), registry, this);
+        return new MagicCallableStatement(
+                connection.prepareCall(sql, resultSetType, resultSetConcurrency), registry, this);
     }
 
     @Override
-    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        return new MagicCallableStatement(connection.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability), registry, this);
+    public CallableStatement prepareCall(
+            String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return new MagicCallableStatement(
+                connection.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability), registry, this);
     }
 
     @Override
@@ -220,13 +225,19 @@ public class MagicConnection implements Connection {
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        return new MagicPreparedStatement(connection.prepareStatement(sql, resultSetType, resultSetConcurrency), registry, this);
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
+            throws SQLException {
+        return new MagicPreparedStatement(
+                connection.prepareStatement(sql, resultSetType, resultSetConcurrency), registry, this);
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        return new MagicPreparedStatement(connection.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability), registry, this);
+    public PreparedStatement prepareStatement(
+            String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return new MagicPreparedStatement(
+                connection.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability),
+                registry,
+                this);
     }
 
     @Override
@@ -303,5 +314,4 @@ public class MagicConnection implements Connection {
     public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
         connection.setTypeMap(map);
     }
-
 }

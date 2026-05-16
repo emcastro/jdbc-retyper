@@ -1,6 +1,5 @@
 package fr.emcastro.jdbctyper;
 
-import fr.emcastro.jdbctyper.exception.TypeConversionException;
 import fr.emcastro.jdbctyper.transform.TypeTransformer;
 
 /**
