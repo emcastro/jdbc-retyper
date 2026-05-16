@@ -21,10 +21,10 @@ import java.util.Map;
 
 import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
-public class MagicCallableStatement extends MagicPreparedStatement implements CallableStatement {
+public class TyperCallableStatement extends TyperPreparedStatement implements CallableStatement {
 
-    public MagicCallableStatement(
-            CallableStatement callableStatement, TypeTransformerRegistry registry, MagicConnection connection) {
+    public TyperCallableStatement(
+            CallableStatement callableStatement, TypeTransformerRegistry registry, TyperConnection connection) {
         super(callableStatement, registry, connection);
     }
 

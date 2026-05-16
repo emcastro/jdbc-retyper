@@ -4,8 +4,8 @@ package fr.emcastro.jdbctyper.transform;
  * Bidirectional type transformer between application types and JDBC SQL types.
  *
  * Implementations are registered in {@link TypeTransformerRegistry} and are invoked
- * automatically by {@code MagicPreparedStatement} (when writing parameters) and
- * {@code MagicResultSet} (when reading results).
+ * automatically by {@code TyperPreparedStatement} (when writing parameters) and
+ * {@code TyperResultSet} (when reading results).
  *
  * <p>Example: a {@code JsonBox} transformer converts {@code JsonBox} to {@code String}
  * for {@code setObject()}, and {@code String} back to {@code JsonBox} for {@code getObject()}.
@@ -34,7 +34,7 @@ public interface TypeTransformer<A, S> {
 
     /**
      * Converts an application value to its JDBC representation.
-     * Called by {@code MagicPreparedStatement.setObject()} when a parameter
+     * Called by {@code TyperPreparedStatement.setObject()} when a parameter
      * of type {@code A} is passed.
      *
      * @param appValue the application value (never null)
@@ -44,7 +44,7 @@ public interface TypeTransformer<A, S> {
 
     /**
      * Converts a JDBC value to the application type.
-     * Called by {@code MagicResultSet.getObject(columnIndex, type)} after
+     * Called by {@code TyperResultSet.getObject(columnIndex, type)} after
      * the driver returns a value of the type declared by {@link #getSqlType}.
      *
      * @param sqlValue the JDBC value (never null)

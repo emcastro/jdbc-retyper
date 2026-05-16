@@ -23,10 +23,10 @@ import java.util.Calendar;
 
 import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
-public class MagicPreparedStatement extends MagicStatement implements PreparedStatement {
+public class TyperPreparedStatement extends TyperStatement implements PreparedStatement {
 
-    public MagicPreparedStatement(
-            PreparedStatement preparedStatement, TypeTransformerRegistry registry, MagicConnection connection) {
+    public TyperPreparedStatement(
+            PreparedStatement preparedStatement, TypeTransformerRegistry registry, TyperConnection connection) {
         super(preparedStatement, registry, connection);
     }
 
@@ -51,7 +51,7 @@ public class MagicPreparedStatement extends MagicStatement implements PreparedSt
 
     @Override
     public ResultSet executeQuery() throws SQLException {
-        return new MagicResultSet(preparedStatement().executeQuery(), registry);
+        return new TyperResultSet(preparedStatement().executeQuery(), registry);
     }
 
     @Override

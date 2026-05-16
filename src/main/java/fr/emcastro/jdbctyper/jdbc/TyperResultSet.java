@@ -10,12 +10,12 @@ import java.util.Map;
 
 import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
-public class MagicResultSet implements ResultSet {
+public class TyperResultSet implements ResultSet {
 
     private final ResultSet resultSet;
     private final TypeTransformerRegistry registry;
 
-    public MagicResultSet(ResultSet resultSet, TypeTransformerRegistry registry) {
+    public TyperResultSet(ResultSet resultSet, TypeTransformerRegistry registry) {
         this.resultSet = resultSet;
         this.registry = registry;
     }

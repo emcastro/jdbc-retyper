@@ -8,13 +8,13 @@ import java.sql.Statement;
 
 import fr.emcastro.jdbctyper.transform.TypeTransformerRegistry;
 
-public class MagicStatement implements Statement {
+public class TyperStatement implements Statement {
 
     protected final Statement statement;
     protected final TypeTransformerRegistry registry;
-    private final MagicConnection connection;
+    private final TyperConnection connection;
 
-    public MagicStatement(Statement statement, TypeTransformerRegistry registry, MagicConnection connection) {
+    public TyperStatement(Statement statement, TypeTransformerRegistry registry, TyperConnection connection) {
         this.statement = statement;
         this.registry = registry;
         this.connection = connection;
@@ -77,7 +77,7 @@ public class MagicStatement implements Statement {
 
     @Override
     public ResultSet executeQuery(String sql) throws SQLException {
-        return new MagicResultSet(statement.executeQuery(sql), registry);
+        return new TyperResultSet(statement.executeQuery(sql), registry);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class MagicStatement implements Statement {
 
     @Override
     public ResultSet getGeneratedKeys() throws SQLException {
-        return new MagicResultSet(statement.getGeneratedKeys(), registry);
+        return new TyperResultSet(statement.getGeneratedKeys(), registry);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MagicStatement implements Statement {
 
     @Override
     public ResultSet getResultSet() throws SQLException {
-        return new MagicResultSet(statement.getResultSet(), registry);
+        return new TyperResultSet(statement.getResultSet(), registry);
     }
 
     @Override
