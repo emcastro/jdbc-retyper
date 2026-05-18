@@ -51,7 +51,7 @@ public class RetyperPreparedStatement extends RetyperStatement implements Prepar
 
     @Override
     public ResultSet executeQuery() throws SQLException {
-        return new RetyperResultSet(preparedStatement().executeQuery(), registry);
+        return new RetyperResultSet(preparedStatement().executeQuery(), registry, this);
     }
 
     @Override

@@ -134,7 +134,7 @@ public class TypeTransformerRegistry {
     public <T> Class<T> mapType(Class<T> appType) {
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
             if (t.getAppType().isAssignableFrom(appType)) {
-                if (t.jdbcDriverIsTypeAware()) {
+                if (t.supportsTypedGetObject()) {
                     return (Class<T>) t.getReadSqlType();
                 } else {
                     return null; // getObject will be used without type hint

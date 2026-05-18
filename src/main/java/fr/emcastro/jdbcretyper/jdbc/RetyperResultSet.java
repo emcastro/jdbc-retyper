@@ -14,10 +14,12 @@ public class RetyperResultSet implements ResultSet {
 
     private final ResultSet resultSet;
     private final TypeTransformerRegistry registry;
+    private final Statement statement;
 
-    public RetyperResultSet(ResultSet resultSet, TypeTransformerRegistry registry) {
+    public RetyperResultSet(ResultSet resultSet, TypeTransformerRegistry registry, Statement statement) {
         this.resultSet = resultSet;
         this.registry = registry;
+        this.statement = statement;
     }
 
     @Override
@@ -586,7 +588,7 @@ public class RetyperResultSet implements ResultSet {
 
     @Override
     public Statement getStatement() throws SQLException {
-        return resultSet.getStatement();
+        return statement;
     }
 
     @Override

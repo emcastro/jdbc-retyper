@@ -7,7 +7,7 @@ import org.duckdb.JsonNode;
 /**
  * Reads {@link JsonBox} from JDBC {@link JsonNode} columns for the demo.
  *
- * <p>DuckDB stores JSON physically as TEXT, so the read SQL type is {@code JsonNode.class}.
+ * <p>DuckDB's JDBC driver returns JSON columns as a {@link JsonNode}.
  */
 public class JsonBoxReadTransformer implements ReadTypeTransformer<JsonBox, JsonNode> {
 
@@ -22,7 +22,7 @@ public class JsonBoxReadTransformer implements ReadTypeTransformer<JsonBox, Json
     }
 
     @Override
-    public boolean jdbcDriverIsTypeAware() {
+    public boolean supportsTypedGetObject() {
         return false;
     }
 

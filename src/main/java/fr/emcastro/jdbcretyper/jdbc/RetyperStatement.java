@@ -77,7 +77,7 @@ public class RetyperStatement implements Statement {
 
     @Override
     public ResultSet executeQuery(String sql) throws SQLException {
-        return new RetyperResultSet(statement.executeQuery(sql), registry);
+        return new RetyperResultSet(statement.executeQuery(sql), registry, this);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class RetyperStatement implements Statement {
 
     @Override
     public ResultSet getGeneratedKeys() throws SQLException {
-        return new RetyperResultSet(statement.getGeneratedKeys(), registry);
+        return new RetyperResultSet(statement.getGeneratedKeys(), registry, this);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class RetyperStatement implements Statement {
 
     @Override
     public ResultSet getResultSet() throws SQLException {
-        return new RetyperResultSet(statement.getResultSet(), registry);
+        return new RetyperResultSet(statement.getResultSet(), registry, this);
     }
 
     @Override

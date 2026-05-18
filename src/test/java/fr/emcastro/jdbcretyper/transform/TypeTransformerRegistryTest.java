@@ -94,7 +94,7 @@ class TypeTransformerRegistryTest {
 
     @Test
     // Check that mapType() returns the read SQL type for a registered
-    // app type whose jdbcDriverIsTypeAware() is true.
+    // app type whose supportsTypedGetObject() is true.
     void mapType_returnsSqlTypeForRegisteredAppType() {
         Class<?> result = registry.mapType(TestAppValue.class);
         assertEquals(String.class, result);

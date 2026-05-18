@@ -35,7 +35,7 @@ public interface ReadTypeTransformer<A, S> {
      */
     Class<S> getReadSqlType();
 
-    default boolean jdbcDriverIsTypeAware() {
+    default boolean supportsTypedGetObject() {
         return true;
     }
 

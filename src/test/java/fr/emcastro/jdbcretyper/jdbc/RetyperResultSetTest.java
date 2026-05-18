@@ -27,7 +27,7 @@ class RetyperResultSetTest {
     @BeforeEach
     void setUp() {
         registry = spy(new TypeTransformerRegistry());
-        retyperResultSet = new RetyperResultSet(mockResultSet, registry);
+        retyperResultSet = new RetyperResultSet(mockResultSet, registry, null);
     }
 
     @Test
