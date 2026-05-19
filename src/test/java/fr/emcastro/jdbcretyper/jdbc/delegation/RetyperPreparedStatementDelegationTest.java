@@ -366,4 +366,140 @@ class RetyperPreparedStatementDelegationTest {
         statement.setURL(1, url);
         verify(mockPreparedStatement).setURL(1, url);
     }
+
+    @Test
+    // Check that setAsciiStream(int, InputStream, int) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setAsciiStream_withIntLength_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setAsciiStream(1, stream, 100);
+        verify(mockPreparedStatement).setAsciiStream(1, stream, 100);
+    }
+
+    @Test
+    // Check that setAsciiStream(int, InputStream, long) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setAsciiStream_withLongLength_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setAsciiStream(1, stream, 100L);
+        verify(mockPreparedStatement).setAsciiStream(1, stream, 100L);
+    }
+
+    @Test
+    // Check that setBinaryStream(int, InputStream, int) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setBinaryStream_withIntLength_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setBinaryStream(1, stream, 100);
+        verify(mockPreparedStatement).setBinaryStream(1, stream, 100);
+    }
+
+    @Test
+    // Check that setBinaryStream(int, InputStream, long) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setBinaryStream_withLongLength_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setBinaryStream(1, stream, 100L);
+        verify(mockPreparedStatement).setBinaryStream(1, stream, 100L);
+    }
+
+    @Test
+    // Check that setCharacterStream(int, Reader, int) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setCharacterStream_withIntLength_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setCharacterStream(1, reader, 100);
+        verify(mockPreparedStatement).setCharacterStream(1, reader, 100);
+    }
+
+    @Test
+    // Check that setCharacterStream(int, Reader, long) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setCharacterStream_withLongLength_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setCharacterStream(1, reader, 100L);
+        verify(mockPreparedStatement).setCharacterStream(1, reader, 100L);
+    }
+
+    @Test
+    // Check that setBlob(int, InputStream) delegates to the underlying
+    // PreparedStatement without additional transformation.
+    void setBlob_withInputStream_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setBlob(1, stream);
+        verify(mockPreparedStatement).setBlob(1, stream);
+    }
+
+    @Test
+    // Check that setBlob(int, InputStream, long) delegates to the
+    // underlying PreparedStatement without additional transformation.
+    void setBlob_withInputStreamAndLength_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setBlob(1, stream, 100L);
+        verify(mockPreparedStatement).setBlob(1, stream, 100L);
+    }
+
+    @Test
+    // Check that setClob(int, Reader) delegates to the underlying
+    // PreparedStatement without additional transformation.
+    void setClob_withReader_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setClob(1, reader);
+        verify(mockPreparedStatement).setClob(1, reader);
+    }
+
+    @Test
+    // Check that setClob(int, Reader, long) delegates to the
+    // underlying PreparedStatement without additional transformation.
+    void setClob_withReaderAndLength_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setClob(1, reader, 100L);
+        verify(mockPreparedStatement).setClob(1, reader, 100L);
+    }
+
+    @Test
+    // Check that setNClob(int, Reader) delegates to the underlying
+    // PreparedStatement without additional transformation.
+    void setNClob_withReader_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setNClob(1, reader);
+        verify(mockPreparedStatement).setNClob(1, reader);
+    }
+
+    @Test
+    // Check that setNClob(int, Reader, long) delegates to the
+    // underlying PreparedStatement without additional transformation.
+    void setNClob_withReaderAndLength_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setNClob(1, reader, 100L);
+        verify(mockPreparedStatement).setNClob(1, reader, 100L);
+    }
+
+    @Test
+    // Check that setNCharacterStream(int, Reader) delegates to the
+    // underlying PreparedStatement without additional transformation.
+    void setNCharacterStream_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setNCharacterStream(1, reader);
+        verify(mockPreparedStatement).setNCharacterStream(1, reader);
+    }
+
+    @Test
+    // Check that setNCharacterStream(int, Reader, long) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    void setNCharacterStream_withLength_delegates() throws SQLException {
+        Reader reader = mock(Reader.class);
+        statement.setNCharacterStream(1, reader, 100L);
+        verify(mockPreparedStatement).setNCharacterStream(1, reader, 100L);
+    }
+
+    @Test
+    // Check that setUnicodeStream(int, InputStream, int) delegates to
+    // the underlying PreparedStatement without additional transformation.
+    @SuppressWarnings("deprecation")
+    void setUnicodeStream_delegates() throws SQLException {
+        InputStream stream = mock(InputStream.class);
+        statement.setUnicodeStream(1, stream, 100);
+        verify(mockPreparedStatement).setUnicodeStream(1, stream, 100);
+    }
 }

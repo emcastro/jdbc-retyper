@@ -62,11 +62,27 @@ class RetyperCallableStatementTest {
     void getObject_intWithClass_delegatesWithMapType() throws SQLException {
         when(registry.mapType(String.class)).thenReturn(String.class);
         when(mockCallableStatement.getObject(1, String.class)).thenReturn("raw-value");
+        when(registry.fromSql("raw-value", String.class)).thenReturn("raw-value");
 
         statement.getObject(1, String.class);
 
         verify(registry).mapType(String.class);
+        verify(mockCallableStatement).getObject(1, String.class);
         verify(registry).fromSql("raw-value", String.class);
+    }
+
+    @Test
+    // Check that getObject(int, Class) falls back to plain getObject(int)
+    // when mapType() returns null for the requested type.
+    void getObject_intWithClass_nullMapType_fallsBack() throws SQLException {
+        when(registry.mapType(Integer.class)).thenReturn(null);
+        when(mockCallableStatement.getObject(1)).thenReturn(42);
+        when(registry.fromSql(42, Integer.class)).thenReturn(42);
+
+        statement.getObject(1, Integer.class);
+
+        verify(mockCallableStatement).getObject(1);
+        verify(registry).fromSql(42, Integer.class);
     }
 
     @Test
@@ -75,11 +91,27 @@ class RetyperCallableStatementTest {
     void getObject_stringWithClass_delegatesWithMapType() throws SQLException {
         when(registry.mapType(String.class)).thenReturn(String.class);
         when(mockCallableStatement.getObject("param", String.class)).thenReturn("raw-value");
+        when(registry.fromSql("raw-value", String.class)).thenReturn("raw-value");
 
         statement.getObject("param", String.class);
 
         verify(registry).mapType(String.class);
+        verify(mockCallableStatement).getObject("param", String.class);
         verify(registry).fromSql("raw-value", String.class);
+    }
+
+    @Test
+    // Check that getObject(String, Class) falls back to plain getObject(String)
+    // when mapType() returns null for the requested type.
+    void getObject_stringWithClass_nullMapType_fallsBack() throws SQLException {
+        when(registry.mapType(Integer.class)).thenReturn(null);
+        when(mockCallableStatement.getObject("param")).thenReturn(42);
+        when(registry.fromSql(42, Integer.class)).thenReturn(42);
+
+        statement.getObject("param", Integer.class);
+
+        verify(mockCallableStatement).getObject("param");
+        verify(registry).fromSql(42, Integer.class);
     }
 
     @SuppressWarnings("unchecked")

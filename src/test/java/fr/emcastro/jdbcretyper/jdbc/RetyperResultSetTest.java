@@ -36,24 +36,58 @@ class RetyperResultSetTest {
     // Check that getObject(int, Class) calls mapType() for the type hint
     // and fromSql() to convert the result.
     void getObject_withClass_delegatesWithMapType() throws SQLException {
+        when(registry.mapType(String.class)).thenReturn(String.class);
         when(mockResultSet.getObject(1, String.class)).thenReturn("raw-value");
+        when(registry.fromSql("raw-value", String.class)).thenReturn("raw-value");
 
         retyperResultSet.getObject(1, String.class);
 
         verify(registry).mapType(String.class);
+        verify(mockResultSet).getObject(1, String.class);
         verify(registry).fromSql("raw-value", String.class);
     }
 
     @Test
-    // Check that getObject(String, Class) follows the same
-    // mapType-then-fromSql flow as the column-index overload.
+    // Check that getObject(String, Class) calls mapType() for the type hint
+    // and fromSql() to convert the result when mapType returns a non-null value.
     void getObject_withClass_byLabel_delegatesWithMapType() throws SQLException {
+        when(registry.mapType(String.class)).thenReturn(String.class);
         when(mockResultSet.getObject("col", String.class)).thenReturn("raw-value");
+        when(registry.fromSql("raw-value", String.class)).thenReturn("raw-value");
 
         retyperResultSet.getObject("col", String.class);
 
         verify(registry).mapType(String.class);
+        verify(mockResultSet).getObject("col", String.class);
         verify(registry).fromSql("raw-value", String.class);
+    }
+
+    @Test
+    // Check that getObject(int, Class) falls back to plain getObject(int)
+    // when mapType() returns null for the requested type.
+    void getObject_withClass_nullMapType_fallsBack() throws SQLException {
+        when(registry.mapType(Integer.class)).thenReturn(null);
+        when(mockResultSet.getObject(1)).thenReturn(42);
+        when(registry.fromSql(42, Integer.class)).thenReturn(42);
+
+        retyperResultSet.getObject(1, Integer.class);
+
+        verify(mockResultSet).getObject(1);
+        verify(registry).fromSql(42, Integer.class);
+    }
+
+    @Test
+    // Check that getObject(String, Class) falls back to plain getObject(String)
+    // when mapType() returns null for the requested type.
+    void getObject_withClass_byLabel_nullMapType_fallsBack() throws SQLException {
+        when(registry.mapType(Integer.class)).thenReturn(null);
+        when(mockResultSet.getObject("col")).thenReturn(42);
+        when(registry.fromSql(42, Integer.class)).thenReturn(42);
+
+        retyperResultSet.getObject("col", Integer.class);
+
+        verify(mockResultSet).getObject("col");
+        verify(registry).fromSql(42, Integer.class);
     }
 
     @SuppressWarnings("unchecked")
@@ -202,6 +236,31 @@ class RetyperResultSetTest {
         SQLType sqlType = mock(SQLType.class);
 
         retyperResultSet.updateObject("col", value, sqlType, 2);
+
+        verify(registry).toSql(value);
+    }
+
+    @Test
+    // Check that updateObject(String, Object, int) converts the value
+    // via toSql() before passing it to the delegate.
+    void updateObject_byLabel_withScale_usesToSql() throws SQLException {
+        Object value = new Object();
+        when(registry.toSql(value)).thenReturn(value);
+
+        retyperResultSet.updateObject("col", value, 2);
+
+        verify(registry).toSql(value);
+    }
+
+    @Test
+    // Check that updateObject(String, Object, SQLType) converts the
+    // value via toSql() before passing it to the delegate.
+    void updateObject_byLabel_withSqlType_usesToSql() throws SQLException {
+        Object value = new Object();
+        when(registry.toSql(value)).thenReturn(value);
+        SQLType sqlType = mock(SQLType.class);
+
+        retyperResultSet.updateObject("col", value, sqlType);
 
         verify(registry).toSql(value);
     }
