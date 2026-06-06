@@ -66,7 +66,8 @@ public class TypeTransformerRegistry {
     public Object toSql(Object appValue) {
         if (appValue == null) return null;
         for (WriteTypeTransformer<?, ?> t : writeTransformers) {
-            if (!t.getAppType().isInstance(appValue)) continue; // Check application type match
+            // Check application type match
+            if (!t.getAppType().isInstance(appValue)) continue;
             var wt = (WriteTypeTransformer<Object, Object>) t;
             return t.getWriteSqlType().cast(wt.toSql(appValue));
         }
@@ -88,13 +89,17 @@ public class TypeTransformerRegistry {
     public <T> T fromSql(Object sqlValue, Class<T> appType) {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
-            if (!t.getAppType().isAssignableFrom(appType)) continue; // Check application type match
-            if (!t.getReadSqlType().isInstance(sqlValue)) continue; // Check JDBC input type match
+            // Check application type match
+            if (!t.getAppType().isAssignableFrom(appType)) continue;
+            // Check JDBC input type match
+            if (!t.getReadSqlType().isInstance(sqlValue)) continue;
             var rt = (ReadTypeTransformer<Object, Object>) t;
-            if (!rt.canTransform(sqlValue)) continue; // Check transformer acceptance
+            // Check transformer acceptance
+            if (!rt.canTransform(sqlValue)) continue;
             return appType.cast(rt.fromSql(sqlValue));
         }
-        if (appType.isInstance(sqlValue)) { // Fallback: already the target type
+        // Fallback: already the target type
+        if (appType.isInstance(sqlValue)) {
             return (T) sqlValue;
         }
         throw new TypeConversionException(
@@ -114,9 +119,11 @@ public class TypeTransformerRegistry {
     public Object fromSqlDefaultType(Object sqlValue) {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
-            if (!t.getReadSqlType().isInstance(sqlValue)) continue; // Check JDBC input type match
+            // Check JDBC input type match
+            if (!t.getReadSqlType().isInstance(sqlValue)) continue;
             var rt = (ReadTypeTransformer<Object, Object>) t;
-            if (!rt.canTransform(sqlValue)) continue; // Check transformer acceptance
+            // Check transformer acceptance
+            if (!rt.canTransform(sqlValue)) continue;
             return t.getAppType().cast(rt.fromSql(sqlValue));
         }
         return sqlValue;
@@ -136,8 +143,10 @@ public class TypeTransformerRegistry {
     @SuppressWarnings("unchecked")
     public <T> Class<T> mapType(Class<T> appType) {
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
-            if (!t.getAppType().isAssignableFrom(appType)) continue; // Check application type match
-            if (!t.supportsTypedGetObject()) return null; // No typed getObject support
+            // Check application type match
+            if (!t.getAppType().isAssignableFrom(appType)) continue;
+            // No typed getObject support
+            if (!t.supportsTypedGetObject()) return null;
             return (Class<T>) t.getReadSqlType();
         }
         return appType;
