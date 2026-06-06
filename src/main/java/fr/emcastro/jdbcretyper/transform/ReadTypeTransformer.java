@@ -46,6 +46,19 @@ public interface ReadTypeTransformer<A, S> {
     }
 
     /**
+     * Allows the transformer to accept or reject a specific SQL value during
+     * dispatch. Called after {@link #getAppType()} and {@link #getReadSqlType()}
+     * match, but before {@link #fromSql(Object)}. If false, the registry
+     * continues searching for another transformer.
+     *
+     * @param sqlValue the SQL value from the JDBC driver (never null)
+     * @return true if this transformer can convert the given value
+     */
+    default boolean canTransform(S sqlValue) {
+        return true;
+    }
+
+    /**
      * Converts a JDBC value to the application type.
      * Called when using {@code RetyperResultSet.getObject(columnIndex, type)} after
      * the driver returns a value of the type declared by {@link #getReadSqlType()}.

@@ -89,7 +89,9 @@ public class TypeTransformerRegistry {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
             if (t.getAppType().isAssignableFrom(appType) && t.getReadSqlType().isInstance(sqlValue)) {
-                return appType.cast(((ReadTypeTransformer<T, Object>) t).fromSql(sqlValue));
+                if (((ReadTypeTransformer<Object, Object>) t).canTransform(sqlValue)) {
+                    return appType.cast(((ReadTypeTransformer<T, Object>) t).fromSql(sqlValue));
+                }
             }
         }
         if (appType.isInstance(sqlValue)) {
@@ -113,7 +115,9 @@ public class TypeTransformerRegistry {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
             if (t.getReadSqlType().isInstance(sqlValue)) {
-                return t.getAppType().cast(((ReadTypeTransformer<Object, Object>) t).fromSql(sqlValue));
+                if (((ReadTypeTransformer<Object, Object>) t).canTransform(sqlValue)) {
+                    return t.getAppType().cast(((ReadTypeTransformer<Object, Object>) t).fromSql(sqlValue));
+                }
             }
         }
         return sqlValue;

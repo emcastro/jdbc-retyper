@@ -22,6 +22,11 @@ public class BofBofReadTransformer implements ReadTypeTransformer<Object, PGobje
     }
 
     @Override
+    public boolean canTransform(PGobject sqlValue) {
+        return sqlValue.getType().equals("geometry") || sqlValue.getType().equals("jsonb");
+    }
+
+    @Override
     public Object fromSql(PGobject sqlValue) {
         if (sqlValue.getType().equals("geometry")) {
             try {
