@@ -1,6 +1,6 @@
-package fr.emcastro.jdbcretyper.demo.transform;
+package fr.emcastro.jdbcretyper.demo.spring.transform;
 
-import fr.emcastro.jdbcretyper.demo.JsonBox;
+import fr.emcastro.jdbcretyper.demo.spring.JsonBox;
 import fr.emcastro.jdbcretyper.transform.WriteTypeTransformer;
 
 /**

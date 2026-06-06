@@ -1,9 +1,9 @@
-package fr.emcastro.jdbcretyper.demo.repository;
+package fr.emcastro.jdbcretyper.demo.spring.repository;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Component;
 
-import fr.emcastro.jdbcretyper.demo.JsonBox;
+import fr.emcastro.jdbcretyper.demo.spring.JsonBox;
 
 @Component
 public class ExampleRepository {

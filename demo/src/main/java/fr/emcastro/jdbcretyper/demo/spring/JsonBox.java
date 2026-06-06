@@ -1,4 +1,4 @@
-package fr.emcastro.jdbcretyper.demo;
+package fr.emcastro.jdbcretyper.demo.spring;
 
 /**
  * Wrapper for a JSON string.

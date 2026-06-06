@@ -1,4 +1,4 @@
-package fr.emcastro.jdbcretyper.demo;
+package fr.emcastro.jdbcretyper.demo.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-import fr.emcastro.jdbcretyper.demo.repository.ExampleRepository;
+import fr.emcastro.jdbcretyper.demo.spring.repository.ExampleRepository;
 
-@SpringBootApplication
-public class MainApplication {
+@SpringBootApplication(scanBasePackages = "fr.emcastro.jdbcretyper.demo")
+public class SpringJdbcClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(SpringJdbcClientApplication.class, args);
     }
 
     @Autowired
