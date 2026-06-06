@@ -126,6 +126,7 @@ class RetyperResultSetDelegationTest {
         verify(mockResultSet).getBigDecimal(1);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     // Check that getBigDecimal(int, int) delegates to the underlying
     // ResultSet without additional transformation.
@@ -874,6 +875,7 @@ class RetyperResultSetDelegationTest {
 
     // --- Statement reference ---
 
+    @SuppressWarnings("resource")
     @Test
     // Check that getStatement() returns the wrapper Statement passed to
     // the constructor, not the underlying driver's Statement.
@@ -887,8 +889,9 @@ class RetyperResultSetDelegationTest {
     // Check that getStatement() returns null when no Statement was
     // passed to the constructor.
     void getStatement_returnsNullWhenNoStatement() throws SQLException {
-        RetyperResultSet rsWithNoStatement = new RetyperResultSet(mockResultSet, registry, null);
-        assertNull(rsWithNoStatement.getStatement());
+        try (RetyperResultSet rsWithNoStatement = new RetyperResultSet(mockResultSet, registry, null)) {
+            assertNull(rsWithNoStatement.getStatement());
+        }
     }
 
     // --- Fetch ---

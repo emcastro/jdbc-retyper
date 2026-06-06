@@ -1,9 +1,6 @@
 package fr.emcastro.jdbcretyper.demo.postgis;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.locationtech.jts.geom.Geometry;
@@ -26,6 +23,7 @@ public class PostgisApplication {
 
         System.out.println("PostGIS demo application started");
         System.out.println("Connecting to: " + url);
+        System.out.println();
 
         var registry = new TypeTransformerRegistry();
         registry.registerRead(new GeometryReadTransformer());
@@ -37,27 +35,37 @@ public class PostgisApplication {
                 var connection = new RetyperConnection(rawConnection, registry)) {
             var geometry = new WKTReader().read("POINT (1 2)");
 
-            // Round trip JTS Geometry to PostGIS geometry and back
-            try (var preparedStatement = connection.prepareStatement("SELECT ST_Buffer(?, 1, 1)")) {
+            System.out.println("Input: " + geometry);
+            System.out.println();
+
+            System.out.println("Geometry round-trip through ST_Buffer...");
+            try (var preparedStatement = connection.prepareStatement("""
+                SELECT ST_SnapToGrid(ST_Buffer(?, 1, 1), 1e-10)
+            """)) {
                 preparedStatement.setObject(1, geometry);
 
                 try (var resultSet = preparedStatement.executeQuery()) {
                     resultSet.next();
                     Geometry geomResult = (Geometry) resultSet.getObject(1);
 
-                    System.out.println("Retrieved geometry: " + geomResult);
+                    System.out.println("Result: " + geomResult + "  - awaiting POLYGON((2 1, 2 3, 0 3, 0 1, 2 1))");
+                    System.out.println("Type: " + geomResult.getClass());
                 }
             }
+            System.out.println();
 
-            // Round trip JSON to Postgres jsonb and back
+            var json = new JsonBox("""
+                    {"a": {"name":"a"}, "b": 42}
+                    """);
+            System.out.println("Input: " + json);
+            System.out.println();
+
+            System.out.println("JSONB extraction using -> and ::numeric...");
             try (var preparedStatement = connection.prepareStatement("""
                     SELECT 
                         ?-> 'a' || '{"type": "letter"}', 
                         (?-> 'b') :: numeric
                     """)) {
-                var json = new JsonBox("""
-                        {"a": {"name":"a"}, "b": 42}
-                        """);
                 preparedStatement.setObject(1, json);
                 preparedStatement.setObject(2, json);
                 try (var resultSet = preparedStatement.executeQuery()) {
@@ -65,8 +73,9 @@ public class PostgisApplication {
                     JsonBox box = resultSet.getObject(1, JsonBox.class);
                     int num = resultSet.getInt(2);
 
-                    System.out.println("Retrieved jsonb: " + box);
-                    System.out.println("Retrieved number: " + num);
+                    System.out.println("Result: " + box + "  - awaiting JsonBox[value={\"name\": \"a\", \"type\": \"letter\"}]");
+                    System.out.println("Type: " + box.getClass());
+                    System.out.println("Number: " + num + " - awaiting 42");
                 }
             }
 

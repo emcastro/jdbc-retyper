@@ -1,6 +1,5 @@
 package fr.emcastro.jdbcretyper.jdbc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.sql.CallableStatement;

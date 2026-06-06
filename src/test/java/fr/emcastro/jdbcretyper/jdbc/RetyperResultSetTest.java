@@ -273,9 +273,9 @@ class RetyperResultSetTest {
     // to the constructor, not the underlying driver's Statement.
     void getStatement_returnsWrapper() throws SQLException {
         Statement mockStatement = mock(Statement.class);
-        RetyperResultSet rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStatement);
-
-        assertSame(mockStatement, rsWithStatement.getStatement());
+        try (RetyperResultSet rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStatement)) {
+            assertSame(mockStatement, rsWithStatement.getStatement());
+        }
     }
 
     @Test
