@@ -35,13 +35,19 @@ public interface ReadTypeTransformer<A, S> {
      */
     Class<S> getReadSqlType();
 
+    /**
+     * Whether this transformer supports typed {@code getObject(columnIndex, Class)}
+     * calls. If false, the registry falls back to the driver's default return type.
+     *
+     * @return true if the transformer can receive a typed JDBC value
+     */
     default boolean supportsTypedGetObject() {
         return true;
     }
 
     /**
      * Converts a JDBC value to the application type.
-     * Called by {@code RetyperResultSet.getObject(columnIndex, type)} after
+     * Called when using {@code RetyperResultSet.getObject(columnIndex, type)} after
      * the driver returns a value of the type declared by {@link #getReadSqlType()}.
      *
      * @param sqlValue the JDBC value (never null)

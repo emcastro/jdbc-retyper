@@ -63,7 +63,7 @@ public class PostgisApplication {
                     JsonBox box = resultSet.getObject(1, JsonBox.class);
                     int num = resultSet.getInt(2);
 
-                    System.out.println("Retrieved geometry: " + box);
+                    System.out.println("Retrieved jsonb: " + box);
                     System.out.println("Retrieved number: " + num);
                 }
             }

@@ -28,8 +28,9 @@ public interface WriteTypeTransformer<A, P> {
 
     /**
      * Returns the JDBC parameter type that this transformer writes to.
-     * Used by {@code PreparedStatement.setObject()} to pass the correct
-     * underlying type to the driver.
+     * Used as a cast target in {@code TypeTransformerRegistry.toSql()} to
+     * ensure the value returned by {@link #toSql(Object)} matches the declared
+     * type.
      *
      * @return the parameter type class (e.g. {@code String.class})
      */
@@ -37,8 +38,8 @@ public interface WriteTypeTransformer<A, P> {
 
     /**
      * Converts an application value to its JDBC representation.
-     * Called by {@code RetyperPreparedStatement.setObject()} when a parameter
-     * of type {@code A} is passed.
+     * Called when using {@code RetyperPreparedStatement.setObject()} with a parameter
+     * of type {@code A}.
      *
      * @param appValue the application value (never null)
      * @return the JDBC-compatible value of type {@code P}
