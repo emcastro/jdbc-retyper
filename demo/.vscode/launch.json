@@ -6,10 +6,22 @@
     "configurations": [
         {
             "type": "java",
-            "name": "MainApplication",
+            "name": "SpringJdbcClientApplication",
             "request": "launch",
-            "mainClass": "fr.emcastro.jdbcretyper.demo.MainApplication",
+            "mainClass": "fr.emcastro.jdbcretyper.demo.spring.SpringJdbcClientApplication",
             "projectName": "jdbcretyper-demo"
+        },
+        {
+            "type": "java",
+            "name": "PostgisApplication",
+            "request": "launch",
+            "mainClass": "fr.emcastro.jdbcretyper.demo.postgis.PostgisApplication",
+            "projectName": "jdbcretyper-demo",
+            "env": {
+                "POSTGRES_URL": "jdbc:postgresql://localhost:5432/cadastre_osm",
+                "POSTGRES_USER": "cad_ad_dg",
+                "POSTGRES_PASSWORD": "cad_ad_dg_pass"
+            }
         }
     ]
 }
