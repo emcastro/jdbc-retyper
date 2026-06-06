@@ -12,8 +12,9 @@ import org.locationtech.jts.io.ParseException;
 
 import fr.emcastro.jdbcretyper.jdbc.RetyperConnection;
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
-import fr.emcastro.jdbcretyper.demo.postgis.transform.BofBofReadTransformer;
+import fr.emcastro.jdbcretyper.demo.postgis.transform.GeometryReadTransformer;
 import fr.emcastro.jdbcretyper.demo.postgis.transform.GeometryPostgisWriteTransformer;
+import fr.emcastro.jdbcretyper.demo.postgis.transform.JsonBoxReadTransformer;
 import fr.emcastro.jdbcretyper.demo.postgis.transform.JsonBoxPostgresWriteTransformer;
 
 public class PostgisApplication {
@@ -27,7 +28,8 @@ public class PostgisApplication {
         System.out.println("Connecting to: " + url);
 
         var registry = new TypeTransformerRegistry();
-        registry.registerRead(new BofBofReadTransformer());
+        registry.registerRead(new GeometryReadTransformer());
+        registry.registerRead(new JsonBoxReadTransformer());
         registry.registerWrite(new GeometryPostgisWriteTransformer());
         registry.registerWrite(new JsonBoxPostgresWriteTransformer());
 

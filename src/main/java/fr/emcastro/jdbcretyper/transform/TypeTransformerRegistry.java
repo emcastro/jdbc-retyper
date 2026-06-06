@@ -89,12 +89,12 @@ public class TypeTransformerRegistry {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
             if (!t.getAppType().isAssignableFrom(appType)) continue; // Check application type match
-            if (!t.getReadSqlType().isInstance(sqlValue)) continue;  // Check JDBC input type match
+            if (!t.getReadSqlType().isInstance(sqlValue)) continue; // Check JDBC input type match
             var rt = (ReadTypeTransformer<Object, Object>) t;
-            if (!rt.canTransform(sqlValue)) continue;                // Check transformer acceptance
+            if (!rt.canTransform(sqlValue)) continue; // Check transformer acceptance
             return appType.cast(rt.fromSql(sqlValue));
         }
-        if (appType.isInstance(sqlValue)) {                          // Fallback: already the target type
+        if (appType.isInstance(sqlValue)) { // Fallback: already the target type
             return (T) sqlValue;
         }
         throw new TypeConversionException(
@@ -114,9 +114,9 @@ public class TypeTransformerRegistry {
     public Object fromSqlDefaultType(Object sqlValue) {
         if (sqlValue == null) return null;
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
-            if (!t.getReadSqlType().isInstance(sqlValue)) continue;  // Check JDBC input type match
+            if (!t.getReadSqlType().isInstance(sqlValue)) continue; // Check JDBC input type match
             var rt = (ReadTypeTransformer<Object, Object>) t;
-            if (!rt.canTransform(sqlValue)) continue;                // Check transformer acceptance
+            if (!rt.canTransform(sqlValue)) continue; // Check transformer acceptance
             return t.getAppType().cast(rt.fromSql(sqlValue));
         }
         return sqlValue;
@@ -137,7 +137,7 @@ public class TypeTransformerRegistry {
     public <T> Class<T> mapType(Class<T> appType) {
         for (ReadTypeTransformer<?, ?> t : readTransformers) {
             if (!t.getAppType().isAssignableFrom(appType)) continue; // Check application type match
-            if (!t.supportsTypedGetObject()) return null;             // No typed getObject support
+            if (!t.supportsTypedGetObject()) return null; // No typed getObject support
             return (Class<T>) t.getReadSqlType();
         }
         return appType;
