@@ -1,5 +1,7 @@
 package fr.emcastro.jdbcretyper.transform;
 
+import fr.emcastro.jdbcretyper.exception.TypeConversionException;
+
 /**
  * Type transformer for the reading direction: from JDBC SQL values to application types.
  *
@@ -65,6 +67,8 @@ public interface ReadTypeTransformer<A, S> {
      *
      * @param sqlValue the JDBC value (never null)
      * @return the application value of type {@code A}
+     * @throws TypeConversionException if the value cannot be converted
+     *                                  (e.g. parse failure, invalid format)
      */
     A fromSql(S sqlValue);
 }

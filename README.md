@@ -118,6 +118,8 @@ try (var conn = new RetyperConnection(DriverManager.getConnection("jdbc:duckdb:"
 
 This means the registration order matters when multiple transformers could handle the same type. Register the most specific one first.
 
+Transformer implementations should throw `TypeConversionException` from `fromSql()` and `toSql()` to report conversion failures (parsing errors, invalid data, serialization failures, etc.).
+
 Once the registry is passed to a `RetyperDatasource` or `RetyperConnection`, it must not be modified further — the lists are not thread-safe and are _not_ copied defensively. Configure the registry completely before creating any Retyper instance.
 
 The library (`fr.emcastro:jdbcretyper`) has **zero Spring dependencies**. `JdbcClient` integration is done by simply wrapping the `DataSource`.

@@ -5,6 +5,7 @@ import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKBReader;
 import org.postgresql.util.PGobject;
 
+import fr.emcastro.jdbcretyper.exception.TypeConversionException;
 import fr.emcastro.jdbcretyper.transform.ReadTypeTransformer;
 
 public class GeometryReadTransformer implements ReadTypeTransformer<Geometry, PGobject> {
@@ -31,7 +32,7 @@ public class GeometryReadTransformer implements ReadTypeTransformer<Geometry, PG
         try {
             return reader.read(WKBReader.hexToBytes(sqlValue.getValue()));
         } catch (ParseException e) {
-            throw new IllegalStateException("Unable to convert PGobject to Geometry", e);
+            throw new TypeConversionException("Unable to convert PGobject to Geometry", e);
         }
     }
 }

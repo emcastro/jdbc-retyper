@@ -149,6 +149,82 @@ class TypeTransformerRegistryTest {
         assertNull(result.get("col2"));
     }
 
+    @Test
+    // Check that fromSql() throws TypeConversionException when the
+    // matching transformer rejects the value via canTransform().
+    void fromSql_skipsWhenCanTransformReturnsFalse() {
+        registry.registerRead(new TestReadTransformerSelective(false));
+        assertThrows(TypeConversionException.class, () -> registry.fromSql(42, AcceptedValue.class));
+    }
+
+    @Test
+    // Check that fromSql() falls through to the next transformer when
+    // the first matching transformer rejects via canTransform().
+    void fromSql_fallsThroughWhenCanTransformReturnsFalse() {
+        registry.registerRead(new TestReadTransformerSelective(false));
+        registry.registerRead(new TestReadTransformerSelective(true));
+        AcceptedValue result = registry.fromSql(42, AcceptedValue.class);
+        assertEquals("accepted:42", result.value());
+    }
+
+    @Test
+    // Check that fromSqlDefaultType() returns the raw SQL value when
+    // the matching transformer rejects via canTransform().
+    void fromSqlDefaultType_skipsWhenCanTransformReturnsFalse() {
+        registry.registerRead(new TestReadTransformerSelective(false));
+        Object result = registry.fromSqlDefaultType(42);
+        assertEquals(42, result);
+    }
+
+    @Test
+    // Check that fromSqlDefaultType() falls through to the next
+    // transformer when the first matching one rejects via canTransform().
+    void fromSqlDefaultType_fallsThroughWhenCanTransformReturnsFalse() {
+        registry.registerRead(new TestReadTransformerSelective(false));
+        registry.registerRead(new TestReadTransformerSelective(true));
+        Object result = registry.fromSqlDefaultType(42);
+        assertInstanceOf(AcceptedValue.class, result);
+        assertEquals("accepted:42", ((AcceptedValue) result).value());
+    }
+
+    /**
+     * Test app type for selective read transformer.
+     */
+    record AcceptedValue(String value) {}
+
+    /**
+     * Test read transformer with configurable canTransform() for verifying
+     * the fallback logic in fromSql() and fromSqlDefaultType().
+     */
+    static class TestReadTransformerSelective implements ReadTypeTransformer<AcceptedValue, Integer> {
+
+        private final boolean accept;
+
+        TestReadTransformerSelective(boolean accept) {
+            this.accept = accept;
+        }
+
+        @Override
+        public Class<AcceptedValue> getAppType() {
+            return AcceptedValue.class;
+        }
+
+        @Override
+        public Class<Integer> getReadSqlType() {
+            return Integer.class;
+        }
+
+        @Override
+        public boolean canTransform(Integer sqlValue) {
+            return accept;
+        }
+
+        @Override
+        public AcceptedValue fromSql(Integer sqlValue) {
+            return new AcceptedValue("accepted:" + sqlValue);
+        }
+    }
+
     /**
      * Test transformer: TestAppValue <-> String with "SQL:" prefix.
      */

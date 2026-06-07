@@ -3,6 +3,7 @@ package fr.emcastro.jdbcretyper.demo.postgis.transform;
 import org.postgresql.util.PGobject;
 
 import fr.emcastro.jdbcretyper.demo.postgis.JsonBox;
+import fr.emcastro.jdbcretyper.exception.TypeConversionException;
 import fr.emcastro.jdbcretyper.transform.WriteTypeTransformer;
 
 public class JsonBoxPostgresWriteTransformer implements WriteTypeTransformer<JsonBox, PGobject> {
@@ -25,7 +26,7 @@ public class JsonBoxPostgresWriteTransformer implements WriteTypeTransformer<Jso
             pgObject.setValue(appValue.value());
             return pgObject;
         } catch (Exception e) {
-            throw new IllegalStateException("Unable to convert JsonBox to PGobject", e);
+            throw new TypeConversionException("Unable to convert JsonBox to PGobject", e);
         }
     }
 }

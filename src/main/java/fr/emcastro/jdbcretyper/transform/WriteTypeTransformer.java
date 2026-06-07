@@ -1,5 +1,7 @@
 package fr.emcastro.jdbcretyper.transform;
 
+import fr.emcastro.jdbcretyper.exception.TypeConversionException;
+
 /**
  * Type transformer for the writing direction: from application types to JDBC SQL values.
  *
@@ -43,6 +45,8 @@ public interface WriteTypeTransformer<A, P> {
      *
      * @param appValue the application value (never null)
      * @return the JDBC-compatible value of type {@code P}
+     * @throws TypeConversionException if the value cannot be converted
+     *                                  (e.g. serialization failure)
      */
     P toSql(A appValue);
 }
