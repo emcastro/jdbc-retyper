@@ -2,6 +2,13 @@
 
 A lightweight JDBC facade that transparently converts custom Java types to and from JDBC drivers, with zero extra dependencies.
 
+Use it when you want to:
+
+- Use your own domain types (records, POJOs) with DuckDB JSON columns instead of dealing with `JsonNode`
+- Read and write PostGIS `GEOMETRY` as JTS objects (`Point`, `LineString`, …) without `PGobject` plumbing
+- Plug the same registry into Spring `JdbcClient` by wrapping your existing `DataSource`
+- Add type mapping to any JDBC workflow without an ORM or entity manager
+
 ## Case 1 — Plain JDBC (using DuckDB as an example)
 
 ```java
