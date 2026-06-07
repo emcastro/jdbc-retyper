@@ -71,40 +71,49 @@ class ExampleRepository {
 }
 ```
 
-## Case 3 — Spatial Geometry (PostGIS / DuckDB spatial)
+## Case 3 — Spatial Geometry with PostGIS
 
 ```java
-class GeometryReadTransformer implements ReadTypeTransformer<Geometry, Blob> {
-    private final GeometryFactory gf = new GeometryFactory();
+class GeometryReadTransformer implements ReadTypeTransformer<Geometry, PGobject> {
+    private final WKBReader reader = new WKBReader();
     public Class<Geometry> getAppType() { return Geometry.class; }
-    public Class<Blob> getReadSqlType() { return Blob.class; }
-    public boolean supportsTypedGetObject() { return false; }
-    public Geometry fromSql(Blob v) {
-        try { return new WKBReader(gf).read(v.getBytes(1, (int) v.length()));
-        } catch (SQLException | ParseException e) {
-            throw new TypeConversionException("WKB error", e);
-        } finally { try { v.free(); } catch (SQLException ignored) {} }
+    public Class<PGobject> getReadSqlType() { return PGobject.class; }
+    public boolean canTransform(PGobject v) { return "geometry".equals(v.getType()); }
+    public Geometry fromSql(PGobject v) {
+        try { return reader.read(WKBReader.hexToBytes(v.getValue()));
+        } catch (ParseException e) {
+            throw new TypeConversionException("Unable to convert PGobject to Geometry", e);
+        }
     }
 }
-class GeometryWriteTransformer implements WriteTypeTransformer<Geometry, byte[]> {
+class GeometryWriteTransformer implements WriteTypeTransformer<Geometry, PGobject> {
+    private final WKBWriter writer = new WKBWriter();
     public Class<Geometry> getAppType() { return Geometry.class; }
-    public Class<byte[]> getWriteSqlType() { return byte[].class; }
-    public byte[] toSql(Geometry v) { return new WKBWriter().write(v); }
+    public Class<PGobject> getWriteSqlType() { return PGobject.class; }
+    public PGobject toSql(Geometry v) {
+        try {
+            PGobject pg = new PGobject();
+            pg.setType("geometry");
+            pg.setValue(WKBWriter.toHex(writer.write(v)));
+            return pg;
+        } catch (SQLException e) {
+            throw new TypeConversionException("Unable to convert Geometry to PGobject", e);
+        }
+    }
 }
 
 var registry = new TypeTransformerRegistry();
 registry.registerRead(new GeometryReadTransformer());
 registry.registerWrite(new GeometryWriteTransformer());
 
-try (var conn = new RetyperConnection(DriverManager.getConnection("jdbc:duckdb:"), registry)) {
-    try (var ps = conn.prepareStatement("INSERT INTO t VALUES (ST_GeomFromWKB(?))")) {
-        ps.setObject(1, gf.createPoint(new Coordinate(30.0, 10.0)));
-        ps.execute();
-    }
-    try (var stmt = conn.createStatement();
-         var rs = stmt.executeQuery("SELECT geom FROM t")) {
-        rs.next();
-        Point result = rs.getObject(1, Point.class);
+try (var conn = new RetyperConnection(DriverManager.getConnection(url, user, password), registry)) {
+    var point = new WKTReader().read("POINT (1 2)");
+    try (var ps = conn.prepareStatement("SELECT ST_SnapToGrid(ST_Buffer(?, 1, 1), 1e-10)")) {
+        ps.setObject(1, point);
+        try (var rs = ps.executeQuery()) {
+            rs.next();
+            Geometry result = (Geometry) rs.getObject(1);
+        }
     }
 }
 ```
