@@ -9,12 +9,12 @@
 
 ## Test Architecture
 
-| Package | Type | Description |
-|---------|------|-------------|
-| `jdbc/` | Unit (Mockito) | `*Test.java` — wrapper-logic tests (unwrap, isWrapperFor) |
+| Package            | Type           | Description                                                                                   |
+|--------------------|----------------|-----------------------------------------------------------------------------------------------|
+| `jdbc/`            | Unit (Mockito) | `*Test.java` — wrapper-logic tests (unwrap, isWrapperFor)                                     |
 | `jdbc/delegation/` | Unit (Mockito) | `*DelegationTest.java` — pure delegation checks (every JDBC method forwarded to the delegate) |
-| `transform/` | Unit | `TypeTransformerRegistryTest` — SQL-to-application type conversion logic |
-| root | Integration | `*DuckDBTest.java` — end-to-end tests extending `DuckDBTestBase` |
+| `transform/`       | Unit           | `TypeTransformerRegistryTest` — SQL-to-application type conversion logic                      |
+| root               | Integration    | `*DuckDBTest.java` — end-to-end tests extending `DuckDBTestBase`                              |
 
 ## Conventions
 
