@@ -43,6 +43,10 @@ try (var conn = new RetyperConnection(DriverManager.getConnection("jdbc:duckdb:"
 }
 ```
 
+> **Demo sources:** [`JsonBoxReadTransformer`](src/test/java/fr/emcastro/jdbcretyper/transform/JsonBoxReadTransformer.java),
+> [`JsonBoxWriteTransformer`](src/test/java/fr/emcastro/jdbcretyper/transform/JsonBoxWriteTransformer.java),
+> [`JsonBoxDuckDBTest`](src/test/java/fr/emcastro/jdbcretyper/JsonBoxDuckDBTest.java)
+
 ## Case 2 — Spring `JdbcClient`
 
 ```java
@@ -70,6 +74,12 @@ class ExampleRepository {
     }
 }
 ```
+
+> **Demo sources:** [`SpringJdbcClientApplication`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/SpringJdbcClientApplication.java),
+> [`JdbcConfig`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/config/JdbcConfig.java),
+> [`ExampleRepository`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/repository/ExampleRepository.java),
+> [`JsonBoxReadTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/transform/JsonBoxReadTransformer.java),
+> [`JsonBoxWriteTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/transform/JsonBoxWriteTransformer.java)
 
 ## Case 3 — Spatial Geometry with PostGIS
 
@@ -117,6 +127,12 @@ try (var conn = new RetyperConnection(DriverManager.getConnection(url, user, pas
     }
 }
 ```
+
+> **Demo sources:** [`PostgisApplication`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/PostgisApplication.java),
+> [`GeometryReadTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/GeometryReadTransformer.java),
+> [`GeometryPostgisWriteTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/GeometryPostgisWriteTransformer.java),
+> [`JsonBoxReadTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/JsonBoxReadTransformer.java),
+> [`JsonBoxPostgresWriteTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/JsonBoxPostgresWriteTransformer.java)
 
 ## How it works
 
