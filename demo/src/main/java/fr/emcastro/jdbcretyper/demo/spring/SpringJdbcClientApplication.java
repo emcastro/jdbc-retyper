@@ -25,21 +25,21 @@ public class SpringJdbcClientApplication {
         return args -> {
             System.out.println("Demo application started");
 
-            var jsonBox = new JsonBox("""
+            var jsonbox = new JsonBox("""
                     {"a": {"name":"a"}, "b": 42}
                     """);
-            System.out.println("Input: " + jsonBox);
+            System.out.println("Input: " + jsonbox);
             System.out.println();
 
             System.out.println("Extracting a into a JsonBox...");
-            JsonBox box = repo.extractA(jsonBox);
-            System.out.println("Result: " + box + "  - awaiting JsonBox[value={\"name\":\"a\"}]");
-            System.out.println("Type: " + box.getClass());
+            var resultBox1 = repo.extractA(jsonbox);
+            System.out.println("Result: " + resultBox1 + "  - awaiting JsonBox[value={\"name\":\"a\"}]");
+            System.out.println("Type: " + resultBox1.getClass());
             System.out.println();
 
             System.out.println("Extracting a and b using a JdbcClient query into a record...");
-            String result = repo.extractAB(jsonBox);
-            System.out.println("Result: " + result + "  - awaiting JsonBox[value={\"name\":\"a\"}]-42");
+            var resultBox2 = repo.extractAB(jsonbox);
+            System.out.println("Result: " + resultBox2 + "  - awaiting JsonBox[value={\"name\":\"a\"}]-42");
         };
     }
 }

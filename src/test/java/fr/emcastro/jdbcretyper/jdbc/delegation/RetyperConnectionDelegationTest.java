@@ -210,9 +210,9 @@ class RetyperConnectionDelegationTest {
     // Check that getMetaData() delegates to the underlying Connection
     // without additional transformation.
     void getMetaData_delegates() throws SQLException {
-        DatabaseMetaData expected = mock(DatabaseMetaData.class);
-        when(mockConnection.getMetaData()).thenReturn(expected);
-        assertSame(expected, connection.getMetaData());
+        DatabaseMetaData dbMetaData = mock(DatabaseMetaData.class);
+        when(mockConnection.getMetaData()).thenReturn(dbMetaData);
+        assertSame(dbMetaData, connection.getMetaData());
         verify(mockConnection).getMetaData();
     }
 
@@ -220,9 +220,9 @@ class RetyperConnectionDelegationTest {
     // Check that getClientInfo() delegates to the underlying Connection
     // without additional transformation.
     void getClientInfo_delegates() throws SQLException {
-        Properties expected = new Properties();
-        when(mockConnection.getClientInfo()).thenReturn(expected);
-        assertEquals(expected, connection.getClientInfo());
+        Properties clientInfo = new Properties();
+        when(mockConnection.getClientInfo()).thenReturn(clientInfo);
+        assertEquals(clientInfo, connection.getClientInfo());
         verify(mockConnection).getClientInfo();
     }
 
@@ -248,9 +248,9 @@ class RetyperConnectionDelegationTest {
     // Check that createArrayOf(String, Object[]) delegates to the
     // underlying Connection without additional transformation.
     void createArrayOf_delegates() throws SQLException {
-        Array expected = mock(Array.class);
-        when(mockConnection.createArrayOf("INTEGER", new Object[] {1, 2})).thenReturn(expected);
-        assertSame(expected, connection.createArrayOf("INTEGER", new Object[] {1, 2}));
+        Array array = mock(Array.class);
+        when(mockConnection.createArrayOf("INTEGER", new Object[] {1, 2})).thenReturn(array);
+        assertSame(array, connection.createArrayOf("INTEGER", new Object[] {1, 2}));
         verify(mockConnection).createArrayOf("INTEGER", new Object[] {1, 2});
     }
 
@@ -258,9 +258,9 @@ class RetyperConnectionDelegationTest {
     // Check that createBlob() delegates to the underlying Connection
     // without additional transformation.
     void createBlob_delegates() throws SQLException {
-        Blob expected = mock(Blob.class);
-        when(mockConnection.createBlob()).thenReturn(expected);
-        assertSame(expected, connection.createBlob());
+        Blob blob = mock(Blob.class);
+        when(mockConnection.createBlob()).thenReturn(blob);
+        assertSame(blob, connection.createBlob());
         verify(mockConnection).createBlob();
     }
 
@@ -268,9 +268,9 @@ class RetyperConnectionDelegationTest {
     // Check that createClob() delegates to the underlying Connection
     // without additional transformation.
     void createClob_delegates() throws SQLException {
-        Clob expected = mock(Clob.class);
-        when(mockConnection.createClob()).thenReturn(expected);
-        assertSame(expected, connection.createClob());
+        Clob clob = mock(Clob.class);
+        when(mockConnection.createClob()).thenReturn(clob);
+        assertSame(clob, connection.createClob());
         verify(mockConnection).createClob();
     }
 
@@ -278,9 +278,9 @@ class RetyperConnectionDelegationTest {
     // Check that createNClob() delegates to the underlying Connection
     // without additional transformation.
     void createNClob_delegates() throws SQLException {
-        NClob expected = mock(NClob.class);
-        when(mockConnection.createNClob()).thenReturn(expected);
-        assertSame(expected, connection.createNClob());
+        NClob nClob = mock(NClob.class);
+        when(mockConnection.createNClob()).thenReturn(nClob);
+        assertSame(nClob, connection.createNClob());
         verify(mockConnection).createNClob();
     }
 
@@ -288,9 +288,9 @@ class RetyperConnectionDelegationTest {
     // Check that createSQLXML() delegates to the underlying Connection
     // without additional transformation.
     void createSQLXML_delegates() throws SQLException {
-        SQLXML expected = mock(SQLXML.class);
-        when(mockConnection.createSQLXML()).thenReturn(expected);
-        assertSame(expected, connection.createSQLXML());
+        SQLXML sqlXml = mock(SQLXML.class);
+        when(mockConnection.createSQLXML()).thenReturn(sqlXml);
+        assertSame(sqlXml, connection.createSQLXML());
         verify(mockConnection).createSQLXML();
     }
 
@@ -298,9 +298,9 @@ class RetyperConnectionDelegationTest {
     // Check that createStruct(String, Object[]) delegates to the
     // underlying Connection without additional transformation.
     void createStruct_delegates() throws SQLException {
-        Struct expected = mock(Struct.class);
-        when(mockConnection.createStruct("MY_TYPE", new Object[] {"a", "b"})).thenReturn(expected);
-        assertSame(expected, connection.createStruct("MY_TYPE", new Object[] {"a", "b"}));
+        Struct struct = mock(Struct.class);
+        when(mockConnection.createStruct("MY_TYPE", new Object[] {"a", "b"})).thenReturn(struct);
+        assertSame(struct, connection.createStruct("MY_TYPE", new Object[] {"a", "b"}));
         verify(mockConnection).createStruct("MY_TYPE", new Object[] {"a", "b"});
     }
 
@@ -317,9 +317,9 @@ class RetyperConnectionDelegationTest {
     // Check that getTypeMap() delegates to the underlying Connection
     // without additional transformation.
     void getTypeMap_delegates() throws SQLException {
-        Map<String, Class<?>> expected = Map.of();
-        when(mockConnection.getTypeMap()).thenReturn(expected);
-        assertEquals(expected, connection.getTypeMap());
+        Map<String, Class<?>> typeMap = Map.of();
+        when(mockConnection.getTypeMap()).thenReturn(typeMap);
+        assertEquals(typeMap, connection.getTypeMap());
         verify(mockConnection).getTypeMap();
     }
 
@@ -372,9 +372,9 @@ class RetyperConnectionDelegationTest {
     // Check that setSavepoint() delegates to the underlying Connection
     // without additional transformation.
     void setSavepoint_delegates() throws SQLException {
-        Savepoint expected = mock(Savepoint.class);
-        when(mockConnection.setSavepoint()).thenReturn(expected);
-        assertSame(expected, connection.setSavepoint());
+        Savepoint savepoint = mock(Savepoint.class);
+        when(mockConnection.setSavepoint()).thenReturn(savepoint);
+        assertSame(savepoint, connection.setSavepoint());
         verify(mockConnection).setSavepoint();
     }
 
@@ -382,9 +382,9 @@ class RetyperConnectionDelegationTest {
     // Check that setSavepoint(String) delegates to the underlying
     // Connection without additional transformation.
     void setSavepoint_withName_delegates() throws SQLException {
-        Savepoint expected = mock(Savepoint.class);
-        when(mockConnection.setSavepoint("sp1")).thenReturn(expected);
-        assertSame(expected, connection.setSavepoint("sp1"));
+        Savepoint savepoint = mock(Savepoint.class);
+        when(mockConnection.setSavepoint("sp1")).thenReturn(savepoint);
+        assertSame(savepoint, connection.setSavepoint("sp1"));
         verify(mockConnection).setSavepoint("sp1");
     }
 

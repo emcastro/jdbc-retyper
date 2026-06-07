@@ -149,38 +149,38 @@ class RetyperCallableStatementTest {
     // Check that setObject(String, Object) converts the value via toSql()
     // before passing it to the delegate.
     void setObject_string_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject("param", value);
+        statement.setObject("param", obj);
 
-        verify(registry).toSql(value);
-        verify(mockCallableStatement).setObject("param", value);
+        verify(registry).toSql(obj);
+        verify(mockCallableStatement).setObject("param", obj);
     }
 
     @Test
     // Check that setObject(String, Object, int) converts the value via
     // toSql() before passing it to the delegate.
     void setObject_stringWithSqlType_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject("param", value, 12);
+        statement.setObject("param", obj, 12);
 
-        verify(registry).toSql(value);
-        verify(mockCallableStatement).setObject("param", value, 12);
+        verify(registry).toSql(obj);
+        verify(mockCallableStatement).setObject("param", obj, 12);
     }
 
     @Test
     // Check that setObject(String, Object, int, int) converts the value
     // via toSql() before passing it to the delegate.
     void setObject_stringWithSqlTypeAndScale_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject("param", value, 12, 3);
+        statement.setObject("param", obj, 12, 3);
 
-        verify(registry).toSql(value);
-        verify(mockCallableStatement).setObject("param", value, 12, 3);
+        verify(registry).toSql(obj);
+        verify(mockCallableStatement).setObject("param", obj, 12, 3);
     }
 }

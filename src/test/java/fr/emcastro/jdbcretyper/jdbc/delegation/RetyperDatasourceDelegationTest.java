@@ -38,10 +38,10 @@ class RetyperDatasourceDelegationTest {
     // Check that getLogWriter() delegates to the underlying DataSource
     // without additional transformation.
     void getLogWriter_delegates() throws SQLException {
-        PrintWriter expected = new PrintWriter(System.out);
-        when(mockDataSource.getLogWriter()).thenReturn(expected);
+        PrintWriter logWriter = new PrintWriter(System.out);
+        when(mockDataSource.getLogWriter()).thenReturn(logWriter);
 
-        assertSame(expected, datasource.getLogWriter());
+        assertSame(logWriter, datasource.getLogWriter());
         verify(mockDataSource).getLogWriter();
     }
 
@@ -78,10 +78,10 @@ class RetyperDatasourceDelegationTest {
     // Check that getParentLogger() delegates to the underlying DataSource
     // without additional transformation.
     void getParentLogger_delegates() throws SQLException {
-        Logger expected = Logger.getGlobal();
-        when(mockDataSource.getParentLogger()).thenReturn(expected);
+        Logger parentLogger = Logger.getGlobal();
+        when(mockDataSource.getParentLogger()).thenReturn(parentLogger);
 
-        assertSame(expected, datasource.getParentLogger());
+        assertSame(parentLogger, datasource.getParentLogger());
         verify(mockDataSource).getParentLogger();
     }
 }

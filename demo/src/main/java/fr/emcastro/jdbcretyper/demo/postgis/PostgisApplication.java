@@ -70,11 +70,11 @@ public class PostgisApplication {
                 preparedStatement.setObject(2, json);
                 try (var resultSet = preparedStatement.executeQuery()) {
                     resultSet.next();
-                    JsonBox box = resultSet.getObject(1, JsonBox.class);
+                    var jsonbox = resultSet.getObject(1, JsonBox.class);
                     int num = resultSet.getInt(2);
 
-                    System.out.println("Result: " + box + "  - awaiting JsonBox[value={\"name\": \"a\", \"type\": \"letter\"}]");
-                    System.out.println("Type: " + box.getClass());
+                    System.out.println("Result: " + jsonbox + "  - awaiting JsonBox[value={\"name\": \"a\", \"type\": \"letter\"}]");
+                    System.out.println("Type: " + jsonbox.getClass());
                     System.out.println("Number: " + num + " - awaiting 42");
                 }
             }

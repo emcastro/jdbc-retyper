@@ -16,5 +16,10 @@ A## General directives
 - Use `TEXT` for all text and string types (DDL, SQL casts, comments). Do not use `VARCHAR`.
 - When writing JSON strings in Java, use text block (`"""`) syntax for readability.
 
+- Pure delegation tests go in `jdbc/delegation/` package; wrapper-logic tests
+  (`unwrap`, `isWrapperFor`) go in the matching `jdbc/*Test.java`.
+- Maintain 100% coverage (instructions, branches, lines, complexity, methods).
+- Prefix new test methods with a `// Check that...` comment.
+
 See [ROADMAP.md](./ROADMAP.md) for short-term objectives.
 

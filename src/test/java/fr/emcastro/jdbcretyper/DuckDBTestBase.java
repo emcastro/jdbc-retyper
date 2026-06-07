@@ -1,6 +1,5 @@
 package fr.emcastro.jdbcretyper;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +27,7 @@ public abstract class DuckDBTestBase {
         registry.registerRead(new GeometryReadTransformer());
         registry.registerWrite(new GeometryWriteTransformer());
 
-        Connection raw = DriverManager.getConnection("jdbc:duckdb:");
+        var raw = DriverManager.getConnection("jdbc:duckdb:");
         connection = new RetyperConnection(raw, registry);
 
         // Load spatial extension for geometry tests

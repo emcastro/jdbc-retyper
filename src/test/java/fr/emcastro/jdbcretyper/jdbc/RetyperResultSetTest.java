@@ -138,24 +138,24 @@ class RetyperResultSetTest {
     // Check that updateObject(int, Object) converts the value via
     // toSql() before passing it to the delegate.
     void updateObject_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        retyperResultSet.updateObject(1, value);
+        retyperResultSet.updateObject(1, obj);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that updateObject(int, Object, int) with a scale parameter
     // also converts the value via toSql() first.
     void updateObject_withScale_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        retyperResultSet.updateObject(1, value, 2);
+        retyperResultSet.updateObject(1, obj, 2);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     // --- Unwrap / isWrapperFor ---
@@ -164,9 +164,9 @@ class RetyperResultSetTest {
     // Check that unwrap(ResultSet.class) returns the underlying driver
     // ResultSet when the requested type matches the delegate.
     void unwrap_returnsWrappedIfInstance() throws SQLException {
-        ResultSet result = retyperResultSet.unwrap(ResultSet.class);
+        ResultSet resultSet = retyperResultSet.unwrap(ResultSet.class);
 
-        assertSame(mockResultSet, result);
+        assertSame(mockResultSet, resultSet);
     }
 
     @Test
@@ -209,71 +209,71 @@ class RetyperResultSetTest {
     // Check that updateObject(String, Object) converts the value via
     // toSql() before passing it to the delegate.
     void updateObject_byLabel_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        retyperResultSet.updateObject("col", value);
+        retyperResultSet.updateObject("col", obj);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that updateObject(int, Object, SQLType) converts the value
     // via toSql() before passing it to the delegate.
     void updateObject_withSqlType_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
-        SQLType sqlType = mock(SQLType.class);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
+        var sqlType = mock(SQLType.class);
 
-        retyperResultSet.updateObject(1, value, sqlType);
+        retyperResultSet.updateObject(1, obj, sqlType);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that updateObject(String, Object, SQLType, int) converts
     // the value via toSql() before passing it to the delegate.
     void updateObject_byLabel_withSqlTypeAndScale_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
-        SQLType sqlType = mock(SQLType.class);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
+        var sqlType = mock(SQLType.class);
 
-        retyperResultSet.updateObject("col", value, sqlType, 2);
+        retyperResultSet.updateObject("col", obj, sqlType, 2);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that updateObject(String, Object, int) converts the value
     // via toSql() before passing it to the delegate.
     void updateObject_byLabel_withScale_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        retyperResultSet.updateObject("col", value, 2);
+        retyperResultSet.updateObject("col", obj, 2);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that updateObject(String, Object, SQLType) converts the
     // value via toSql() before passing it to the delegate.
     void updateObject_byLabel_withSqlType_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
-        SQLType sqlType = mock(SQLType.class);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
+        var sqlType = mock(SQLType.class);
 
-        retyperResultSet.updateObject("col", value, sqlType);
+        retyperResultSet.updateObject("col", obj, sqlType);
 
-        verify(registry).toSql(value);
+        verify(registry).toSql(obj);
     }
 
     @Test
     // Check that getStatement() returns the wrapping Statement passed
     // to the constructor, not the underlying driver's Statement.
     void getStatement_returnsWrapper() throws SQLException {
-        Statement mockStatement = mock(Statement.class);
-        try (RetyperResultSet rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStatement)) {
+        var mockStatement = mock(Statement.class);
+        try (var rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStatement)) {
             assertSame(mockStatement, rsWithStatement.getStatement());
         }
     }
@@ -282,9 +282,9 @@ class RetyperResultSetTest {
     // Check that unwrap(Class) delegates to the underlying ResultSet
     // when it doesn't implement the requested type.
     void unwrap_delegatesWhenNotInstance() throws SQLException {
-        DatabaseMetaData expected = mock(DatabaseMetaData.class);
-        when(mockResultSet.unwrap(DatabaseMetaData.class)).thenReturn(expected);
-        assertSame(expected, retyperResultSet.unwrap(DatabaseMetaData.class));
+        var dbMetaData = mock(DatabaseMetaData.class);
+        when(mockResultSet.unwrap(DatabaseMetaData.class)).thenReturn(dbMetaData);
+        assertSame(dbMetaData, retyperResultSet.unwrap(DatabaseMetaData.class));
         verify(mockResultSet).unwrap(DatabaseMetaData.class);
     }
 

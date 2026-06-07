@@ -74,9 +74,9 @@ class RetyperDatasourceTest {
     // Check that unwrap(Class) delegates to the underlying DataSource
     // when it doesn't implement the requested type.
     void unwrap_delegatesWhenNotInstance() throws SQLException {
-        DatabaseMetaData expected = mock(DatabaseMetaData.class);
-        when(mockDataSource.unwrap(DatabaseMetaData.class)).thenReturn(expected);
-        assertSame(expected, datasource.unwrap(DatabaseMetaData.class));
+        DatabaseMetaData dbMetaData = mock(DatabaseMetaData.class);
+        when(mockDataSource.unwrap(DatabaseMetaData.class)).thenReturn(dbMetaData);
+        assertSame(dbMetaData, datasource.unwrap(DatabaseMetaData.class));
         verify(mockDataSource).unwrap(DatabaseMetaData.class);
     }
 

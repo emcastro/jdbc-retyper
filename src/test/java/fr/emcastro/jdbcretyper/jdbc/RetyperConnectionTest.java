@@ -209,9 +209,9 @@ class RetyperConnectionTest {
     // Check that unwrap(Class) delegates to the underlying Connection
     // when it doesn't implement the requested type.
     void unwrap_delegatesWhenNotInstance() throws SQLException {
-        DatabaseMetaData expected = mock(DatabaseMetaData.class);
-        when(mockConnection.unwrap(DatabaseMetaData.class)).thenReturn(expected);
-        assertSame(expected, connection.unwrap(DatabaseMetaData.class));
+        DatabaseMetaData dbMetaData = mock(DatabaseMetaData.class);
+        when(mockConnection.unwrap(DatabaseMetaData.class)).thenReturn(dbMetaData);
+        assertSame(dbMetaData, connection.unwrap(DatabaseMetaData.class));
         verify(mockConnection).unwrap(DatabaseMetaData.class);
     }
 

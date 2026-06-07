@@ -1,5 +1,7 @@
 package fr.emcastro.jdbcretyper.demo.postgis.transform;
 
+import java.sql.SQLException;
+
 import org.postgresql.util.PGobject;
 
 import fr.emcastro.jdbcretyper.demo.postgis.JsonBox;
@@ -25,7 +27,7 @@ public class JsonBoxPostgresWriteTransformer implements WriteTypeTransformer<Jso
             pgObject.setType("jsonb");
             pgObject.setValue(appValue.value());
             return pgObject;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new TypeConversionException("Unable to convert JsonBox to PGobject", e);
         }
     }

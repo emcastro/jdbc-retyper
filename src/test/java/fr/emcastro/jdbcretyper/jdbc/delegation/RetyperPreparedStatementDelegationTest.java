@@ -90,9 +90,9 @@ class RetyperPreparedStatementDelegationTest {
     // Check that getMetaData() delegates to the underlying
     // PreparedStatement without additional transformation.
     void getMetaData_delegates() throws SQLException {
-        ResultSetMetaData expected = mock(ResultSetMetaData.class);
-        when(mockPreparedStatement.getMetaData()).thenReturn(expected);
-        assertSame(expected, statement.getMetaData());
+        var metaData = mock(ResultSetMetaData.class);
+        when(mockPreparedStatement.getMetaData()).thenReturn(metaData);
+        assertSame(metaData, statement.getMetaData());
         verify(mockPreparedStatement).getMetaData();
     }
 
@@ -100,9 +100,9 @@ class RetyperPreparedStatementDelegationTest {
     // Check that getParameterMetaData() delegates to the underlying
     // PreparedStatement without additional transformation.
     void getParameterMetaData_delegates() throws SQLException {
-        ParameterMetaData expected = mock(ParameterMetaData.class);
-        when(mockPreparedStatement.getParameterMetaData()).thenReturn(expected);
-        assertSame(expected, statement.getParameterMetaData());
+        var paramMetaData = mock(ParameterMetaData.class);
+        when(mockPreparedStatement.getParameterMetaData()).thenReturn(paramMetaData);
+        assertSame(paramMetaData, statement.getParameterMetaData());
         verify(mockPreparedStatement).getParameterMetaData();
     }
 
@@ -182,9 +182,9 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBigDecimal(int, BigDecimal) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setBigDecimal_delegates() throws SQLException {
-        BigDecimal value = new BigDecimal("123.45");
-        statement.setBigDecimal(1, value);
-        verify(mockPreparedStatement).setBigDecimal(1, value);
+        var bigDecimal = new BigDecimal("123.45");
+        statement.setBigDecimal(1, bigDecimal);
+        verify(mockPreparedStatement).setBigDecimal(1, bigDecimal);
     }
 
     @Test
@@ -207,64 +207,64 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setDate(int, Date) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setDate_delegates() throws SQLException {
-        Date value = new Date(System.currentTimeMillis());
-        statement.setDate(1, value);
-        verify(mockPreparedStatement).setDate(1, value);
+        var date = new Date(System.currentTimeMillis());
+        statement.setDate(1, date);
+        verify(mockPreparedStatement).setDate(1, date);
     }
 
     @Test
     // Check that setDate(int, Date, Calendar) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setDate_withCalendar_delegates() throws SQLException {
-        Date value = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        statement.setDate(1, value, cal);
-        verify(mockPreparedStatement).setDate(1, value, cal);
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        statement.setDate(1, date, cal);
+        verify(mockPreparedStatement).setDate(1, date, cal);
     }
 
     @Test
     // Check that setTime(int, Time) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setTime_delegates() throws SQLException {
-        Time value = new Time(System.currentTimeMillis());
-        statement.setTime(1, value);
-        verify(mockPreparedStatement).setTime(1, value);
+        var time = new Time(System.currentTimeMillis());
+        statement.setTime(1, time);
+        verify(mockPreparedStatement).setTime(1, time);
     }
 
     @Test
     // Check that setTime(int, Time, Calendar) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setTime_withCalendar_delegates() throws SQLException {
-        Time value = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        statement.setTime(1, value, cal);
-        verify(mockPreparedStatement).setTime(1, value, cal);
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        statement.setTime(1, time, cal);
+        verify(mockPreparedStatement).setTime(1, time, cal);
     }
 
     @Test
     // Check that setTimestamp(int, Timestamp) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setTimestamp_delegates() throws SQLException {
-        Timestamp value = new Timestamp(System.currentTimeMillis());
-        statement.setTimestamp(1, value);
-        verify(mockPreparedStatement).setTimestamp(1, value);
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        statement.setTimestamp(1, timestamp);
+        verify(mockPreparedStatement).setTimestamp(1, timestamp);
     }
 
     @Test
     // Check that setTimestamp(int, Timestamp, Calendar) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setTimestamp_withCalendar_delegates() throws SQLException {
-        Timestamp value = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        statement.setTimestamp(1, value, cal);
-        verify(mockPreparedStatement).setTimestamp(1, value, cal);
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        statement.setTimestamp(1, timestamp, cal);
+        verify(mockPreparedStatement).setTimestamp(1, timestamp, cal);
     }
 
     @Test
     // Check that setAsciiStream(int, InputStream) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setAsciiStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream(1, stream);
         verify(mockPreparedStatement).setAsciiStream(1, stream);
     }
@@ -273,7 +273,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBinaryStream(int, InputStream) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setBinaryStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream(1, stream);
         verify(mockPreparedStatement).setBinaryStream(1, stream);
     }
@@ -282,7 +282,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setCharacterStream(int, Reader) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setCharacterStream_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream(1, reader);
         verify(mockPreparedStatement).setCharacterStream(1, reader);
     }
@@ -291,7 +291,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBlob(int, Blob) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setBlob_delegates() throws SQLException {
-        Blob blob = mock(Blob.class);
+        var blob = mock(Blob.class);
         statement.setBlob(1, blob);
         verify(mockPreparedStatement).setBlob(1, blob);
     }
@@ -300,7 +300,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setClob(int, Clob) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setClob_delegates() throws SQLException {
-        Clob clob = mock(Clob.class);
+        var clob = mock(Clob.class);
         statement.setClob(1, clob);
         verify(mockPreparedStatement).setClob(1, clob);
     }
@@ -309,7 +309,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setArray(int, Array) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setArray_delegates() throws SQLException {
-        Array array = mock(Array.class);
+        var array = mock(Array.class);
         statement.setArray(1, array);
         verify(mockPreparedStatement).setArray(1, array);
     }
@@ -318,7 +318,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setRef(int, Ref) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setRef_delegates() throws SQLException {
-        Ref ref = mock(Ref.class);
+        var ref = mock(Ref.class);
         statement.setRef(1, ref);
         verify(mockPreparedStatement).setRef(1, ref);
     }
@@ -327,7 +327,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setRowId(int, RowId) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setRowId_delegates() throws SQLException {
-        RowId rowId = mock(RowId.class);
+        var rowId = mock(RowId.class);
         statement.setRowId(1, rowId);
         verify(mockPreparedStatement).setRowId(1, rowId);
     }
@@ -344,7 +344,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setNClob(int, NClob) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setNClob_delegates() throws SQLException {
-        NClob nclob = mock(NClob.class);
+        var nclob = mock(NClob.class);
         statement.setNClob(1, nclob);
         verify(mockPreparedStatement).setNClob(1, nclob);
     }
@@ -353,7 +353,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setSQLXML(int, SQLXML) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setSQLXML_delegates() throws SQLException {
-        SQLXML xml = mock(SQLXML.class);
+        var xml = mock(SQLXML.class);
         statement.setSQLXML(1, xml);
         verify(mockPreparedStatement).setSQLXML(1, xml);
     }
@@ -362,7 +362,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setURL(int, URL) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setURL_delegates() throws Exception {
-        URL url = new URL("http://example.com");
+        var url = new URL("http://example.com");
         statement.setURL(1, url);
         verify(mockPreparedStatement).setURL(1, url);
     }
@@ -371,7 +371,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setAsciiStream(int, InputStream, int) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setAsciiStream_withIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream(1, stream, 100);
         verify(mockPreparedStatement).setAsciiStream(1, stream, 100);
     }
@@ -380,7 +380,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setAsciiStream(int, InputStream, long) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setAsciiStream_withLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream(1, stream, 100L);
         verify(mockPreparedStatement).setAsciiStream(1, stream, 100L);
     }
@@ -389,7 +389,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBinaryStream(int, InputStream, int) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setBinaryStream_withIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream(1, stream, 100);
         verify(mockPreparedStatement).setBinaryStream(1, stream, 100);
     }
@@ -398,7 +398,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBinaryStream(int, InputStream, long) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setBinaryStream_withLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream(1, stream, 100L);
         verify(mockPreparedStatement).setBinaryStream(1, stream, 100L);
     }
@@ -407,7 +407,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setCharacterStream(int, Reader, int) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setCharacterStream_withIntLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream(1, reader, 100);
         verify(mockPreparedStatement).setCharacterStream(1, reader, 100);
     }
@@ -416,7 +416,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setCharacterStream(int, Reader, long) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setCharacterStream_withLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream(1, reader, 100L);
         verify(mockPreparedStatement).setCharacterStream(1, reader, 100L);
     }
@@ -425,7 +425,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBlob(int, InputStream) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setBlob_withInputStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBlob(1, stream);
         verify(mockPreparedStatement).setBlob(1, stream);
     }
@@ -434,7 +434,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setBlob(int, InputStream, long) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setBlob_withInputStreamAndLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBlob(1, stream, 100L);
         verify(mockPreparedStatement).setBlob(1, stream, 100L);
     }
@@ -443,7 +443,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setClob(int, Reader) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setClob_withReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setClob(1, reader);
         verify(mockPreparedStatement).setClob(1, reader);
     }
@@ -452,7 +452,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setClob(int, Reader, long) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setClob_withReaderAndLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setClob(1, reader, 100L);
         verify(mockPreparedStatement).setClob(1, reader, 100L);
     }
@@ -461,7 +461,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setNClob(int, Reader) delegates to the underlying
     // PreparedStatement without additional transformation.
     void setNClob_withReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNClob(1, reader);
         verify(mockPreparedStatement).setNClob(1, reader);
     }
@@ -470,7 +470,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setNClob(int, Reader, long) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setNClob_withReaderAndLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNClob(1, reader, 100L);
         verify(mockPreparedStatement).setNClob(1, reader, 100L);
     }
@@ -479,7 +479,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setNCharacterStream(int, Reader) delegates to the
     // underlying PreparedStatement without additional transformation.
     void setNCharacterStream_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNCharacterStream(1, reader);
         verify(mockPreparedStatement).setNCharacterStream(1, reader);
     }
@@ -488,7 +488,7 @@ class RetyperPreparedStatementDelegationTest {
     // Check that setNCharacterStream(int, Reader, long) delegates to
     // the underlying PreparedStatement without additional transformation.
     void setNCharacterStream_withLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNCharacterStream(1, reader, 100L);
         verify(mockPreparedStatement).setNCharacterStream(1, reader, 100L);
     }
@@ -498,7 +498,7 @@ class RetyperPreparedStatementDelegationTest {
     // the underlying PreparedStatement without additional transformation.
     @SuppressWarnings("deprecation")
     void setUnicodeStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setUnicodeStream(1, stream, 100);
         verify(mockPreparedStatement).setUnicodeStream(1, stream, 100);
     }

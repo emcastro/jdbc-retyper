@@ -38,51 +38,51 @@ class RetyperPreparedStatementTest {
     // Check that setObject(int, Object) converts the value via toSql()
     // before passing it to the delegate.
     void setObject_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject(1, value);
+        statement.setObject(1, obj);
 
-        verify(registry).toSql(value);
-        verify(mockPreparedStatement).setObject(1, value);
+        verify(registry).toSql(obj);
+        verify(mockPreparedStatement).setObject(1, obj);
     }
 
     @Test
     // Check that setObject(int, Object, int) converts the value via
     // toSql() before passing it to the delegate.
     void setObject_withSqlType_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject(1, value, 12);
+        statement.setObject(1, obj, 12);
 
-        verify(registry).toSql(value);
-        verify(mockPreparedStatement).setObject(1, value, 12);
+        verify(registry).toSql(obj);
+        verify(mockPreparedStatement).setObject(1, obj, 12);
     }
 
     @Test
     // Check that setObject(int, Object, int, int) converts the value
     // via toSql() before passing it to the delegate.
     void setObject_withSqlTypeAndScale_usesToSql() throws SQLException {
-        Object value = new Object();
-        when(registry.toSql(value)).thenReturn(value);
+        var obj = new Object();
+        when(registry.toSql(obj)).thenReturn(obj);
 
-        statement.setObject(1, value, 12, 3);
+        statement.setObject(1, obj, 12, 3);
 
-        verify(registry).toSql(value);
-        verify(mockPreparedStatement).setObject(1, value, 12, 3);
+        verify(registry).toSql(obj);
+        verify(mockPreparedStatement).setObject(1, obj, 12, 3);
     }
 
     @Test
     // Check that executeQuery() returns a RetyperResultSet carrying
     // this statement as the wrapping Statement reference.
     void executeQuery_returnsRetyperResultSetWithThisStatement() throws SQLException {
-        ResultSet mockRs = mock(ResultSet.class);
+        var mockRs = mock(ResultSet.class);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockRs);
 
-        ResultSet result = statement.executeQuery();
+        var resultSet = statement.executeQuery();
 
-        assertInstanceOf(RetyperResultSet.class, result);
-        assertSame(statement, result.getStatement());
+        assertInstanceOf(RetyperResultSet.class, resultSet);
+        assertSame(statement, resultSet.getStatement());
     }
 }

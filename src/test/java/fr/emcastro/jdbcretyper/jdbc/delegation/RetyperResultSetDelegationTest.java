@@ -18,7 +18,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.RowId;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Statement;
@@ -120,9 +119,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBigDecimal(int) delegates to the underlying
     // ResultSet without additional transformation.
     void getBigDecimal_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockResultSet.getBigDecimal(1)).thenReturn(expected);
-        assertEquals(expected, rs.getBigDecimal(1));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockResultSet.getBigDecimal(1)).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, rs.getBigDecimal(1));
         verify(mockResultSet).getBigDecimal(1);
     }
 
@@ -131,9 +130,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBigDecimal(int, int) delegates to the underlying
     // ResultSet without additional transformation.
     void getBigDecimal_withScale_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockResultSet.getBigDecimal(1, 2)).thenReturn(expected);
-        assertEquals(expected, rs.getBigDecimal(1, 2));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockResultSet.getBigDecimal(1, 2)).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, rs.getBigDecimal(1, 2));
         verify(mockResultSet).getBigDecimal(1, 2);
     }
 
@@ -150,9 +149,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBytes(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getBytes_delegates() throws SQLException {
-        byte[] expected = {1, 2, 3};
-        when(mockResultSet.getBytes(1)).thenReturn(expected);
-        assertArrayEquals(expected, rs.getBytes(1));
+        var bytes = new byte[] {1, 2, 3};
+        when(mockResultSet.getBytes(1)).thenReturn(bytes);
+        assertArrayEquals(bytes, rs.getBytes(1));
         verify(mockResultSet).getBytes(1);
     }
 
@@ -162,9 +161,9 @@ class RetyperResultSetDelegationTest {
     // Check that getDate(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getDate_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        when(mockResultSet.getDate(1)).thenReturn(expected);
-        assertEquals(expected, rs.getDate(1));
+        var date = new Date(System.currentTimeMillis());
+        when(mockResultSet.getDate(1)).thenReturn(date);
+        assertEquals(date, rs.getDate(1));
         verify(mockResultSet).getDate(1);
     }
 
@@ -172,9 +171,9 @@ class RetyperResultSetDelegationTest {
     // Check that getTime(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getTime_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        when(mockResultSet.getTime(1)).thenReturn(expected);
-        assertEquals(expected, rs.getTime(1));
+        var time = new Time(System.currentTimeMillis());
+        when(mockResultSet.getTime(1)).thenReturn(time);
+        assertEquals(time, rs.getTime(1));
         verify(mockResultSet).getTime(1);
     }
 
@@ -182,9 +181,9 @@ class RetyperResultSetDelegationTest {
     // Check that getTimestamp(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getTimestamp_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        when(mockResultSet.getTimestamp(1)).thenReturn(expected);
-        assertEquals(expected, rs.getTimestamp(1));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        when(mockResultSet.getTimestamp(1)).thenReturn(timestamp);
+        assertEquals(timestamp, rs.getTimestamp(1));
         verify(mockResultSet).getTimestamp(1);
     }
 
@@ -192,10 +191,10 @@ class RetyperResultSetDelegationTest {
     // Check that getDate(int, Calendar) delegates to the underlying
     // ResultSet without additional transformation.
     void getDate_withCalendar_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getDate(1, cal)).thenReturn(expected);
-        assertEquals(expected, rs.getDate(1, cal));
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getDate(1, cal)).thenReturn(date);
+        assertEquals(date, rs.getDate(1, cal));
         verify(mockResultSet).getDate(1, cal);
     }
 
@@ -203,10 +202,10 @@ class RetyperResultSetDelegationTest {
     // Check that getTime(int, Calendar) delegates to the underlying
     // ResultSet without additional transformation.
     void getTime_withCalendar_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getTime(1, cal)).thenReturn(expected);
-        assertEquals(expected, rs.getTime(1, cal));
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getTime(1, cal)).thenReturn(time);
+        assertEquals(time, rs.getTime(1, cal));
         verify(mockResultSet).getTime(1, cal);
     }
 
@@ -214,10 +213,10 @@ class RetyperResultSetDelegationTest {
     // Check that getTimestamp(int, Calendar) delegates to the underlying
     // ResultSet without additional transformation.
     void getTimestamp_withCalendar_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getTimestamp(1, cal)).thenReturn(expected);
-        assertEquals(expected, rs.getTimestamp(1, cal));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getTimestamp(1, cal)).thenReturn(timestamp);
+        assertEquals(timestamp, rs.getTimestamp(1, cal));
         verify(mockResultSet).getTimestamp(1, cal);
     }
 
@@ -227,9 +226,9 @@ class RetyperResultSetDelegationTest {
     // Check that getAsciiStream(int) delegates to the underlying
     // ResultSet without additional transformation.
     void getAsciiStream_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getAsciiStream(1)).thenReturn(expected);
-        assertSame(expected, rs.getAsciiStream(1));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getAsciiStream(1)).thenReturn(inputStream);
+        assertSame(inputStream, rs.getAsciiStream(1));
         verify(mockResultSet).getAsciiStream(1);
     }
 
@@ -237,9 +236,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBinaryStream(int) delegates to the underlying
     // ResultSet without additional transformation.
     void getBinaryStream_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getBinaryStream(1)).thenReturn(expected);
-        assertSame(expected, rs.getBinaryStream(1));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getBinaryStream(1)).thenReturn(inputStream);
+        assertSame(inputStream, rs.getBinaryStream(1));
         verify(mockResultSet).getBinaryStream(1);
     }
 
@@ -247,9 +246,9 @@ class RetyperResultSetDelegationTest {
     // Check that getCharacterStream(int) delegates to the underlying
     // ResultSet without additional transformation.
     void getCharacterStream_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockResultSet.getCharacterStream(1)).thenReturn(expected);
-        assertSame(expected, rs.getCharacterStream(1));
+        var reader = mock(Reader.class);
+        when(mockResultSet.getCharacterStream(1)).thenReturn(reader);
+        assertSame(reader, rs.getCharacterStream(1));
         verify(mockResultSet).getCharacterStream(1);
     }
 
@@ -432,9 +431,9 @@ class RetyperResultSetDelegationTest {
     // Check that getMetaData() delegates to the underlying ResultSet
     // without additional transformation.
     void getMetaData_delegates() throws SQLException {
-        ResultSetMetaData expected = mock(ResultSetMetaData.class);
-        when(mockResultSet.getMetaData()).thenReturn(expected);
-        assertSame(expected, rs.getMetaData());
+        var metaData = mock(ResultSetMetaData.class);
+        when(mockResultSet.getMetaData()).thenReturn(metaData);
+        assertSame(metaData, rs.getMetaData());
         verify(mockResultSet).getMetaData();
     }
 
@@ -444,9 +443,9 @@ class RetyperResultSetDelegationTest {
     // Check that getArray(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getArray_delegates() throws SQLException {
-        Array expected = mock(Array.class);
-        when(mockResultSet.getArray(1)).thenReturn(expected);
-        assertSame(expected, rs.getArray(1));
+        var array = mock(Array.class);
+        when(mockResultSet.getArray(1)).thenReturn(array);
+        assertSame(array, rs.getArray(1));
         verify(mockResultSet).getArray(1);
     }
 
@@ -454,9 +453,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBlob(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getBlob_delegates() throws SQLException {
-        Blob expected = mock(Blob.class);
-        when(mockResultSet.getBlob(1)).thenReturn(expected);
-        assertSame(expected, rs.getBlob(1));
+        var blob = mock(Blob.class);
+        when(mockResultSet.getBlob(1)).thenReturn(blob);
+        assertSame(blob, rs.getBlob(1));
         verify(mockResultSet).getBlob(1);
     }
 
@@ -464,9 +463,9 @@ class RetyperResultSetDelegationTest {
     // Check that getClob(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getClob_delegates() throws SQLException {
-        Clob expected = mock(Clob.class);
-        when(mockResultSet.getClob(1)).thenReturn(expected);
-        assertSame(expected, rs.getClob(1));
+        var clob = mock(Clob.class);
+        when(mockResultSet.getClob(1)).thenReturn(clob);
+        assertSame(clob, rs.getClob(1));
         verify(mockResultSet).getClob(1);
     }
 
@@ -474,9 +473,9 @@ class RetyperResultSetDelegationTest {
     // Check that getRef(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getRef_delegates() throws SQLException {
-        Ref expected = mock(Ref.class);
-        when(mockResultSet.getRef(1)).thenReturn(expected);
-        assertSame(expected, rs.getRef(1));
+        var ref = mock(Ref.class);
+        when(mockResultSet.getRef(1)).thenReturn(ref);
+        assertSame(ref, rs.getRef(1));
         verify(mockResultSet).getRef(1);
     }
 
@@ -484,9 +483,9 @@ class RetyperResultSetDelegationTest {
     // Check that getRowId(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getRowId_delegates() throws SQLException {
-        RowId expected = mock(RowId.class);
-        when(mockResultSet.getRowId(1)).thenReturn(expected);
-        assertSame(expected, rs.getRowId(1));
+        var rowId = mock(RowId.class);
+        when(mockResultSet.getRowId(1)).thenReturn(rowId);
+        assertSame(rowId, rs.getRowId(1));
         verify(mockResultSet).getRowId(1);
     }
 
@@ -494,9 +493,9 @@ class RetyperResultSetDelegationTest {
     // Check that getSQLXML(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getSQLXML_delegates() throws SQLException {
-        SQLXML expected = mock(SQLXML.class);
-        when(mockResultSet.getSQLXML(1)).thenReturn(expected);
-        assertSame(expected, rs.getSQLXML(1));
+        var sqlXml = mock(SQLXML.class);
+        when(mockResultSet.getSQLXML(1)).thenReturn(sqlXml);
+        assertSame(sqlXml, rs.getSQLXML(1));
         verify(mockResultSet).getSQLXML(1);
     }
 
@@ -504,9 +503,9 @@ class RetyperResultSetDelegationTest {
     // Check that getURL(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getURL_delegates() throws Exception {
-        URL expected = new URL("http://example.com");
-        when(mockResultSet.getURL(1)).thenReturn(expected);
-        assertEquals(expected, rs.getURL(1));
+        var url = new URL("http://example.com");
+        when(mockResultSet.getURL(1)).thenReturn(url);
+        assertEquals(url, rs.getURL(1));
         verify(mockResultSet).getURL(1);
     }
 
@@ -514,9 +513,9 @@ class RetyperResultSetDelegationTest {
     // Check that getNClob(int) delegates to the underlying ResultSet
     // without additional transformation.
     void getNClob_delegates() throws SQLException {
-        NClob expected = mock(NClob.class);
-        when(mockResultSet.getNClob(1)).thenReturn(expected);
-        assertSame(expected, rs.getNClob(1));
+        var nClob = mock(NClob.class);
+        when(mockResultSet.getNClob(1)).thenReturn(nClob);
+        assertSame(nClob, rs.getNClob(1));
         verify(mockResultSet).getNClob(1);
     }
 
@@ -533,9 +532,9 @@ class RetyperResultSetDelegationTest {
     // Check that getNCharacterStream(int) delegates to the underlying
     // ResultSet without additional transformation.
     void getNCharacterStream_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockResultSet.getNCharacterStream(1)).thenReturn(expected);
-        assertSame(expected, rs.getNCharacterStream(1));
+        var reader = mock(Reader.class);
+        when(mockResultSet.getNCharacterStream(1)).thenReturn(reader);
+        assertSame(reader, rs.getNCharacterStream(1));
         verify(mockResultSet).getNCharacterStream(1);
     }
 
@@ -609,9 +608,9 @@ class RetyperResultSetDelegationTest {
     // Check that updateBigDecimal(int, BigDecimal) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBigDecimal_delegates() throws SQLException {
-        BigDecimal value = new BigDecimal("123.45");
-        rs.updateBigDecimal(1, value);
-        verify(mockResultSet).updateBigDecimal(1, value);
+        var bigDecimal = new BigDecimal("123.45");
+        rs.updateBigDecimal(1, bigDecimal);
+        verify(mockResultSet).updateBigDecimal(1, bigDecimal);
     }
 
     @Test
@@ -634,34 +633,34 @@ class RetyperResultSetDelegationTest {
     // Check that updateDate(int, Date) delegates to the underlying
     // ResultSet without additional transformation.
     void updateDate_delegates() throws SQLException {
-        Date value = new Date(System.currentTimeMillis());
-        rs.updateDate(1, value);
-        verify(mockResultSet).updateDate(1, value);
+        var date = new Date(System.currentTimeMillis());
+        rs.updateDate(1, date);
+        verify(mockResultSet).updateDate(1, date);
     }
 
     @Test
     // Check that updateTime(int, Time) delegates to the underlying
     // ResultSet without additional transformation.
     void updateTime_delegates() throws SQLException {
-        Time value = new Time(System.currentTimeMillis());
-        rs.updateTime(1, value);
-        verify(mockResultSet).updateTime(1, value);
+        var time = new Time(System.currentTimeMillis());
+        rs.updateTime(1, time);
+        verify(mockResultSet).updateTime(1, time);
     }
 
     @Test
     // Check that updateTimestamp(int, Timestamp) delegates to the
     // underlying ResultSet without additional transformation.
     void updateTimestamp_delegates() throws SQLException {
-        Timestamp value = new Timestamp(System.currentTimeMillis());
-        rs.updateTimestamp(1, value);
-        verify(mockResultSet).updateTimestamp(1, value);
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        rs.updateTimestamp(1, timestamp);
+        verify(mockResultSet).updateTimestamp(1, timestamp);
     }
 
     @Test
     // Check that updateAsciiStream(int, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateAsciiStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream(1, stream);
         verify(mockResultSet).updateAsciiStream(1, stream);
     }
@@ -670,7 +669,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(int, InputStream, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateAsciiStream_withIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream(1, stream, 100);
         verify(mockResultSet).updateAsciiStream(1, stream, 100);
     }
@@ -679,7 +678,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(int, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBinaryStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream(1, stream);
         verify(mockResultSet).updateBinaryStream(1, stream);
     }
@@ -688,7 +687,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(int, InputStream, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateBinaryStream_withIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream(1, stream, 100);
         verify(mockResultSet).updateBinaryStream(1, stream, 100);
     }
@@ -697,7 +696,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(int, Reader) delegates to the
     // underlying ResultSet without additional transformation.
     void updateCharacterStream_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream(1, reader);
         verify(mockResultSet).updateCharacterStream(1, reader);
     }
@@ -706,7 +705,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(int, Reader, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateCharacterStream_withIntLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream(1, reader, 100);
         verify(mockResultSet).updateCharacterStream(1, reader, 100);
     }
@@ -715,7 +714,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBlob(int, Blob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateBlob_delegates() throws SQLException {
-        Blob blob = mock(Blob.class);
+        var blob = mock(Blob.class);
         rs.updateBlob(1, blob);
         verify(mockResultSet).updateBlob(1, blob);
     }
@@ -724,7 +723,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(int, Clob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateClob_delegates() throws SQLException {
-        Clob clob = mock(Clob.class);
+        var clob = mock(Clob.class);
         rs.updateClob(1, clob);
         verify(mockResultSet).updateClob(1, clob);
     }
@@ -733,7 +732,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateArray(int, Array) delegates to the underlying
     // ResultSet without additional transformation.
     void updateArray_delegates() throws SQLException {
-        Array array = mock(Array.class);
+        var array = mock(Array.class);
         rs.updateArray(1, array);
         verify(mockResultSet).updateArray(1, array);
     }
@@ -742,7 +741,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateRowId(int, RowId) delegates to the underlying
     // ResultSet without additional transformation.
     void updateRowId_delegates() throws SQLException {
-        RowId rowId = mock(RowId.class);
+        var rowId = mock(RowId.class);
         rs.updateRowId(1, rowId);
         verify(mockResultSet).updateRowId(1, rowId);
     }
@@ -751,7 +750,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateSQLXML(int, SQLXML) delegates to the underlying
     // ResultSet without additional transformation.
     void updateSQLXML_delegates() throws SQLException {
-        SQLXML xml = mock(SQLXML.class);
+        var xml = mock(SQLXML.class);
         rs.updateSQLXML(1, xml);
         verify(mockResultSet).updateSQLXML(1, xml);
     }
@@ -768,7 +767,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(int, NClob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateNClob_delegates() throws SQLException {
-        NClob nclob = mock(NClob.class);
+        var nclob = mock(NClob.class);
         rs.updateNClob(1, nclob);
         verify(mockResultSet).updateNClob(1, nclob);
     }
@@ -821,7 +820,7 @@ class RetyperResultSetDelegationTest {
     // Check that getWarnings() delegates to the underlying ResultSet
     // without additional transformation.
     void getWarnings_delegates() throws SQLException {
-        SQLWarning warning = new SQLWarning("test");
+        var warning = new SQLWarning("test");
         when(mockResultSet.getWarnings()).thenReturn(warning);
         assertSame(warning, rs.getWarnings());
         verify(mockResultSet).getWarnings();
@@ -880,8 +879,8 @@ class RetyperResultSetDelegationTest {
     // Check that getStatement() returns the wrapper Statement passed to
     // the constructor, not the underlying driver's Statement.
     void getStatement_returnsWrapper() throws SQLException {
-        Statement mockStmt = mock(Statement.class);
-        RetyperResultSet rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStmt);
+        var mockStmt = mock(Statement.class);
+        var rsWithStatement = new RetyperResultSet(mockResultSet, registry, mockStmt);
         assertSame(mockStmt, rsWithStatement.getStatement());
     }
 
@@ -948,9 +947,9 @@ class RetyperResultSetDelegationTest {
     // ResultSet without additional transformation.
     @SuppressWarnings("deprecation")
     void getUnicodeStream_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getUnicodeStream(1)).thenReturn(expected);
-        assertSame(expected, rs.getUnicodeStream(1));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getUnicodeStream(1)).thenReturn(inputStream);
+        assertSame(inputStream, rs.getUnicodeStream(1));
         verify(mockResultSet).getUnicodeStream(1);
     }
 
@@ -959,9 +958,9 @@ class RetyperResultSetDelegationTest {
     // ResultSet without additional transformation.
     @SuppressWarnings("deprecation")
     void getUnicodeStream_byLabel_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getUnicodeStream("col")).thenReturn(expected);
-        assertSame(expected, rs.getUnicodeStream("col"));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getUnicodeStream("col")).thenReturn(inputStream);
+        assertSame(inputStream, rs.getUnicodeStream("col"));
         verify(mockResultSet).getUnicodeStream("col");
     }
 
@@ -970,9 +969,9 @@ class RetyperResultSetDelegationTest {
     // ResultSet without additional transformation.
     @SuppressWarnings("deprecation")
     void getBigDecimal_byLabelWithScale_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockResultSet.getBigDecimal("col", 2)).thenReturn(expected);
-        assertEquals(expected, rs.getBigDecimal("col", 2));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockResultSet.getBigDecimal("col", 2)).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, rs.getBigDecimal("col", 2));
         verify(mockResultSet).getBigDecimal("col", 2);
     }
 
@@ -1011,7 +1010,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateRef(int, Ref) delegates to the underlying
     // ResultSet without additional transformation.
     void updateRef_delegates() throws SQLException {
-        Ref ref = mock(Ref.class);
+        var ref = mock(Ref.class);
         rs.updateRef(1, ref);
         verify(mockResultSet).updateRef(1, ref);
     }
@@ -1020,7 +1019,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateRef(String, Ref) delegates to the underlying
     // ResultSet without additional transformation.
     void updateRef_byLabel_delegates() throws SQLException {
-        Ref ref = mock(Ref.class);
+        var ref = mock(Ref.class);
         rs.updateRef("col", ref);
         verify(mockResultSet).updateRef("col", ref);
     }
@@ -1099,9 +1098,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBytes(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getBytes_byLabel_delegates() throws SQLException {
-        byte[] expected = {1, 2, 3};
-        when(mockResultSet.getBytes("col")).thenReturn(expected);
-        assertArrayEquals(expected, rs.getBytes("col"));
+        var bytes = new byte[] {1, 2, 3};
+        when(mockResultSet.getBytes("col")).thenReturn(bytes);
+        assertArrayEquals(bytes, rs.getBytes("col"));
         verify(mockResultSet).getBytes("col");
     }
 
@@ -1109,9 +1108,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBigDecimal(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getBigDecimal_byLabel_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockResultSet.getBigDecimal("col")).thenReturn(expected);
-        assertEquals(expected, rs.getBigDecimal("col"));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockResultSet.getBigDecimal("col")).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, rs.getBigDecimal("col"));
         verify(mockResultSet).getBigDecimal("col");
     }
 
@@ -1121,9 +1120,9 @@ class RetyperResultSetDelegationTest {
     // Check that getDate(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getDate_byLabel_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        when(mockResultSet.getDate("col")).thenReturn(expected);
-        assertEquals(expected, rs.getDate("col"));
+        var date = new Date(System.currentTimeMillis());
+        when(mockResultSet.getDate("col")).thenReturn(date);
+        assertEquals(date, rs.getDate("col"));
         verify(mockResultSet).getDate("col");
     }
 
@@ -1131,9 +1130,9 @@ class RetyperResultSetDelegationTest {
     // Check that getTime(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getTime_byLabel_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        when(mockResultSet.getTime("col")).thenReturn(expected);
-        assertEquals(expected, rs.getTime("col"));
+        var time = new Time(System.currentTimeMillis());
+        when(mockResultSet.getTime("col")).thenReturn(time);
+        assertEquals(time, rs.getTime("col"));
         verify(mockResultSet).getTime("col");
     }
 
@@ -1141,9 +1140,9 @@ class RetyperResultSetDelegationTest {
     // Check that getTimestamp(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getTimestamp_byLabel_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        when(mockResultSet.getTimestamp("col")).thenReturn(expected);
-        assertEquals(expected, rs.getTimestamp("col"));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        when(mockResultSet.getTimestamp("col")).thenReturn(timestamp);
+        assertEquals(timestamp, rs.getTimestamp("col"));
         verify(mockResultSet).getTimestamp("col");
     }
 
@@ -1151,10 +1150,10 @@ class RetyperResultSetDelegationTest {
     // Check that getDate(String, Calendar) delegates to the underlying
     // ResultSet without additional transformation.
     void getDate_byLabelWithCalendar_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getDate("col", cal)).thenReturn(expected);
-        assertEquals(expected, rs.getDate("col", cal));
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getDate("col", cal)).thenReturn(date);
+        assertEquals(date, rs.getDate("col", cal));
         verify(mockResultSet).getDate("col", cal);
     }
 
@@ -1162,10 +1161,10 @@ class RetyperResultSetDelegationTest {
     // Check that getTime(String, Calendar) delegates to the underlying
     // ResultSet without additional transformation.
     void getTime_byLabelWithCalendar_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getTime("col", cal)).thenReturn(expected);
-        assertEquals(expected, rs.getTime("col", cal));
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getTime("col", cal)).thenReturn(time);
+        assertEquals(time, rs.getTime("col", cal));
         verify(mockResultSet).getTime("col", cal);
     }
 
@@ -1173,10 +1172,10 @@ class RetyperResultSetDelegationTest {
     // Check that getTimestamp(String, Calendar) delegates to the
     // underlying ResultSet without additional transformation.
     void getTimestamp_byLabelWithCalendar_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockResultSet.getTimestamp("col", cal)).thenReturn(expected);
-        assertEquals(expected, rs.getTimestamp("col", cal));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockResultSet.getTimestamp("col", cal)).thenReturn(timestamp);
+        assertEquals(timestamp, rs.getTimestamp("col", cal));
         verify(mockResultSet).getTimestamp("col", cal);
     }
 
@@ -1186,9 +1185,9 @@ class RetyperResultSetDelegationTest {
     // Check that getAsciiStream(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getAsciiStream_byLabel_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getAsciiStream("col")).thenReturn(expected);
-        assertSame(expected, rs.getAsciiStream("col"));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getAsciiStream("col")).thenReturn(inputStream);
+        assertSame(inputStream, rs.getAsciiStream("col"));
         verify(mockResultSet).getAsciiStream("col");
     }
 
@@ -1196,9 +1195,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBinaryStream(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getBinaryStream_byLabel_delegates() throws SQLException {
-        InputStream expected = mock(InputStream.class);
-        when(mockResultSet.getBinaryStream("col")).thenReturn(expected);
-        assertSame(expected, rs.getBinaryStream("col"));
+        var inputStream = mock(InputStream.class);
+        when(mockResultSet.getBinaryStream("col")).thenReturn(inputStream);
+        assertSame(inputStream, rs.getBinaryStream("col"));
         verify(mockResultSet).getBinaryStream("col");
     }
 
@@ -1206,9 +1205,9 @@ class RetyperResultSetDelegationTest {
     // Check that getCharacterStream(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getCharacterStream_byLabel_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockResultSet.getCharacterStream("col")).thenReturn(expected);
-        assertSame(expected, rs.getCharacterStream("col"));
+        var reader = mock(Reader.class);
+        when(mockResultSet.getCharacterStream("col")).thenReturn(reader);
+        assertSame(reader, rs.getCharacterStream("col"));
         verify(mockResultSet).getCharacterStream("col");
     }
 
@@ -1218,9 +1217,9 @@ class RetyperResultSetDelegationTest {
     // Check that getArray(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getArray_byLabel_delegates() throws SQLException {
-        Array expected = mock(Array.class);
-        when(mockResultSet.getArray("col")).thenReturn(expected);
-        assertSame(expected, rs.getArray("col"));
+        var array = mock(Array.class);
+        when(mockResultSet.getArray("col")).thenReturn(array);
+        assertSame(array, rs.getArray("col"));
         verify(mockResultSet).getArray("col");
     }
 
@@ -1228,9 +1227,9 @@ class RetyperResultSetDelegationTest {
     // Check that getBlob(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getBlob_byLabel_delegates() throws SQLException {
-        Blob expected = mock(Blob.class);
-        when(mockResultSet.getBlob("col")).thenReturn(expected);
-        assertSame(expected, rs.getBlob("col"));
+        var blob = mock(Blob.class);
+        when(mockResultSet.getBlob("col")).thenReturn(blob);
+        assertSame(blob, rs.getBlob("col"));
         verify(mockResultSet).getBlob("col");
     }
 
@@ -1238,9 +1237,9 @@ class RetyperResultSetDelegationTest {
     // Check that getClob(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getClob_byLabel_delegates() throws SQLException {
-        Clob expected = mock(Clob.class);
-        when(mockResultSet.getClob("col")).thenReturn(expected);
-        assertSame(expected, rs.getClob("col"));
+        var clob = mock(Clob.class);
+        when(mockResultSet.getClob("col")).thenReturn(clob);
+        assertSame(clob, rs.getClob("col"));
         verify(mockResultSet).getClob("col");
     }
 
@@ -1248,9 +1247,9 @@ class RetyperResultSetDelegationTest {
     // Check that getRef(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getRef_byLabel_delegates() throws SQLException {
-        Ref expected = mock(Ref.class);
-        when(mockResultSet.getRef("col")).thenReturn(expected);
-        assertSame(expected, rs.getRef("col"));
+        var ref = mock(Ref.class);
+        when(mockResultSet.getRef("col")).thenReturn(ref);
+        assertSame(ref, rs.getRef("col"));
         verify(mockResultSet).getRef("col");
     }
 
@@ -1258,9 +1257,9 @@ class RetyperResultSetDelegationTest {
     // Check that getRowId(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getRowId_byLabel_delegates() throws SQLException {
-        RowId expected = mock(RowId.class);
-        when(mockResultSet.getRowId("col")).thenReturn(expected);
-        assertSame(expected, rs.getRowId("col"));
+        var rowId = mock(RowId.class);
+        when(mockResultSet.getRowId("col")).thenReturn(rowId);
+        assertSame(rowId, rs.getRowId("col"));
         verify(mockResultSet).getRowId("col");
     }
 
@@ -1268,9 +1267,9 @@ class RetyperResultSetDelegationTest {
     // Check that getSQLXML(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getSQLXML_byLabel_delegates() throws SQLException {
-        SQLXML expected = mock(SQLXML.class);
-        when(mockResultSet.getSQLXML("col")).thenReturn(expected);
-        assertSame(expected, rs.getSQLXML("col"));
+        var sqlXml = mock(SQLXML.class);
+        when(mockResultSet.getSQLXML("col")).thenReturn(sqlXml);
+        assertSame(sqlXml, rs.getSQLXML("col"));
         verify(mockResultSet).getSQLXML("col");
     }
 
@@ -1278,9 +1277,9 @@ class RetyperResultSetDelegationTest {
     // Check that getURL(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getURL_byLabel_delegates() throws Exception {
-        URL expected = new URL("http://example.com");
-        when(mockResultSet.getURL("col")).thenReturn(expected);
-        assertEquals(expected, rs.getURL("col"));
+        var url = new URL("http://example.com");
+        when(mockResultSet.getURL("col")).thenReturn(url);
+        assertEquals(url, rs.getURL("col"));
         verify(mockResultSet).getURL("col");
     }
 
@@ -1288,9 +1287,9 @@ class RetyperResultSetDelegationTest {
     // Check that getNClob(String) delegates to the underlying ResultSet
     // without additional transformation.
     void getNClob_byLabel_delegates() throws SQLException {
-        NClob expected = mock(NClob.class);
-        when(mockResultSet.getNClob("col")).thenReturn(expected);
-        assertSame(expected, rs.getNClob("col"));
+        var nClob = mock(NClob.class);
+        when(mockResultSet.getNClob("col")).thenReturn(nClob);
+        assertSame(nClob, rs.getNClob("col"));
         verify(mockResultSet).getNClob("col");
     }
 
@@ -1307,9 +1306,9 @@ class RetyperResultSetDelegationTest {
     // Check that getNCharacterStream(String) delegates to the underlying
     // ResultSet without additional transformation.
     void getNCharacterStream_byLabel_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockResultSet.getNCharacterStream("col")).thenReturn(expected);
-        assertSame(expected, rs.getNCharacterStream("col"));
+        var reader = mock(Reader.class);
+        when(mockResultSet.getNCharacterStream("col")).thenReturn(reader);
+        assertSame(reader, rs.getNCharacterStream("col"));
         verify(mockResultSet).getNCharacterStream("col");
     }
 
@@ -1383,9 +1382,9 @@ class RetyperResultSetDelegationTest {
     // Check that updateBigDecimal(String, BigDecimal) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBigDecimal_byLabel_delegates() throws SQLException {
-        BigDecimal value = new BigDecimal("123.45");
-        rs.updateBigDecimal("col", value);
-        verify(mockResultSet).updateBigDecimal("col", value);
+        var bigDecimal = new BigDecimal("123.45");
+        rs.updateBigDecimal("col", bigDecimal);
+        verify(mockResultSet).updateBigDecimal("col", bigDecimal);
     }
 
     @Test
@@ -1408,34 +1407,34 @@ class RetyperResultSetDelegationTest {
     // Check that updateDate(String, Date) delegates to the underlying
     // ResultSet without additional transformation.
     void updateDate_byLabel_delegates() throws SQLException {
-        Date value = new Date(System.currentTimeMillis());
-        rs.updateDate("col", value);
-        verify(mockResultSet).updateDate("col", value);
+        var date = new Date(System.currentTimeMillis());
+        rs.updateDate("col", date);
+        verify(mockResultSet).updateDate("col", date);
     }
 
     @Test
     // Check that updateTime(String, Time) delegates to the underlying
     // ResultSet without additional transformation.
     void updateTime_byLabel_delegates() throws SQLException {
-        Time value = new Time(System.currentTimeMillis());
-        rs.updateTime("col", value);
-        verify(mockResultSet).updateTime("col", value);
+        var time = new Time(System.currentTimeMillis());
+        rs.updateTime("col", time);
+        verify(mockResultSet).updateTime("col", time);
     }
 
     @Test
     // Check that updateTimestamp(String, Timestamp) delegates to the
     // underlying ResultSet without additional transformation.
     void updateTimestamp_byLabel_delegates() throws SQLException {
-        Timestamp value = new Timestamp(System.currentTimeMillis());
-        rs.updateTimestamp("col", value);
-        verify(mockResultSet).updateTimestamp("col", value);
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        rs.updateTimestamp("col", timestamp);
+        verify(mockResultSet).updateTimestamp("col", timestamp);
     }
 
     @Test
     // Check that updateBlob(String, Blob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateBlob_byLabel_delegates() throws SQLException {
-        Blob blob = mock(Blob.class);
+        var blob = mock(Blob.class);
         rs.updateBlob("col", blob);
         verify(mockResultSet).updateBlob("col", blob);
     }
@@ -1444,7 +1443,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(String, Clob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateClob_byLabel_delegates() throws SQLException {
-        Clob clob = mock(Clob.class);
+        var clob = mock(Clob.class);
         rs.updateClob("col", clob);
         verify(mockResultSet).updateClob("col", clob);
     }
@@ -1453,7 +1452,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateArray(String, Array) delegates to the underlying
     // ResultSet without additional transformation.
     void updateArray_byLabel_delegates() throws SQLException {
-        Array array = mock(Array.class);
+        var array = mock(Array.class);
         rs.updateArray("col", array);
         verify(mockResultSet).updateArray("col", array);
     }
@@ -1462,7 +1461,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateRowId(String, RowId) delegates to the underlying
     // ResultSet without additional transformation.
     void updateRowId_byLabel_delegates() throws SQLException {
-        RowId rowId = mock(RowId.class);
+        var rowId = mock(RowId.class);
         rs.updateRowId("col", rowId);
         verify(mockResultSet).updateRowId("col", rowId);
     }
@@ -1471,7 +1470,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateSQLXML(String, SQLXML) delegates to the underlying
     // ResultSet without additional transformation.
     void updateSQLXML_byLabel_delegates() throws SQLException {
-        SQLXML xml = mock(SQLXML.class);
+        var xml = mock(SQLXML.class);
         rs.updateSQLXML("col", xml);
         verify(mockResultSet).updateSQLXML("col", xml);
     }
@@ -1488,7 +1487,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(String, NClob) delegates to the underlying
     // ResultSet without additional transformation.
     void updateNClob_byLabel_delegates() throws SQLException {
-        NClob nclob = mock(NClob.class);
+        var nclob = mock(NClob.class);
         rs.updateNClob("col", nclob);
         verify(mockResultSet).updateNClob("col", nclob);
     }
@@ -1499,7 +1498,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(int, InputStream, long) delegates to
     // the underlying ResultSet without additional transformation.
     void updateAsciiStream_withLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream(1, stream, 100L);
         verify(mockResultSet).updateAsciiStream(1, stream, 100L);
     }
@@ -1508,7 +1507,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(int, InputStream, long) delegates to
     // the underlying ResultSet without additional transformation.
     void updateBinaryStream_withLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream(1, stream, 100L);
         verify(mockResultSet).updateBinaryStream(1, stream, 100L);
     }
@@ -1517,7 +1516,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(int, Reader, long) delegates to
     // the underlying ResultSet without additional transformation.
     void updateCharacterStream_withLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream(1, reader, 100L);
         verify(mockResultSet).updateCharacterStream(1, reader, 100L);
     }
@@ -1526,7 +1525,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(String, InputStream, long) delegates
     // to the underlying ResultSet without additional transformation.
     void updateAsciiStream_byLabelWithLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream("col", stream, 100L);
         verify(mockResultSet).updateAsciiStream("col", stream, 100L);
     }
@@ -1535,7 +1534,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(String, InputStream, long) delegates
     // to the underlying ResultSet without additional transformation.
     void updateBinaryStream_byLabelWithLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream("col", stream, 100L);
         verify(mockResultSet).updateBinaryStream("col", stream, 100L);
     }
@@ -1544,7 +1543,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(String, Reader, long) delegates
     // to the underlying ResultSet without additional transformation.
     void updateCharacterStream_byLabelWithLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream("col", reader, 100L);
         verify(mockResultSet).updateCharacterStream("col", reader, 100L);
     }
@@ -1555,7 +1554,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNCharacterStream(int, Reader, long) delegates to
     // the underlying ResultSet without additional transformation.
     void updateNCharacterStream_withLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNCharacterStream(1, reader, 100L);
         verify(mockResultSet).updateNCharacterStream(1, reader, 100L);
     }
@@ -1564,7 +1563,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNCharacterStream(String, Reader, long) delegates
     // to the underlying ResultSet without additional transformation.
     void updateNCharacterStream_byLabelWithLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNCharacterStream("col", reader, 100L);
         verify(mockResultSet).updateNCharacterStream("col", reader, 100L);
     }
@@ -1573,7 +1572,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNCharacterStream(int, Reader) delegates to the
     // underlying ResultSet without additional transformation.
     void updateNCharacterStream_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNCharacterStream(1, reader);
         verify(mockResultSet).updateNCharacterStream(1, reader);
     }
@@ -1582,7 +1581,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNCharacterStream(String, Reader) delegates to the
     // underlying ResultSet without additional transformation.
     void updateNCharacterStream_byLabel_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNCharacterStream("col", reader);
         verify(mockResultSet).updateNCharacterStream("col", reader);
     }
@@ -1593,7 +1592,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(int, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateAsciiStream_withoutLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream(1, stream);
         verify(mockResultSet).updateAsciiStream(1, stream);
     }
@@ -1602,7 +1601,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(int, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBinaryStream_withoutLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream(1, stream);
         verify(mockResultSet).updateBinaryStream(1, stream);
     }
@@ -1611,7 +1610,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(int, Reader) delegates to the
     // underlying ResultSet without additional transformation.
     void updateCharacterStream_withoutLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream(1, reader);
         verify(mockResultSet).updateCharacterStream(1, reader);
     }
@@ -1620,7 +1619,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(String, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateAsciiStream_byLabelWithoutLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream("col", stream);
         verify(mockResultSet).updateAsciiStream("col", stream);
     }
@@ -1629,7 +1628,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateAsciiStream(String, InputStream, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateAsciiStream_byLabelWithIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateAsciiStream("col", stream, 100);
         verify(mockResultSet).updateAsciiStream("col", stream, 100);
     }
@@ -1638,7 +1637,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(String, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBinaryStream_byLabelWithoutLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream("col", stream);
         verify(mockResultSet).updateBinaryStream("col", stream);
     }
@@ -1647,7 +1646,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBinaryStream(String, InputStream, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateBinaryStream_byLabelWithIntLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBinaryStream("col", stream, 100);
         verify(mockResultSet).updateBinaryStream("col", stream, 100);
     }
@@ -1656,7 +1655,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(String, Reader) delegates to the
     // underlying ResultSet without additional transformation.
     void updateCharacterStream_byLabelWithoutLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream("col", reader);
         verify(mockResultSet).updateCharacterStream("col", reader);
     }
@@ -1665,7 +1664,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateCharacterStream(String, Reader, int) delegates to
     // the underlying ResultSet without additional transformation.
     void updateCharacterStream_byLabelWithIntLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateCharacterStream("col", reader, 100);
         verify(mockResultSet).updateCharacterStream("col", reader, 100);
     }
@@ -1676,7 +1675,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBlob(int, InputStream, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBlob_withInputStreamAndLong_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBlob(1, stream, 100L);
         verify(mockResultSet).updateBlob(1, stream, 100L);
     }
@@ -1685,7 +1684,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBlob(String, InputStream, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBlob_byLabelWithInputStreamAndLong_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBlob("col", stream, 100L);
         verify(mockResultSet).updateBlob("col", stream, 100L);
     }
@@ -1694,7 +1693,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(int, Reader, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateClob_withReaderAndLong_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateClob(1, reader, 100L);
         verify(mockResultSet).updateClob(1, reader, 100L);
     }
@@ -1703,7 +1702,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(String, Reader, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateClob_byLabelWithReaderAndLong_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateClob("col", reader, 100L);
         verify(mockResultSet).updateClob("col", reader, 100L);
     }
@@ -1712,7 +1711,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(int, Reader, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateNClob_withReaderAndLong_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNClob(1, reader, 100L);
         verify(mockResultSet).updateNClob(1, reader, 100L);
     }
@@ -1721,7 +1720,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(String, Reader, long) delegates to the
     // underlying ResultSet without additional transformation.
     void updateNClob_byLabelWithReaderAndLong_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNClob("col", reader, 100L);
         verify(mockResultSet).updateNClob("col", reader, 100L);
     }
@@ -1730,7 +1729,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBlob(int, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBlob_withInputStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBlob(1, stream);
         verify(mockResultSet).updateBlob(1, stream);
     }
@@ -1739,7 +1738,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateBlob(String, InputStream) delegates to the
     // underlying ResultSet without additional transformation.
     void updateBlob_byLabelWithInputStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         rs.updateBlob("col", stream);
         verify(mockResultSet).updateBlob("col", stream);
     }
@@ -1748,7 +1747,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(int, Reader) delegates to the underlying
     // ResultSet without additional transformation.
     void updateClob_withReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateClob(1, reader);
         verify(mockResultSet).updateClob(1, reader);
     }
@@ -1757,7 +1756,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateClob(String, Reader) delegates to the underlying
     // ResultSet without additional transformation.
     void updateClob_byLabelWithReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateClob("col", reader);
         verify(mockResultSet).updateClob("col", reader);
     }
@@ -1766,7 +1765,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(int, Reader) delegates to the underlying
     // ResultSet without additional transformation.
     void updateNClob_withReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNClob(1, reader);
         verify(mockResultSet).updateNClob(1, reader);
     }
@@ -1775,7 +1774,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateNClob(String, Reader) delegates to the underlying
     // ResultSet without additional transformation.
     void updateNClob_byLabelWithReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         rs.updateNClob("col", reader);
         verify(mockResultSet).updateNClob("col", reader);
     }
@@ -1786,7 +1785,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateObject(int, Object, SQLType, int) delegates to
     // the underlying ResultSet after calling registry.toSql().
     void updateObject_withSqlTypeAndScale_delegates() throws SQLException {
-        SQLType sqlType = JDBCType.VARCHAR;
+        var sqlType = JDBCType.VARCHAR;
         rs.updateObject(1, "value", sqlType, 10);
         verify(mockResultSet).updateObject(eq(1), any(), eq(sqlType), eq(10));
     }
@@ -1795,7 +1794,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateObject(String, Object, SQLType, int) delegates to
     // the underlying ResultSet after calling registry.toSql().
     void updateObject_byLabelWithSqlTypeAndScale_delegates() throws SQLException {
-        SQLType sqlType = JDBCType.VARCHAR;
+        var sqlType = JDBCType.VARCHAR;
         rs.updateObject("col", "value", sqlType, 10);
         verify(mockResultSet).updateObject(eq("col"), any(), eq(sqlType), eq(10));
     }
@@ -1804,7 +1803,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateObject(int, Object, SQLType) delegates to the
     // underlying ResultSet after calling registry.toSql().
     void updateObject_withSqlType_delegates() throws SQLException {
-        SQLType sqlType = JDBCType.VARCHAR;
+        var sqlType = JDBCType.VARCHAR;
         rs.updateObject(1, "value", sqlType);
         verify(mockResultSet).updateObject(eq(1), any(), eq(sqlType));
     }
@@ -1813,7 +1812,7 @@ class RetyperResultSetDelegationTest {
     // Check that updateObject(String, Object, SQLType) delegates to the
     // underlying ResultSet after calling registry.toSql().
     void updateObject_byLabelWithSqlType_delegates() throws SQLException {
-        SQLType sqlType = JDBCType.VARCHAR;
+        var sqlType = JDBCType.VARCHAR;
         rs.updateObject("col", "value", sqlType);
         verify(mockResultSet).updateObject(eq("col"), any(), eq(sqlType));
     }

@@ -39,7 +39,7 @@ class GeometryDuckDBTest extends DuckDBTestBase {
 
     @Test
     void insertAndReadPoint() throws SQLException {
-        Point point = gf.createPoint(new Coordinate(30.0, 10.0));
+        var point = gf.createPoint(new Coordinate(30.0, 10.0));
 
         try (PreparedStatement ps =
                 connection.prepareStatement("INSERT INTO geom_test VALUES (1, ST_GeomFromWKB(?))")) {
@@ -50,15 +50,15 @@ class GeometryDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT geom FROM geom_test WHERE id = 1")) {
             assertTrue(rs.next());
-            Point result = rs.getObject(1, Point.class);
-            assertEquals(30.0, result.getX(), 0.001);
-            assertEquals(10.0, result.getY(), 0.001);
+            var resultPoint = rs.getObject(1, Point.class);
+            assertEquals(30.0, resultPoint.getX(), 0.001);
+            assertEquals(10.0, resultPoint.getY(), 0.001);
         }
     }
 
     @Test
     void insertAndReadLineString() throws SQLException {
-        LineString line = gf.createLineString(
+        var line = gf.createLineString(
                 new Coordinate[] {new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 0)});
 
         try (PreparedStatement ps =
@@ -70,10 +70,10 @@ class GeometryDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT geom FROM geom_test WHERE id = 2")) {
             assertTrue(rs.next());
-            LineString result = rs.getObject(1, LineString.class);
-            assertEquals(3, result.getNumPoints());
-            assertEquals(0, result.getCoordinateN(0).x, 0.001);
-            assertEquals(2, result.getCoordinateN(2).x, 0.001);
+            var lineString = rs.getObject(1, LineString.class);
+            assertEquals(3, lineString.getNumPoints());
+            assertEquals(0, lineString.getCoordinateN(0).x, 0.001);
+            assertEquals(2, lineString.getCoordinateN(2).x, 0.001);
         }
     }
 
@@ -86,14 +86,14 @@ class GeometryDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT geom FROM geom_test WHERE id = 3")) {
             assertTrue(rs.next());
-            Object result = rs.getObject(1);
-            assertNull(result);
+            var obj = rs.getObject(1);
+            assertNull(obj);
         }
     }
 
     @Test
     void geometryFromSqlWithType() throws SQLException {
-        Point point = gf.createPoint(new Coordinate(45.0, -12.0));
+        var point = gf.createPoint(new Coordinate(45.0, -12.0));
 
         try (PreparedStatement ps =
                 connection.prepareStatement("INSERT INTO geom_test VALUES (4, ST_GeomFromWKB(?))")) {
@@ -104,9 +104,9 @@ class GeometryDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT geom FROM geom_test WHERE id = 4")) {
             assertTrue(rs.next());
-            Point result = registry.fromSql(rs.getObject(1), Point.class);
-            assertEquals(45.0, result.getX(), 0.001);
-            assertEquals(-12.0, result.getY(), 0.001);
+            var resultPoint = registry.fromSql(rs.getObject(1), Point.class);
+            assertEquals(45.0, resultPoint.getX(), 0.001);
+            assertEquals(-12.0, resultPoint.getY(), 0.001);
         }
     }
 }

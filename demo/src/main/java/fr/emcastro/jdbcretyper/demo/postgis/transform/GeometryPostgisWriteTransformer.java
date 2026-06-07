@@ -1,5 +1,7 @@
 package fr.emcastro.jdbcretyper.demo.postgis.transform;
 
+import java.sql.SQLException;
+
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.util.PGobject;
 
@@ -28,7 +30,7 @@ public class GeometryPostgisWriteTransformer implements WriteTypeTransformer<Geo
             pgObject.setType("geometry");
             pgObject.setValue(WKBWriter.toHex(writer.write(appValue)));
             return pgObject;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new TypeConversionException("Unable to convert Geometry to PGobject", e);
         }
     }

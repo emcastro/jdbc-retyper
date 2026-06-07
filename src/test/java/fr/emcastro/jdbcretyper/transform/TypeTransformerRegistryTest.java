@@ -24,7 +24,7 @@ class TypeTransformerRegistryTest {
     // Check that toSql() locates the write transformer by app type
     // and applies the "SQL:" prefix.
     void toSql_findsMatchingTransformer() {
-        Object result = registry.toSql(new TestAppValue("hello"));
+        var result = registry.toSql(new TestAppValue("hello"));
         assertEquals("SQL:hello", result);
     }
 
@@ -32,7 +32,7 @@ class TypeTransformerRegistryTest {
     // Check that toSql() returns the original value unchanged when
     // no write transformer handles the value's type.
     void toSql_returnsOriginalWhenNoMatch() {
-        Object result = registry.toSql("unregistered");
+        var result = registry.toSql("unregistered");
         assertEquals("unregistered", result);
     }
 
@@ -46,7 +46,7 @@ class TypeTransformerRegistryTest {
     // Check that fromSql() locates the read transformer by matching
     // both the target app type and the SQL value's type.
     void fromSql_findsMatchingTransformer() {
-        TestAppValue result = registry.fromSql("SQL:hello", TestAppValue.class);
+        var result = registry.fromSql("SQL:hello", TestAppValue.class);
         assertEquals("SQL:hello", result.value());
     }
 
@@ -54,7 +54,7 @@ class TypeTransformerRegistryTest {
     // Check that fromSql() returns the raw value directly when it is
     // already an instance of the requested type.
     void fromSql_returnsRawValueWhenAlreadyTargetType() {
-        String result = registry.fromSql("raw", String.class);
+        var result = registry.fromSql("raw", String.class);
         assertEquals("raw", result);
     }
 
@@ -75,7 +75,7 @@ class TypeTransformerRegistryTest {
     // Check that fromSqlDefaultType() matches on the SQL value's
     // runtime type and applies the read transformer's conversion.
     void fromSqlDefaultType_transformsWhenMatch() {
-        Object result = registry.fromSqlDefaultType("SQL:hello");
+        var result = registry.fromSqlDefaultType("SQL:hello");
         assertInstanceOf(TestAppValue.class, result);
         assertEquals("SQL:hello", ((TestAppValue) result).value());
     }
@@ -84,7 +84,7 @@ class TypeTransformerRegistryTest {
     // Check that fromSqlDefaultType() returns the raw value as-is
     // when no read transformer handles the SQL value's type.
     void fromSqlDefaultType_returnsRawWhenNoMatch() {
-        Object result = registry.fromSqlDefaultType(42);
+        var result = registry.fromSqlDefaultType(42);
         assertEquals(42, result);
     }
 
@@ -98,7 +98,7 @@ class TypeTransformerRegistryTest {
     // Check that mapType() returns the read SQL type for a registered
     // app type whose supportsTypedGetObject() is true.
     void mapType_returnsSqlTypeForRegisteredAppType() {
-        Class<?> result = registry.mapType(TestAppValue.class);
+        var result = registry.mapType(TestAppValue.class);
         assertEquals(String.class, result);
     }
 
@@ -106,7 +106,7 @@ class TypeTransformerRegistryTest {
     // Check that mapType() returns the original type unchanged when
     // the app type has no read transformer.
     void mapType_returnsOriginalWhenNoMatch() {
-        Class<?> result = registry.mapType(Integer.class);
+        var result = registry.mapType(Integer.class);
         assertEquals(Integer.class, result);
     }
 
@@ -131,7 +131,7 @@ class TypeTransformerRegistryTest {
     // transformer has supportsTypedGetObject() = false.
     void mapType_returnsNullWhenSupportsTypedGetObjectIsFalse() {
         registry.registerRead(new TestReadTransformerNoTypeHint());
-        Class<?> result = registry.mapType(TestAppValueNoHint.class);
+        var result = registry.mapType(TestAppValueNoHint.class);
         assertNull(result);
     }
 
@@ -143,7 +143,7 @@ class TypeTransformerRegistryTest {
         Map<String, Class<?>> map = new java.util.HashMap<>();
         map.put("col1", TestAppValue.class);
         map.put("col2", TestAppValueNoHint.class);
-        Map<String, Class<?>> result = registry.fromSqlMap(map);
+        var result = registry.fromSqlMap(map);
         assertEquals(1, result.size());
         assertEquals(String.class, result.get("col1"));
         assertNull(result.get("col2"));
@@ -163,7 +163,7 @@ class TypeTransformerRegistryTest {
     void fromSql_fallsThroughWhenCanTransformReturnsFalse() {
         registry.registerRead(new TestReadTransformerSelective(false));
         registry.registerRead(new TestReadTransformerSelective(true));
-        AcceptedValue result = registry.fromSql(42, AcceptedValue.class);
+        var result = registry.fromSql(42, AcceptedValue.class);
         assertEquals("accepted:42", result.value());
     }
 
@@ -172,7 +172,7 @@ class TypeTransformerRegistryTest {
     // the matching transformer rejects via canTransform().
     void fromSqlDefaultType_skipsWhenCanTransformReturnsFalse() {
         registry.registerRead(new TestReadTransformerSelective(false));
-        Object result = registry.fromSqlDefaultType(42);
+        var result = registry.fromSqlDefaultType(42);
         assertEquals(42, result);
     }
 

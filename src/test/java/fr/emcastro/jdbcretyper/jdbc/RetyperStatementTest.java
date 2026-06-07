@@ -39,39 +39,39 @@ class RetyperStatementTest {
     // Check that executeQuery(String) returns a RetyperResultSet carrying
     // this statement as the wrapping Statement reference.
     void executeQuery_returnsRetyperResultSetWithThisStatement() throws SQLException {
-        ResultSet mockRs = mock(ResultSet.class);
+        var mockRs = mock(ResultSet.class);
         when(mockStatement.executeQuery(anyString())).thenReturn(mockRs);
 
-        ResultSet result = statement.executeQuery("SELECT 1");
+        var resultSet = statement.executeQuery("SELECT 1");
 
-        assertInstanceOf(RetyperResultSet.class, result);
-        assertSame(statement, result.getStatement());
+        assertInstanceOf(RetyperResultSet.class, resultSet);
+        assertSame(statement, resultSet.getStatement());
     }
 
     @Test
     // Check that getGeneratedKeys() returns a RetyperResultSet carrying
     // this statement as the wrapping Statement reference.
     void getGeneratedKeys_returnsRetyperResultSetWithThisStatement() throws SQLException {
-        ResultSet mockRs = mock(ResultSet.class);
+        var mockRs = mock(ResultSet.class);
         when(mockStatement.getGeneratedKeys()).thenReturn(mockRs);
 
-        ResultSet result = statement.getGeneratedKeys();
+        var resultSet = statement.getGeneratedKeys();
 
-        assertInstanceOf(RetyperResultSet.class, result);
-        assertSame(statement, result.getStatement());
+        assertInstanceOf(RetyperResultSet.class, resultSet);
+        assertSame(statement, resultSet.getStatement());
     }
 
     @Test
     // Check that getResultSet() returns a RetyperResultSet carrying
     // this statement as the wrapping Statement reference.
     void getResultSet_returnsRetyperResultSetWithThisStatement() throws SQLException {
-        ResultSet mockRs = mock(ResultSet.class);
+        var mockRs = mock(ResultSet.class);
         when(mockStatement.getResultSet()).thenReturn(mockRs);
 
-        ResultSet result = statement.getResultSet();
+        var resultSet = statement.getResultSet();
 
-        assertInstanceOf(RetyperResultSet.class, result);
-        assertSame(statement, result.getStatement());
+        assertInstanceOf(RetyperResultSet.class, resultSet);
+        assertSame(statement, resultSet.getStatement());
     }
 
     @Test
@@ -94,9 +94,9 @@ class RetyperStatementTest {
     // Check that unwrap(Class) delegates to the underlying Statement
     // when it doesn't implement the requested type.
     void unwrap_delegatesWhenNotInstance() throws SQLException {
-        DatabaseMetaData expected = mock(DatabaseMetaData.class);
-        when(mockStatement.unwrap(DatabaseMetaData.class)).thenReturn(expected);
-        assertSame(expected, statement.unwrap(DatabaseMetaData.class));
+        var dbMetaData = mock(DatabaseMetaData.class);
+        when(mockStatement.unwrap(DatabaseMetaData.class)).thenReturn(dbMetaData);
+        assertSame(dbMetaData, statement.unwrap(DatabaseMetaData.class));
         verify(mockStatement).unwrap(DatabaseMetaData.class);
     }
 

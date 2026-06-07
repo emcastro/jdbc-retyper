@@ -261,9 +261,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBigDecimal(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBigDecimal_int_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockCallableStatement.getBigDecimal(1)).thenReturn(expected);
-        assertEquals(expected, statement.getBigDecimal(1));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockCallableStatement.getBigDecimal(1)).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, statement.getBigDecimal(1));
         verify(mockCallableStatement).getBigDecimal(1);
     }
 
@@ -271,9 +271,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBigDecimal(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBigDecimal_string_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockCallableStatement.getBigDecimal("param")).thenReturn(expected);
-        assertEquals(expected, statement.getBigDecimal("param"));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockCallableStatement.getBigDecimal("param")).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, statement.getBigDecimal("param"));
         verify(mockCallableStatement).getBigDecimal("param");
     }
 
@@ -283,9 +283,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getDate(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getDate_int_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        when(mockCallableStatement.getDate(1)).thenReturn(expected);
-        assertEquals(expected, statement.getDate(1));
+        var date = new Date(System.currentTimeMillis());
+        when(mockCallableStatement.getDate(1)).thenReturn(date);
+        assertEquals(date, statement.getDate(1));
         verify(mockCallableStatement).getDate(1);
     }
 
@@ -293,9 +293,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getDate(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getDate_string_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        when(mockCallableStatement.getDate("param")).thenReturn(expected);
-        assertEquals(expected, statement.getDate("param"));
+        var date = new Date(System.currentTimeMillis());
+        when(mockCallableStatement.getDate("param")).thenReturn(date);
+        assertEquals(date, statement.getDate("param"));
         verify(mockCallableStatement).getDate("param");
     }
 
@@ -303,9 +303,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTime(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTime_int_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        when(mockCallableStatement.getTime(1)).thenReturn(expected);
-        assertEquals(expected, statement.getTime(1));
+        var time = new Time(System.currentTimeMillis());
+        when(mockCallableStatement.getTime(1)).thenReturn(time);
+        assertEquals(time, statement.getTime(1));
         verify(mockCallableStatement).getTime(1);
     }
 
@@ -313,9 +313,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTime(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTime_string_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        when(mockCallableStatement.getTime("param")).thenReturn(expected);
-        assertEquals(expected, statement.getTime("param"));
+        var time = new Time(System.currentTimeMillis());
+        when(mockCallableStatement.getTime("param")).thenReturn(time);
+        assertEquals(time, statement.getTime("param"));
         verify(mockCallableStatement).getTime("param");
     }
 
@@ -323,9 +323,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTimestamp(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTimestamp_int_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        when(mockCallableStatement.getTimestamp(1)).thenReturn(expected);
-        assertEquals(expected, statement.getTimestamp(1));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        when(mockCallableStatement.getTimestamp(1)).thenReturn(timestamp);
+        assertEquals(timestamp, statement.getTimestamp(1));
         verify(mockCallableStatement).getTimestamp(1);
     }
 
@@ -333,9 +333,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTimestamp(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTimestamp_string_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        when(mockCallableStatement.getTimestamp("param")).thenReturn(expected);
-        assertEquals(expected, statement.getTimestamp("param"));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        when(mockCallableStatement.getTimestamp("param")).thenReturn(timestamp);
+        assertEquals(timestamp, statement.getTimestamp("param"));
         verify(mockCallableStatement).getTimestamp("param");
     }
 
@@ -345,9 +345,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getArray(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getArray_int_delegates() throws SQLException {
-        Array expected = mock(Array.class);
-        when(mockCallableStatement.getArray(1)).thenReturn(expected);
-        assertSame(expected, statement.getArray(1));
+        var array = mock(Array.class);
+        when(mockCallableStatement.getArray(1)).thenReturn(array);
+        assertSame(array, statement.getArray(1));
         verify(mockCallableStatement).getArray(1);
     }
 
@@ -355,9 +355,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getArray(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getArray_string_delegates() throws SQLException {
-        Array expected = mock(Array.class);
-        when(mockCallableStatement.getArray("param")).thenReturn(expected);
-        assertSame(expected, statement.getArray("param"));
+        var array = mock(Array.class);
+        when(mockCallableStatement.getArray("param")).thenReturn(array);
+        assertSame(array, statement.getArray("param"));
         verify(mockCallableStatement).getArray("param");
     }
 
@@ -365,9 +365,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBlob(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBlob_int_delegates() throws SQLException {
-        Blob expected = mock(Blob.class);
-        when(mockCallableStatement.getBlob(1)).thenReturn(expected);
-        assertSame(expected, statement.getBlob(1));
+        var blob = mock(Blob.class);
+        when(mockCallableStatement.getBlob(1)).thenReturn(blob);
+        assertSame(blob, statement.getBlob(1));
         verify(mockCallableStatement).getBlob(1);
     }
 
@@ -375,9 +375,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBlob(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBlob_string_delegates() throws SQLException {
-        Blob expected = mock(Blob.class);
-        when(mockCallableStatement.getBlob("param")).thenReturn(expected);
-        assertSame(expected, statement.getBlob("param"));
+        var blob = mock(Blob.class);
+        when(mockCallableStatement.getBlob("param")).thenReturn(blob);
+        assertSame(blob, statement.getBlob("param"));
         verify(mockCallableStatement).getBlob("param");
     }
 
@@ -385,9 +385,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getClob(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getClob_int_delegates() throws SQLException {
-        Clob expected = mock(Clob.class);
-        when(mockCallableStatement.getClob(1)).thenReturn(expected);
-        assertSame(expected, statement.getClob(1));
+        var clob = mock(Clob.class);
+        when(mockCallableStatement.getClob(1)).thenReturn(clob);
+        assertSame(clob, statement.getClob(1));
         verify(mockCallableStatement).getClob(1);
     }
 
@@ -395,9 +395,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getClob(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getClob_string_delegates() throws SQLException {
-        Clob expected = mock(Clob.class);
-        when(mockCallableStatement.getClob("param")).thenReturn(expected);
-        assertSame(expected, statement.getClob("param"));
+        var clob = mock(Clob.class);
+        when(mockCallableStatement.getClob("param")).thenReturn(clob);
+        assertSame(clob, statement.getClob("param"));
         verify(mockCallableStatement).getClob("param");
     }
 
@@ -405,9 +405,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getRef(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getRef_int_delegates() throws SQLException {
-        Ref expected = mock(Ref.class);
-        when(mockCallableStatement.getRef(1)).thenReturn(expected);
-        assertSame(expected, statement.getRef(1));
+        var ref = mock(Ref.class);
+        when(mockCallableStatement.getRef(1)).thenReturn(ref);
+        assertSame(ref, statement.getRef(1));
         verify(mockCallableStatement).getRef(1);
     }
 
@@ -415,9 +415,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getRef(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getRef_string_delegates() throws SQLException {
-        Ref expected = mock(Ref.class);
-        when(mockCallableStatement.getRef("param")).thenReturn(expected);
-        assertSame(expected, statement.getRef("param"));
+        var ref = mock(Ref.class);
+        when(mockCallableStatement.getRef("param")).thenReturn(ref);
+        assertSame(ref, statement.getRef("param"));
         verify(mockCallableStatement).getRef("param");
     }
 
@@ -425,9 +425,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getRowId(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getRowId_int_delegates() throws SQLException {
-        RowId expected = mock(RowId.class);
-        when(mockCallableStatement.getRowId(1)).thenReturn(expected);
-        assertSame(expected, statement.getRowId(1));
+        var rowId = mock(RowId.class);
+        when(mockCallableStatement.getRowId(1)).thenReturn(rowId);
+        assertSame(rowId, statement.getRowId(1));
         verify(mockCallableStatement).getRowId(1);
     }
 
@@ -435,9 +435,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getRowId(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getRowId_string_delegates() throws SQLException {
-        RowId expected = mock(RowId.class);
-        when(mockCallableStatement.getRowId("param")).thenReturn(expected);
-        assertSame(expected, statement.getRowId("param"));
+        var rowId = mock(RowId.class);
+        when(mockCallableStatement.getRowId("param")).thenReturn(rowId);
+        assertSame(rowId, statement.getRowId("param"));
         verify(mockCallableStatement).getRowId("param");
     }
 
@@ -445,9 +445,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getSQLXML(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getSQLXML_int_delegates() throws SQLException {
-        SQLXML expected = mock(SQLXML.class);
-        when(mockCallableStatement.getSQLXML(1)).thenReturn(expected);
-        assertSame(expected, statement.getSQLXML(1));
+        var sqlXml = mock(SQLXML.class);
+        when(mockCallableStatement.getSQLXML(1)).thenReturn(sqlXml);
+        assertSame(sqlXml, statement.getSQLXML(1));
         verify(mockCallableStatement).getSQLXML(1);
     }
 
@@ -455,9 +455,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getSQLXML(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getSQLXML_string_delegates() throws SQLException {
-        SQLXML expected = mock(SQLXML.class);
-        when(mockCallableStatement.getSQLXML("param")).thenReturn(expected);
-        assertSame(expected, statement.getSQLXML("param"));
+        var sqlXml = mock(SQLXML.class);
+        when(mockCallableStatement.getSQLXML("param")).thenReturn(sqlXml);
+        assertSame(sqlXml, statement.getSQLXML("param"));
         verify(mockCallableStatement).getSQLXML("param");
     }
 
@@ -465,9 +465,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getURL(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getURL_int_delegates() throws Exception {
-        URL expected = new URL("http://example.com");
-        when(mockCallableStatement.getURL(1)).thenReturn(expected);
-        assertEquals(expected, statement.getURL(1));
+        var url = new URL("http://example.com");
+        when(mockCallableStatement.getURL(1)).thenReturn(url);
+        assertEquals(url, statement.getURL(1));
         verify(mockCallableStatement).getURL(1);
     }
 
@@ -475,9 +475,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getURL(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getURL_string_delegates() throws Exception {
-        URL expected = new URL("http://example.com");
-        when(mockCallableStatement.getURL("param")).thenReturn(expected);
-        assertEquals(expected, statement.getURL("param"));
+        var url = new URL("http://example.com");
+        when(mockCallableStatement.getURL("param")).thenReturn(url);
+        assertEquals(url, statement.getURL("param"));
         verify(mockCallableStatement).getURL("param");
     }
 
@@ -505,9 +505,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getNClob(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getNClob_int_delegates() throws SQLException {
-        NClob expected = mock(NClob.class);
-        when(mockCallableStatement.getNClob(1)).thenReturn(expected);
-        assertSame(expected, statement.getNClob(1));
+        var nClob = mock(NClob.class);
+        when(mockCallableStatement.getNClob(1)).thenReturn(nClob);
+        assertSame(nClob, statement.getNClob(1));
         verify(mockCallableStatement).getNClob(1);
     }
 
@@ -515,9 +515,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getNClob(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getNClob_string_delegates() throws SQLException {
-        NClob expected = mock(NClob.class);
-        when(mockCallableStatement.getNClob("param")).thenReturn(expected);
-        assertSame(expected, statement.getNClob("param"));
+        var nClob = mock(NClob.class);
+        when(mockCallableStatement.getNClob("param")).thenReturn(nClob);
+        assertSame(nClob, statement.getNClob("param"));
         verify(mockCallableStatement).getNClob("param");
     }
 
@@ -525,9 +525,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getNCharacterStream(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getNCharacterStream_int_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockCallableStatement.getNCharacterStream(1)).thenReturn(expected);
-        assertSame(expected, statement.getNCharacterStream(1));
+        var reader = mock(Reader.class);
+        when(mockCallableStatement.getNCharacterStream(1)).thenReturn(reader);
+        assertSame(reader, statement.getNCharacterStream(1));
         verify(mockCallableStatement).getNCharacterStream(1);
     }
 
@@ -535,9 +535,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getNCharacterStream(String) delegates to the
     // underlying CallableStatement without additional transformation.
     void getNCharacterStream_string_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockCallableStatement.getNCharacterStream("param")).thenReturn(expected);
-        assertSame(expected, statement.getNCharacterStream("param"));
+        var reader = mock(Reader.class);
+        when(mockCallableStatement.getNCharacterStream("param")).thenReturn(reader);
+        assertSame(reader, statement.getNCharacterStream("param"));
         verify(mockCallableStatement).getNCharacterStream("param");
     }
 
@@ -547,9 +547,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBytes(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBytes_int_delegates() throws SQLException {
-        byte[] expected = {1, 2, 3};
-        when(mockCallableStatement.getBytes(1)).thenReturn(expected);
-        assertArrayEquals(expected, statement.getBytes(1));
+        var bytes = new byte[] {1, 2, 3};
+        when(mockCallableStatement.getBytes(1)).thenReturn(bytes);
+        assertArrayEquals(bytes, statement.getBytes(1));
         verify(mockCallableStatement).getBytes(1);
     }
 
@@ -557,9 +557,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getBytes(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getBytes_string_delegates() throws SQLException {
-        byte[] expected = {1, 2, 3};
-        when(mockCallableStatement.getBytes("param")).thenReturn(expected);
-        assertArrayEquals(expected, statement.getBytes("param"));
+        var bytes = new byte[] {1, 2, 3};
+        when(mockCallableStatement.getBytes("param")).thenReturn(bytes);
+        assertArrayEquals(bytes, statement.getBytes("param"));
         verify(mockCallableStatement).getBytes("param");
     }
 
@@ -569,10 +569,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getDate(int, Calendar) delegates to the underlying
     // CallableStatement without additional transformation.
     void getDate_intWithCalendar_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getDate(1, cal)).thenReturn(expected);
-        assertEquals(expected, statement.getDate(1, cal));
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getDate(1, cal)).thenReturn(date);
+        assertEquals(date, statement.getDate(1, cal));
         verify(mockCallableStatement).getDate(1, cal);
     }
 
@@ -580,10 +580,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getDate(String, Calendar) delegates to the underlying
     // CallableStatement without additional transformation.
     void getDate_stringWithCalendar_delegates() throws SQLException {
-        Date expected = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getDate("param", cal)).thenReturn(expected);
-        assertEquals(expected, statement.getDate("param", cal));
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getDate("param", cal)).thenReturn(date);
+        assertEquals(date, statement.getDate("param", cal));
         verify(mockCallableStatement).getDate("param", cal);
     }
 
@@ -591,10 +591,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTime(int, Calendar) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTime_intWithCalendar_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getTime(1, cal)).thenReturn(expected);
-        assertEquals(expected, statement.getTime(1, cal));
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getTime(1, cal)).thenReturn(time);
+        assertEquals(time, statement.getTime(1, cal));
         verify(mockCallableStatement).getTime(1, cal);
     }
 
@@ -602,10 +602,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTime(String, Calendar) delegates to the underlying
     // CallableStatement without additional transformation.
     void getTime_stringWithCalendar_delegates() throws SQLException {
-        Time expected = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getTime("param", cal)).thenReturn(expected);
-        assertEquals(expected, statement.getTime("param", cal));
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getTime("param", cal)).thenReturn(time);
+        assertEquals(time, statement.getTime("param", cal));
         verify(mockCallableStatement).getTime("param", cal);
     }
 
@@ -613,10 +613,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTimestamp(int, Calendar) delegates to the
     // underlying CallableStatement without additional transformation.
     void getTimestamp_intWithCalendar_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getTimestamp(1, cal)).thenReturn(expected);
-        assertEquals(expected, statement.getTimestamp(1, cal));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getTimestamp(1, cal)).thenReturn(timestamp);
+        assertEquals(timestamp, statement.getTimestamp(1, cal));
         verify(mockCallableStatement).getTimestamp(1, cal);
     }
 
@@ -624,10 +624,10 @@ class RetyperCallableStatementDelegationTest {
     // Check that getTimestamp(String, Calendar) delegates to the
     // underlying CallableStatement without additional transformation.
     void getTimestamp_stringWithCalendar_delegates() throws SQLException {
-        Timestamp expected = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
-        when(mockCallableStatement.getTimestamp("param", cal)).thenReturn(expected);
-        assertEquals(expected, statement.getTimestamp("param", cal));
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
+        when(mockCallableStatement.getTimestamp("param", cal)).thenReturn(timestamp);
+        assertEquals(timestamp, statement.getTimestamp("param", cal));
         verify(mockCallableStatement).getTimestamp("param", cal);
     }
 
@@ -638,9 +638,9 @@ class RetyperCallableStatementDelegationTest {
     // CallableStatement without additional transformation.
     @SuppressWarnings("deprecation")
     void getBigDecimal_withScale_delegates() throws SQLException {
-        BigDecimal expected = new BigDecimal("123.45");
-        when(mockCallableStatement.getBigDecimal(1, 2)).thenReturn(expected);
-        assertEquals(expected, statement.getBigDecimal(1, 2));
+        var bigDecimal = new BigDecimal("123.45");
+        when(mockCallableStatement.getBigDecimal(1, 2)).thenReturn(bigDecimal);
+        assertEquals(bigDecimal, statement.getBigDecimal(1, 2));
         verify(mockCallableStatement).getBigDecimal(1, 2);
     }
 
@@ -650,9 +650,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getCharacterStream(int) delegates to the underlying
     // CallableStatement without additional transformation.
     void getCharacterStream_int_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockCallableStatement.getCharacterStream(1)).thenReturn(expected);
-        assertSame(expected, statement.getCharacterStream(1));
+        var reader = mock(Reader.class);
+        when(mockCallableStatement.getCharacterStream(1)).thenReturn(reader);
+        assertSame(reader, statement.getCharacterStream(1));
         verify(mockCallableStatement).getCharacterStream(1);
     }
 
@@ -660,9 +660,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that getCharacterStream(String) delegates to the underlying
     // CallableStatement without additional transformation.
     void getCharacterStream_string_delegates() throws SQLException {
-        Reader expected = mock(Reader.class);
-        when(mockCallableStatement.getCharacterStream("param")).thenReturn(expected);
-        assertSame(expected, statement.getCharacterStream("param"));
+        var reader = mock(Reader.class);
+        when(mockCallableStatement.getCharacterStream("param")).thenReturn(reader);
+        assertSame(reader, statement.getCharacterStream("param"));
         verify(mockCallableStatement).getCharacterStream("param");
     }
 
@@ -680,7 +680,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setAsciiStream(String, InputStream) delegates to the
     // underlying CallableStatement without additional transformation.
     void setAsciiStream_string_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream("param", stream);
         verify(mockCallableStatement).setAsciiStream("param", stream);
     }
@@ -689,7 +689,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setAsciiStream(String, InputStream, int) delegates to
     // the underlying CallableStatement without additional transformation.
     void setAsciiStream_stringWithLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream("param", stream, 100);
         verify(mockCallableStatement).setAsciiStream("param", stream, 100);
     }
@@ -698,7 +698,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBinaryStream(String, InputStream) delegates to the
     // underlying CallableStatement without additional transformation.
     void setBinaryStream_string_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream("param", stream);
         verify(mockCallableStatement).setBinaryStream("param", stream);
     }
@@ -707,7 +707,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBinaryStream(String, InputStream, int) delegates to
     // the underlying CallableStatement without additional transformation.
     void setBinaryStream_stringWithLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream("param", stream, 100);
         verify(mockCallableStatement).setBinaryStream("param", stream, 100);
     }
@@ -716,7 +716,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setCharacterStream(String, Reader) delegates to the
     // underlying CallableStatement without additional transformation.
     void setCharacterStream_string_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream("param", reader);
         verify(mockCallableStatement).setCharacterStream("param", reader);
     }
@@ -725,7 +725,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setCharacterStream(String, Reader, int) delegates to
     // the underlying CallableStatement without additional transformation.
     void setCharacterStream_stringWithIntLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream("param", reader, 100);
         verify(mockCallableStatement).setCharacterStream("param", reader, 100);
     }
@@ -734,7 +734,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setCharacterStream(String, Reader, long) delegates to
     // the underlying CallableStatement without additional transformation.
     void setCharacterStream_stringWithLongLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setCharacterStream("param", reader, 100L);
         verify(mockCallableStatement).setCharacterStream("param", reader, 100L);
     }
@@ -743,7 +743,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBlob(String, Blob) delegates to the underlying
     // CallableStatement without additional transformation.
     void setBlob_string_delegates() throws SQLException {
-        Blob blob = mock(Blob.class);
+        var blob = mock(Blob.class);
         statement.setBlob("param", blob);
         verify(mockCallableStatement).setBlob("param", blob);
     }
@@ -752,7 +752,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBlob(String, InputStream) delegates to the
     // underlying CallableStatement without additional transformation.
     void setBlob_stringWithInputStream_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBlob("param", stream);
         verify(mockCallableStatement).setBlob("param", stream);
     }
@@ -761,7 +761,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBlob(String, InputStream, long) delegates to the
     // underlying CallableStatement without additional transformation.
     void setBlob_stringWithInputStreamAndLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBlob("param", stream, 100L);
         verify(mockCallableStatement).setBlob("param", stream, 100L);
     }
@@ -770,7 +770,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setClob(String, Clob) delegates to the underlying
     // CallableStatement without additional transformation.
     void setClob_string_delegates() throws SQLException {
-        Clob clob = mock(Clob.class);
+        var clob = mock(Clob.class);
         statement.setClob("param", clob);
         verify(mockCallableStatement).setClob("param", clob);
     }
@@ -779,7 +779,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setClob(String, Reader) delegates to the underlying
     // CallableStatement without additional transformation.
     void setClob_stringWithReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setClob("param", reader);
         verify(mockCallableStatement).setClob("param", reader);
     }
@@ -788,7 +788,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setClob(String, Reader, long) delegates to the
     // underlying CallableStatement without additional transformation.
     void setClob_stringWithReaderAndLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setClob("param", reader, 100L);
         verify(mockCallableStatement).setClob("param", reader, 100L);
     }
@@ -797,7 +797,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setDate(String, Date) delegates to the underlying
     // CallableStatement without additional transformation.
     void setDate_string_delegates() throws SQLException {
-        Date date = new Date(System.currentTimeMillis());
+        var date = new Date(System.currentTimeMillis());
         statement.setDate("param", date);
         verify(mockCallableStatement).setDate("param", date);
     }
@@ -806,8 +806,8 @@ class RetyperCallableStatementDelegationTest {
     // Check that setDate(String, Date, Calendar) delegates to the
     // underlying CallableStatement without additional transformation.
     void setDate_stringWithCalendar_delegates() throws SQLException {
-        Date date = new Date(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
+        var date = new Date(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
         statement.setDate("param", date, cal);
         verify(mockCallableStatement).setDate("param", date, cal);
     }
@@ -816,7 +816,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setTime(String, Time) delegates to the underlying
     // CallableStatement without additional transformation.
     void setTime_string_delegates() throws SQLException {
-        Time time = new Time(System.currentTimeMillis());
+        var time = new Time(System.currentTimeMillis());
         statement.setTime("param", time);
         verify(mockCallableStatement).setTime("param", time);
     }
@@ -825,8 +825,8 @@ class RetyperCallableStatementDelegationTest {
     // Check that setTime(String, Time, Calendar) delegates to the
     // underlying CallableStatement without additional transformation.
     void setTime_stringWithCalendar_delegates() throws SQLException {
-        Time time = new Time(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
+        var time = new Time(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
         statement.setTime("param", time, cal);
         verify(mockCallableStatement).setTime("param", time, cal);
     }
@@ -835,7 +835,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setTimestamp(String, Timestamp) delegates to the
     // underlying CallableStatement without additional transformation.
     void setTimestamp_string_delegates() throws SQLException {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        var timestamp = new Timestamp(System.currentTimeMillis());
         statement.setTimestamp("param", timestamp);
         verify(mockCallableStatement).setTimestamp("param", timestamp);
     }
@@ -844,8 +844,8 @@ class RetyperCallableStatementDelegationTest {
     // Check that setTimestamp(String, Timestamp, Calendar) delegates to
     // the underlying CallableStatement without additional transformation.
     void setTimestamp_stringWithCalendar_delegates() throws SQLException {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        Calendar cal = Calendar.getInstance();
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var cal = Calendar.getInstance();
         statement.setTimestamp("param", timestamp, cal);
         verify(mockCallableStatement).setTimestamp("param", timestamp, cal);
     }
@@ -928,9 +928,9 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBigDecimal(String, BigDecimal) delegates to the
     // underlying CallableStatement without additional transformation.
     void setBigDecimal_string_delegates() throws SQLException {
-        BigDecimal value = new BigDecimal("123.45");
-        statement.setBigDecimal("param", value);
-        verify(mockCallableStatement).setBigDecimal("param", value);
+        var bigDecimal = new BigDecimal("123.45");
+        statement.setBigDecimal("param", bigDecimal);
+        verify(mockCallableStatement).setBigDecimal("param", bigDecimal);
     }
 
     @Test
@@ -945,7 +945,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setURL(String, URL) delegates to the underlying
     // CallableStatement without additional transformation.
     void setURL_string_delegates() throws Exception {
-        URL url = new URL("http://example.com");
+        var url = new URL("http://example.com");
         statement.setURL("param", url);
         verify(mockCallableStatement).setURL("param", url);
     }
@@ -962,7 +962,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setNCharacterStream(String, Reader) delegates to the
     // underlying CallableStatement without additional transformation.
     void setNCharacterStream_string_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNCharacterStream("param", reader);
         verify(mockCallableStatement).setNCharacterStream("param", reader);
     }
@@ -971,7 +971,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setNCharacterStream(String, Reader, long) delegates to
     // the underlying CallableStatement without additional transformation.
     void setNCharacterStream_stringWithLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNCharacterStream("param", reader, 100L);
         verify(mockCallableStatement).setNCharacterStream("param", reader, 100L);
     }
@@ -980,7 +980,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setNClob(String, NClob) delegates to the underlying
     // CallableStatement without additional transformation.
     void setNClob_string_delegates() throws SQLException {
-        NClob nclob = mock(NClob.class);
+        var nclob = mock(NClob.class);
         statement.setNClob("param", nclob);
         verify(mockCallableStatement).setNClob("param", nclob);
     }
@@ -989,7 +989,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setNClob(String, Reader) delegates to the underlying
     // CallableStatement without additional transformation.
     void setNClob_stringWithReader_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNClob("param", reader);
         verify(mockCallableStatement).setNClob("param", reader);
     }
@@ -998,7 +998,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setNClob(String, Reader, long) delegates to the
     // underlying CallableStatement without additional transformation.
     void setNClob_stringWithReaderAndLength_delegates() throws SQLException {
-        Reader reader = mock(Reader.class);
+        var reader = mock(Reader.class);
         statement.setNClob("param", reader, 100L);
         verify(mockCallableStatement).setNClob("param", reader, 100L);
     }
@@ -1007,7 +1007,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setRowId(String, RowId) delegates to the underlying
     // CallableStatement without additional transformation.
     void setRowId_string_delegates() throws SQLException {
-        RowId rowId = mock(RowId.class);
+        var rowId = mock(RowId.class);
         statement.setRowId("param", rowId);
         verify(mockCallableStatement).setRowId("param", rowId);
     }
@@ -1016,7 +1016,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setSQLXML(String, SQLXML) delegates to the underlying
     // CallableStatement without additional transformation.
     void setSQLXML_string_delegates() throws SQLException {
-        SQLXML xml = mock(SQLXML.class);
+        var xml = mock(SQLXML.class);
         statement.setSQLXML("param", xml);
         verify(mockCallableStatement).setSQLXML("param", xml);
     }
@@ -1025,7 +1025,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setBinaryStream(String, InputStream, long) delegates to
     // the underlying CallableStatement without additional transformation.
     void setBinaryStream_stringWithLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setBinaryStream("param", stream, 100L);
         verify(mockCallableStatement).setBinaryStream("param", stream, 100L);
     }
@@ -1034,7 +1034,7 @@ class RetyperCallableStatementDelegationTest {
     // Check that setAsciiStream(String, InputStream, long) delegates to
     // the underlying CallableStatement without additional transformation.
     void setAsciiStream_stringWithLongLength_delegates() throws SQLException {
-        InputStream stream = mock(InputStream.class);
+        var stream = mock(InputStream.class);
         statement.setAsciiStream("param", stream, 100L);
         verify(mockCallableStatement).setAsciiStream("param", stream, 100L);
     }

@@ -47,8 +47,8 @@ class JsonBoxDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT data FROM json_test WHERE id = 1")) {
             assertTrue(rs.next());
-            JsonBox result = rs.getObject(1, JsonBox.class);
-            assertEquals(box, result);
+            var jsonbox = rs.getObject(1, JsonBox.class);
+            assertEquals(box, jsonbox);
         }
     }
 
@@ -68,9 +68,9 @@ class JsonBoxDuckDBTest extends DuckDBTestBase {
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT data FROM json_test WHERE id = 2")) {
             assertTrue(rs.next());
-            Object result = rs.getObject(1);
-            assertInstanceOf(JsonBox.class, result);
-            assertEquals(box, result);
+            var obj = rs.getObject(1);
+            assertInstanceOf(JsonBox.class, obj);
+            assertEquals(box, obj);
         }
     }
 
