@@ -21,6 +21,11 @@ import java.util.Map;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link CallableStatement} wrapper that intercepts {@code getObject()}
+ * and {@code setObject()} to apply type transformations via the registry, and
+ * delegates all other operations to the underlying callable statement.
+ */
 public class RetyperCallableStatement extends RetyperPreparedStatement implements CallableStatement {
 
     public RetyperCallableStatement(

@@ -10,6 +10,10 @@ import javax.sql.DataSource;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link DataSource} wrapper that returns {@link RetyperConnection}
+ * instances and delegates all other operations to the underlying data source.
+ */
 public class RetyperDatasource implements DataSource {
 
     private final DataSource dataSource;

@@ -23,6 +23,11 @@ import java.util.Calendar;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link PreparedStatement} wrapper that intercepts {@code setObject()}
+ * to apply write-type transformations via the registry, and delegates all other
+ * operations to the underlying prepared statement.
+ */
 public class RetyperPreparedStatement extends RetyperStatement implements PreparedStatement {
 
     public RetyperPreparedStatement(

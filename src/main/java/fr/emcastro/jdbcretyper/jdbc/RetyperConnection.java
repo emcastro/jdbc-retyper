@@ -21,6 +21,11 @@ import java.util.concurrent.Executor;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link Connection} wrapper that intercepts {@code createStatement()},
+ * {@code prepareStatement()}, and {@code prepareCall()} to return retyper-wrapped
+ * statements, and delegates all other operations to the underlying connection.
+ */
 public class RetyperConnection implements Connection {
 
     private final Connection connection;

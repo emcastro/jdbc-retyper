@@ -10,6 +10,11 @@ import java.util.Map;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link ResultSet} wrapper that intercepts {@code getObject()} and
+ * {@code updateObject()} to apply type transformations via the registry, and
+ * delegates all other operations to the underlying result set.
+ */
 public class RetyperResultSet implements ResultSet {
 
     private final ResultSet resultSet;

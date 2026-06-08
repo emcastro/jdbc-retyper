@@ -8,6 +8,11 @@ import java.sql.Statement;
 
 import fr.emcastro.jdbcretyper.transform.TypeTransformerRegistry;
 
+/**
+ * A JDBC {@link Statement} wrapper that wraps its result sets with
+ * {@link RetyperResultSet} and delegates all other operations to the
+ * underlying statement.
+ */
 public class RetyperStatement implements Statement {
 
     protected final Statement statement;
