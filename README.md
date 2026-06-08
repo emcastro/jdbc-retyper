@@ -1,13 +1,18 @@
 # JDBC ReTyper
 
-A lightweight JDBC facade that transparently converts custom Java types to and from JDBC drivers, with zero extra dependencies.
+A lightweight JDBC facade that transparently converts custom Java types to and
+from JDBC drivers, with zero extra dependencies.
 
 Use it when you want to:
 
-- Use your own domain types (records, POJOs) with DuckDB JSON columns instead of dealing with `JsonNode`
-- Read and write PostGIS `GEOMETRY` as JTS objects (`Point`, `LineString`, …) without `PGobject` plumbing
-- Plug the same registry into Spring `JdbcClient` by wrapping your existing `DataSource`
-- Add type mapping to any JDBC workflow without an ORM or entity manager
+- **Spatial types without plumbing** — read and write PostGIS `GEOMETRY`
+  columns as JTS objects (`Point`, `LineString`, …) without ever handling
+  `PGobject` manually (GIS use was the project's original motivation)
+- **Type mapping without ORM** — add custom type conversion to any JDBC
+  workflow, whether raw JDBC or Spring `JdbcClient`
+- **Advanced database types** — geometry, json, and jsonb for both PostGIS and
+  DuckDB
+
 
 ## Case 1 — Plain JDBC (using DuckDB as an example)
 
@@ -88,7 +93,7 @@ class ExampleRepository {
 > [`JsonBoxReadTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/transform/JsonBoxReadTransformer.java),
 > [`JsonBoxWriteTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/spring/transform/JsonBoxWriteTransformer.java)
 
-## Case 3 — Spatial Geometry with PostGIS
+## Case 3 — Spatial Geometry with PostGIS (and DuckDB)
 
 ```java
 class GeometryReadTransformer implements ReadTypeTransformer<Geometry, PGobject> {
@@ -135,6 +140,11 @@ try (var conn = new RetyperConnection(DriverManager.getConnection(url, user, pas
 }
 ```
 
+> The `PGobject` wiring is encapsulated in the transformer — your application
+> code only sees JTS `Geometry` objects on reads and passes them naturally on
+> writes. The same pattern works for DuckDB geometry via WKB `byte[]`/`Blob`
+> (see [`GeometryDuckDBTest`](src/test/java/fr/emcastro/jdbcretyper/GeometryDuckDBTest.java)).
+>
 > **Demo sources:** [`PostgisApplication`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/PostgisApplication.java),
 > [`GeometryReadTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/GeometryReadTransformer.java),
 > [`GeometryPostgisWriteTransformer`](demo/src/main/java/fr/emcastro/jdbcretyper/demo/postgis/transform/GeometryPostgisWriteTransformer.java),
@@ -155,6 +165,9 @@ Transformer implementations should throw `TypeConversionException` from `fromSql
 Once the registry is passed to a `RetyperDatasource` or `RetyperConnection`, it must not be modified further — the lists are not thread-safe and are _not_ copied defensively. Configure the registry completely before creating any Retyper instance.
 
 The library (`fr.emcastro:jdbcretyper`) has **zero Spring dependencies**. `JdbcClient` integration is done by simply wrapping the `DataSource`.
+
+PostGIS and DuckDB geometry, JSON, and JSONB transformers are not included in
+the library — but implementing one is trivial (see the Case examples above).
 
 ## Maven
 

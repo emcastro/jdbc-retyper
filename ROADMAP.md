@@ -5,4 +5,4 @@
 - [x] Propose a package name → `fr.emcastro.jdbctyper`
 - [x] Define DuckDB test strategy (spatial extension, in-memory)
 - [x] Inject type transformations via a pluggable interface
-- [ ] Prepare project for Maven Central publication
+- [x] Prepare project for Maven Central publication
