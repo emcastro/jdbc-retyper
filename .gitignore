@@ -1,10 +1,10 @@
-.idea
 target
 
-# Eclipse
+.vscode
+.idea
 .project
 .classpath
 .settings
-graphify-out
+
 .opencode
 opencode.json
